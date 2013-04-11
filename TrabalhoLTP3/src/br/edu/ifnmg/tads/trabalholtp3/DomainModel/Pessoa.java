@@ -7,6 +7,7 @@ package br.edu.ifnmg.tads.trabalholtp3.DomainModel;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 /**
  *
  * @author Rodrigo
@@ -51,7 +52,11 @@ public class Pessoa {
     }
 
     public void setNome(String nome) {
-        this.nome = nome;
+        if ((nome.length() < 3) || (nome.length() > 255)){
+            System.out.print("Nome Inválido");
+        }else {
+            this.nome = nome;
+        }
     }
 
     public String getNomepai() {
@@ -91,9 +96,15 @@ public class Pessoa {
     }
 
     public void setDatanasc(Date datanasc) {
-        this.datanasc = datanasc;
+        Date dataminima = new Date(01/01/1900);
+        
+        if (datanasc.before(dataminima)){
+            System.out.print("Data Inválida");
+        } else {
+            this.datanasc = datanasc;
+        }
     }
-
+    
     public String getNaturalidade() {
         return naturalidade;
     }
@@ -126,41 +137,71 @@ public class Pessoa {
         this.telefones = telefones;
     }
     
-    public void add(Email em){
-        if(!emails.contains(em)){
-            emails.add(em);
+    public void addEmails(Email ema){
+        if(!emails.contains(ema)){
+            emails.add(ema);
         }
     }
     
-    public void remove(Email em){
-        if(emails.contains(em)){
-            emails.remove(em);
+    public void removeEmails(Email ema){
+        if(emails.contains(ema)){
+            emails.remove(ema);
         }
     }
     
-    public void add(Endereco en){
-        if(!enderecos.contains(en)){
-            enderecos.add(en);
+    public void addEnderecos(Endereco end){
+        if(!enderecos.contains(end)){
+            enderecos.add(end);
         }
     }
     
-    public void remove(Endereco en){
-        if(enderecos.contains(en)){
-            enderecos.remove(en);
+    public void removeEnderecos(Endereco end){
+        if(enderecos.contains(end)){
+            enderecos.remove(end);
         }
     }
     
-    public void add(Telefone te){
-        if(!telefones.contains(te)){
-            telefones.add(te);
+    public void addTelefones(Telefone tel){
+        if(!telefones.contains(tel)){
+            telefones.add(tel);
         }
     }
     
-    public void remove(Telefone te){
-        if(telefones.contains(te)){
-            telefones.remove(te);
+    public void removeTelefones(Telefone tel){
+        if(telefones.contains(tel)){
+            telefones.remove(tel);
         }
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Pessoa other = (Pessoa) obj;
+        if (this.codpessoa != other.codpessoa) {
+            return false;
+        }
+        return true;
+    }
+
+    
+
+   @Override
+    public String toString() {
+        return "Pessoa{" + "codpessoa=" + codpessoa + ", nome=" + nome + ", nomepai=" + nomepai + ", nomemae=" + nomemae + ", rg=" + rg + ", cpf=" + cpf + ", datanasc=" + datanasc + ", naturalidade=" + naturalidade + ", enderecos=" + enderecos + ", emails=" + emails + ", telefones=" + telefones + '}';
+    }
+    
+    
     
 
 }
