@@ -126,6 +126,41 @@ public class Pessoa {
         this.telefones = telefones;
     }
     
+    public void add(Email em){
+        if(!emails.contains(em)){
+            emails.add(em);
+        }
+    }
+    
+    public void remove(Email em){
+        if(emails.contains(em)){
+            emails.remove(em);
+        }
+    }
+    
+    public void add(Endereco en){
+        if(!enderecos.contains(en)){
+            enderecos.add(en);
+        }
+    }
+    
+    public void remove(Endereco en){
+        if(enderecos.contains(en)){
+            enderecos.remove(en);
+        }
+    }
+    
+    public void add(Telefone te){
+        if(!telefones.contains(te)){
+            telefones.add(te);
+        }
+    }
+    
+    public void remove(Telefone te){
+        if(telefones.contains(te)){
+            telefones.remove(te);
+        }
+    }
     
 
 }
