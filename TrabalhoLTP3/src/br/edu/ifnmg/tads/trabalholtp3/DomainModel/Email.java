@@ -42,5 +42,32 @@ public class Email {
     public void setPessoa(Pessoa pessoa) {
         this.pessoa = pessoa;
     } 
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Email other = (Email) obj;
+        if (this.codemail != other.codemail) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Email{" + "codemail=" + codemail + ", endereco=" + endereco + ", pessoa=" + pessoa + '}';
+    }
+    
     
 }
