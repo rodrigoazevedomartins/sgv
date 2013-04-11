@@ -10,4 +10,33 @@ package br.edu.ifnmg.tads.trabalholtp3.DomainModel;
  */
 public class Endereco {
     
+    private int codemail;
+    private String endereco;
+    private Pessoa pessoa;
+
+    public int getCodemail() {
+        return codemail;
+    }
+
+    public void setCodemail(int codemail) {
+        this.codemail = codemail;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
+    public Pessoa getPessoa() {
+        return pessoa;
+    }
+
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
+    }
+    
+    
 }
