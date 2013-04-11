@@ -15,6 +15,7 @@ public class Pessoa {
     private int codpessoa;
     private String nome;
     private String nomepai;
+    private String nomemae;
     private String rg;
     private int cpf;
     private Date datanasc;
@@ -23,6 +24,20 @@ public class Pessoa {
     private List<Email> emails;
     private List<Telefone> telefones;
 
+    public Pessoa(){
+        codpessoa = 0;
+        nome = "";
+        nomepai = "";
+        nomemae = "";
+        rg = "";
+        cpf = 0;
+        datanasc = new Date();
+        naturalidade = "";
+        enderecos = new LinkedList<Endereco>();
+        emails = new LinkedList<Email>();
+        telefones = new LinkedList<Telefone>();
+    }
+    
     public int getCodpessoa() {
         return codpessoa;
     }
@@ -45,6 +60,14 @@ public class Pessoa {
 
     public void setNomepai(String nomepai) {
         this.nomepai = nomepai;
+    }
+
+    public String getNomemae() {
+        return nomemae;
+    }
+
+    public void setNomemae(String nomemae) {
+        this.nomemae = nomemae;
     }
 
     public String getRg() {

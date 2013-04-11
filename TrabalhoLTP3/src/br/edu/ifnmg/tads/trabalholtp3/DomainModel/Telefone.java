@@ -9,5 +9,7 @@ package br.edu.ifnmg.tads.trabalholtp3.DomainModel;
  * @author Rodrigo
  */
 public class Telefone {
-    
+    private int codtelefone;
+    private int area;
+    private int numero;
 }

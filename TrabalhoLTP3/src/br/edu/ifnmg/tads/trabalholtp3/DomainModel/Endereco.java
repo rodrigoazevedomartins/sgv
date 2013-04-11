@@ -10,24 +10,100 @@ package br.edu.ifnmg.tads.trabalholtp3.DomainModel;
  */
 public class Endereco {
     
-    private int codemail;
-    private String endereco;
+    private int codendereco;
+    private String rua;
+    private int numero;
+    private String complemento;
+    private String bairro;
+    private String cidade;
+    private int cep;
+    private String estado;
+    private String pais;
     private Pessoa pessoa;
-
-    public int getCodemail() {
-        return codemail;
+    
+    public Endereco(){
+        codendereco = 0;
+        rua = "";
+        numero = 0;
+        complemento = "";
+        bairro = "";
+        cidade = "";
+        cep = 0;
+        estado = "";
+        pais = "";
+        
+    }
+    
+    public int getCodendereco() {
+        return codendereco;
     }
 
-    public void setCodemail(int codemail) {
-        this.codemail = codemail;
+    public void setCodendereco(int codendereco) {
+        this.codendereco = codendereco;
     }
 
-    public String getEndereco() {
-        return endereco;
+    public String getRua() {
+        return rua;
     }
 
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
+    public void setRua(String rua) {
+        this.rua = rua;
+    }
+
+    public int getNumero() {
+        return numero;
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
+
+    public String getComplemento() {
+        return complemento;
+    }
+
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public int getCep() {
+        return cep;
+    }
+
+    public void setCep(int cep) {
+        this.cep = cep;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public String getPais() {
+        return pais;
+    }
+
+    public void setPais(String pais) {
+        this.pais = pais;
     }
 
     public Pessoa getPessoa() {
@@ -37,6 +113,7 @@ public class Endereco {
     public void setPessoa(Pessoa pessoa) {
         this.pessoa = pessoa;
     }
+    
     
     
 }
