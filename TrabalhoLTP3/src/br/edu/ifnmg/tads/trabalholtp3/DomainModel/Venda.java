@@ -5,6 +5,7 @@
 package br.edu.ifnmg.tads.trabalholtp3.DomainModel;
 
 import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -40,15 +41,15 @@ public class Venda {
         return datavenda;
     }
 
-    public void setDatavenda(Date datavenda) {
-        Date dataminima = new Date(01/01/1900);
+    public void setDatavenda(Date datavenda) throws Exception{
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date dataminima = sdf.parse("31/12/1899"); //converte a string em data
         
-        if (datavenda.before(dataminima)){
-            System.out.print("Data Inválida");
-        } else {
+        if (datavenda.after(dataminima)){
             this.datavenda = datavenda;
+        } else {
+            throw new Exception("Data de Venda Inválida. Insira uma data superior ou igual a 01/01/1900.");
         }
-        
     }
 
     public double getValortotal() {
