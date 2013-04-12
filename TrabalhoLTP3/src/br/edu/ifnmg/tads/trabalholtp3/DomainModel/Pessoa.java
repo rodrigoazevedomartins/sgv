@@ -97,7 +97,7 @@ public class Pessoa {
 
     public void setDatanasc(Date datanasc) throws Exception{
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        Date dataminima = sdf.parse("01/01/1900"); //converte a string em data
+        Date dataminima = sdf.parse("31/12/1899"); //converte a string em data
         
         if (datanasc.after(dataminima)){
             this.datanasc = datanasc;
