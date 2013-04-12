@@ -16,10 +16,10 @@ public class Usuario extends Pessoa{
     private String senha;
     private Pessoa pessoa;
 
-    public Usuario() {
-        codusuario = 0;
-        usuario = "";
-        senha = "";
+    public Usuario(int cod, String nomeusuario, String senhausuario) {
+        codusuario = cod;
+        usuario = nomeusuario;
+        senha = senhausuario;   
     }
     
     public int getCodusuario() {
