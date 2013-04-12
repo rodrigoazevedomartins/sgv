@@ -14,6 +14,12 @@ public class Telefone {
     private int numero;
     private Pessoa pessoa;
 
+    public Telefone(){
+        codtelefone = 0;
+        area = 0;
+        numero = 0;
+    }
+    
     public int getCodtelefone() {
         return codtelefone;
     }
