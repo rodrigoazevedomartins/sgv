@@ -7,7 +7,7 @@ package br.edu.ifnmg.tads.trabalholtp3.DomainModel;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
+import java.text.SimpleDateFormat;
 /**
  *
  * @author Rodrigo
@@ -24,7 +24,7 @@ public class Pessoa {
     private List<Endereco> enderecos;
     private List<Email> emails;
     private List<Telefone> telefones;
-
+    
     public Pessoa(){
         codpessoa = 0;
         nome = "";
@@ -51,11 +51,11 @@ public class Pessoa {
         return nome;
     }
 
-    public void setNome(String nome) {
-        if ((nome.length() < 3) || (nome.length() > 255)){
-            System.out.print("Nome Inválido");
-        }else {
+    public void setNome(String nome) throws Exception{
+        if ((nome.length() >= 3) && (nome.length() <= 250)){
             this.nome = nome;
+        } else {
+        throw new Exception("Nome Inválido. Insira um nome com no minimo 3 caracteres e com no máximo 250 caracteres.");
         }
     }
 
@@ -95,13 +95,14 @@ public class Pessoa {
         return datanasc;
     }
 
-    public void setDatanasc(Date datanasc) {
-        Date dataminima = new Date(01/01/1900);
+    public void setDatanasc(Date datanasc) throws Exception{
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date dataminima = sdf.parse("01/01/1900"); //converte a string em data
         
-        if (datanasc.before(dataminima)){
-            System.out.print("Data Inválida");
-        } else {
+        if (datanasc.after(dataminima)){
             this.datanasc = datanasc;
+        } else {
+            throw new Exception("Data de Nascimento Inválida. Insira uma data superior ou igual a 01/01/1900.");
         }
     }
     
