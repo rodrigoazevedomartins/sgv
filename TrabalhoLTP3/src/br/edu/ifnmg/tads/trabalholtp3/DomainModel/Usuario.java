@@ -16,12 +16,12 @@ public class Usuario extends Pessoa{
     private String senha;
     private Pessoa pessoa;
 
-    public Usuario(int cod, String nomeusuario, String senhausuario) {
-        codusuario = cod;
-        usuario = nomeusuario;
-        senha = senhausuario;   
+    public Usuario() {
+        codusuario = 0;
+        usuario = "";
+        senha = "";   
     }
-    
+        
     public int getCodusuario() {
         return codusuario;
     }
@@ -82,5 +82,6 @@ public class Usuario extends Pessoa{
     public String toString() {
         return "Usuario{" + "codusuario=" + codusuario + ", usuario=" + usuario + ", senha=" + senha + ", pessoa=" + pessoa + '}';
     }
+
 
 }

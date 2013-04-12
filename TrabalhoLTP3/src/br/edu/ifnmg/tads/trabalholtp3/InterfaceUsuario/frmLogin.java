@@ -4,23 +4,19 @@
  */
 package br.edu.ifnmg.tads.trabalholtp3.InterfaceUsuario;
 import br.edu.ifnmg.tads.trabalholtp3.DomainModel.Usuario;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Rodrigo
  */
 public class frmLogin extends javax.swing.JFrame {
-    List<Usuario> usuarios;
+    Usuario usuarios = new Usuario();
     /**
      * Creates new form frmLogin
      */
     public frmLogin() {
         initComponents();
-        usuarios = new LinkedList<>();
-        usuarios.add(new Usuario(1, "rodrigo", "123"));
-        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -39,6 +35,8 @@ public class frmLogin extends javax.swing.JFrame {
         btnEntrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Sistema de Gerenciamento de Vendas - Login");
+        setName("frmLogin"); // NOI18N
 
         lblTitulo.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         lblTitulo.setText("Sistema de Gerenciamento de Vendas");
@@ -104,29 +102,19 @@ public class frmLogin extends javax.swing.JFrame {
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
         // TODO add your handling code here:
-
-        /*
-        usuarios.setNomeUsuario("rodrigo");
-        usuarios.setSenhaUsuario("123");
-        usuarios.setNomeUsuario("rodrigo");
+        usuarios.setNomeUsuario("Rodrigo");
         usuarios.setSenhaUsuario("12345");
-        */
-        
         String usuario = txtUsuario.getText();
         String senha = txtSenha.getText();
         
-        
-        if (usuarios.contains(usuario)){ 
-            System.out.print("Usuario está Cadastrado");
+        if ((usuario.equals(usuarios.getNomeUsuario())) && (senha.equals(usuarios.getSenhaUsuario()))){
+            JOptionPane.showMessageDialog(rootPane, "Login Efetuado com Sucesso");
             frmPrincipal janela = new frmPrincipal();
             janela.setVisible(true);
             this.setVisible(false);
             this.dispose();
-        } else {
-            System.out.print(usuarios.toString());
-        
         }
-            
+                 
     }//GEN-LAST:event_btnEntrarActionPerformed
 
 
