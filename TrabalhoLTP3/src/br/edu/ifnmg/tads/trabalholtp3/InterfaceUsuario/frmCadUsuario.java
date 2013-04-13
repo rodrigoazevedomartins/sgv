@@ -87,6 +87,9 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
         pfSenha = new javax.swing.JPasswordField();
         btnCadastrar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        MenuListaUsuarios = new javax.swing.JMenu();
+        MenuCadastrarUsuarios = new javax.swing.JMenu();
 
         setTitle("Cadastrar Usuario");
 
@@ -393,6 +396,29 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
         btnCadastrar.setText("Cadastrar");
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCancelarMouseClicked(evt);
+            }
+        });
+
+        MenuListaUsuarios.setText("Lista Usuarios");
+        MenuListaUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                MenuListaUsuariosMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(MenuListaUsuarios);
+
+        MenuCadastrarUsuarios.setText("Cadastrar Usuario");
+        MenuCadastrarUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                MenuCadastrarUsuariosMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(MenuCadastrarUsuarios);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -419,11 +445,37 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCadastrar)
                     .addComponent(btnCancelar))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void MenuCadastrarUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuCadastrarUsuariosMouseClicked
+        // TODO add your handling code here:
+        frmCadUsuario janelaCadUsuario = new frmCadUsuario();
+        add(janelaCadUsuario);
+        janelaCadUsuario.setVisible(true);
+    }//GEN-LAST:event_MenuCadastrarUsuariosMouseClicked
+
+    private void MenuListaUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuListaUsuariosMouseClicked
+        // TODO add your handling code here:
+        frmUsuarios janelausuarios = new frmUsuarios();
+        add(janelausuarios);
+        janelausuarios.setVisible(true);
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_MenuListaUsuariosMouseClicked
+
+    private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
+        // TODO add your handling code here:
+        frmUsuarios janelausuarios = new frmUsuarios();
+        add(janelausuarios);
+        janelausuarios.setVisible(true);
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarMouseClicked
+    
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {
         Usuario usuarios = new Usuario();
         Endereco enderecos = new Endereco();
@@ -490,6 +542,8 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
     
 }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu MenuCadastrarUsuarios;
+    private javax.swing.JMenu MenuListaUsuarios;
     private javax.swing.JPanel PanelDadosAcesso;
     private javax.swing.JPanel PanelDadosGerais;
     private javax.swing.JPanel PanelEmail;
@@ -497,6 +551,7 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JPanel PanelTelefone;
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JLabel lblBairro;
     private javax.swing.JLabel lblCep;
     private javax.swing.JLabel lblCidade;

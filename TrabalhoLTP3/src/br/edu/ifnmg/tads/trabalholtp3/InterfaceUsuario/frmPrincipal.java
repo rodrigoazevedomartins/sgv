@@ -26,28 +26,102 @@ public class frmPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuBar2 = new javax.swing.JMenuBar();
+        MenuUsuarios = new javax.swing.JMenu();
+        MenuListaUsuarios = new javax.swing.JMenuItem();
+        MenuCadastrarUsuarios = new javax.swing.JMenuItem();
+        menuClientes = new javax.swing.JMenu();
+        MenuListaClientes = new javax.swing.JMenuItem();
+        MenuCadastrarClientes = new javax.swing.JMenuItem();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema de Gerenciamento de Vendas - Principal");
         setName("frmPrincipal"); // NOI18N
+        setResizable(false);
+
+        MenuUsuarios.setText("Usuários");
+
+        MenuListaUsuarios.setText("Lista Usuarios");
+        MenuListaUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                MenuListaUsuariosMouseClicked(evt);
+            }
+        });
+        MenuUsuarios.add(MenuListaUsuarios);
+
+        MenuCadastrarUsuarios.setText("Cadastrar Usuarios");
+        MenuCadastrarUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuCadastrarUsuariosActionPerformed(evt);
+            }
+        });
+        MenuUsuarios.add(MenuCadastrarUsuarios);
+
+        jMenuBar2.add(MenuUsuarios);
+
+        menuClientes.setText("Clientes");
+
+        MenuListaClientes.setText("Lista Clientes");
+        MenuListaClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuListaClientesActionPerformed(evt);
+            }
+        });
+        menuClientes.add(MenuListaClientes);
+
+        MenuCadastrarClientes.setText("Cadastrar Clientes");
+        MenuCadastrarClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuCadastrarClientesActionPerformed(evt);
+            }
+        });
+        menuClientes.add(MenuCadastrarClientes);
+
+        jMenuBar2.add(menuClientes);
+
+        setJMenuBar(jMenuBar2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 541, Short.MAX_VALUE)
+            .addGap(0, 793, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 358, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void MenuListaUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuListaUsuariosMouseClicked
+        // TODO add your handling code here:
+        frmFormasPagamento janelaformapagamento = new frmFormasPagamento();
+        add(janelaformapagamento);
+        janelaformapagamento.setVisible(true);
+    }//GEN-LAST:event_MenuListaUsuariosMouseClicked
+
+    private void MenuCadastrarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuCadastrarUsuariosActionPerformed
+        // TODO add your handling code here:
+        frmFormasPagamento janelaformapagamento = new frmFormasPagamento();
+        janelaformapagamento.setVisible(true);
+        add(janelaformapagamento);
+    }//GEN-LAST:event_MenuCadastrarUsuariosActionPerformed
+
+    private void MenuListaClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuListaClientesActionPerformed
+        // TODO add your handling code here:
+       new frmCadClientes().setVisible(true);
+    }//GEN-LAST:event_MenuListaClientesActionPerformed
+
+    private void MenuCadastrarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuCadastrarClientesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MenuCadastrarClientesActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) throws Exception {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -77,7 +151,16 @@ public class frmPrincipal extends javax.swing.JFrame {
                 new frmPrincipal().setVisible(true);
             }
         });
+    
     }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem MenuCadastrarClientes;
+    private javax.swing.JMenuItem MenuCadastrarUsuarios;
+    private javax.swing.JMenuItem MenuListaClientes;
+    private javax.swing.JMenuItem MenuListaUsuarios;
+    private javax.swing.JMenu MenuUsuarios;
+    private javax.swing.JMenuBar jMenuBar2;
+    private javax.swing.JMenu menuClientes;
     // End of variables declaration//GEN-END:variables
 }

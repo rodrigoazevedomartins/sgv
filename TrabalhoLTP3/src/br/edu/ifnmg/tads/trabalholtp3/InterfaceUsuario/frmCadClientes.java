@@ -81,6 +81,9 @@ public class frmCadClientes extends javax.swing.JInternalFrame {
         txtEmail = new javax.swing.JTextField();
         btnCadastrar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        MenuListaClientes = new javax.swing.JMenu();
+        MenuCadastrarUsuarios = new javax.swing.JMenu();
 
         setTitle("Cadastrar Cliente");
         setVisible(true);
@@ -355,6 +358,24 @@ public class frmCadClientes extends javax.swing.JInternalFrame {
 
         btnCancelar.setText("Cancelar");
 
+        MenuListaClientes.setText("Lista Clientes");
+        MenuListaClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                MenuListaClientesMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(MenuListaClientes);
+
+        MenuCadastrarUsuarios.setText("Cadastrar Cliente");
+        MenuCadastrarUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                MenuCadastrarUsuariosMouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(MenuCadastrarUsuarios);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -362,25 +383,25 @@ public class frmCadClientes extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(tbdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 711, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(297, 297, 297)
+                        .addGap(287, 287, 287)
                         .addComponent(btnCadastrar)
-                        .addGap(74, 74, 74)
-                        .addComponent(btnCancelar)))
+                        .addGap(84, 84, 84)
+                        .addComponent(btnCancelar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(tbdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 711, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(19, Short.MAX_VALUE)
                 .addComponent(tbdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCadastrar)
                     .addComponent(btnCancelar))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -444,13 +465,29 @@ public class frmCadClientes extends javax.swing.JInternalFrame {
         emails.setEndereco(email);
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
+    private void MenuCadastrarUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuCadastrarUsuariosMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MenuCadastrarUsuariosMouseClicked
+
+    private void MenuListaClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuListaClientesMouseClicked
+        // TODO add your handling code here:
+        frmClientes janelacliente = new frmClientes();
+        add(janelacliente);
+        janelacliente.setVisible(true);
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_MenuListaClientesMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu MenuCadastrarUsuarios;
+    private javax.swing.JMenu MenuListaClientes;
     private javax.swing.JPanel PanelDadosGerais;
     private javax.swing.JPanel PanelEmail;
     private javax.swing.JPanel PanelEndereco;
     private javax.swing.JPanel PanelTelefone;
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JLabel lblBairro;
     private javax.swing.JLabel lblCep;
     private javax.swing.JLabel lblCidade;

@@ -13,6 +13,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Cadastrar Usuario"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="MenuCadastrarUsuariosMouseClicked"/>
+          </Events>
         </Menu>
       </SubComponents>
     </Menu>

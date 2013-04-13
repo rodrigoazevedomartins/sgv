@@ -48,6 +48,11 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
         jMenuBar1.add(MenuListaUsuarios);
 
         MenuCadastrarUsuarios.setText("Cadastrar Usuario");
+        MenuCadastrarUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                MenuCadastrarUsuariosMouseClicked(evt);
+            }
+        });
         jMenuBar1.add(MenuCadastrarUsuarios);
 
         setJMenuBar(jMenuBar1);
@@ -71,6 +76,14 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void MenuCadastrarUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuCadastrarUsuariosMouseClicked
+        // TODO add your handling code here:
+        frmCadUsuario janelaCadUsuario = new frmCadUsuario();
+        add(janelaCadUsuario);
+        janelaCadUsuario.setVisible(true);
+    }//GEN-LAST:event_MenuCadastrarUsuariosMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu MenuCadastrarUsuarios;
     private javax.swing.JMenu MenuListaUsuarios;
