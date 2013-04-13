@@ -37,9 +37,13 @@ public class frmPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema de Gerenciamento de Vendas - Principal");
         setName("frmPrincipal"); // NOI18N
-        setResizable(false);
 
         MenuUsuarios.setText("Usuários");
+        MenuUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                MenuUsuariosMouseClicked(evt);
+            }
+        });
 
         MenuListaUsuarios.setText("Lista Usuarios");
         MenuListaUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -97,26 +101,38 @@ public class frmPrincipal extends javax.swing.JFrame {
 
     private void MenuListaUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuListaUsuariosMouseClicked
         // TODO add your handling code here:
-        frmFormasPagamento janelaformapagamento = new frmFormasPagamento();
-        add(janelaformapagamento);
-        janelaformapagamento.setVisible(true);
+        frmUsuarios janelaUsuario = new frmUsuarios();
+        add(janelaUsuario);
+        janelaUsuario.setVisible(true);
     }//GEN-LAST:event_MenuListaUsuariosMouseClicked
 
     private void MenuCadastrarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuCadastrarUsuariosActionPerformed
         // TODO add your handling code here:
-        frmFormasPagamento janelaformapagamento = new frmFormasPagamento();
-        janelaformapagamento.setVisible(true);
-        add(janelaformapagamento);
+        frmCadUsuario janelaCadUsuario = new frmCadUsuario();
+        add(janelaCadUsuario);
+        janelaCadUsuario.setVisible(true);
     }//GEN-LAST:event_MenuCadastrarUsuariosActionPerformed
 
     private void MenuListaClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuListaClientesActionPerformed
         // TODO add your handling code here:
-       new frmCadClientes().setVisible(true);
+        frmClientes janelaClientes = new frmClientes();
+        add(janelaClientes);
+        janelaClientes.setVisible(true);
     }//GEN-LAST:event_MenuListaClientesActionPerformed
 
     private void MenuCadastrarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuCadastrarClientesActionPerformed
         // TODO add your handling code here:
+        frmCadClientes janelaCadClientes = new frmCadClientes();
+        add(janelaCadClientes);
+        janelaCadClientes.setVisible(true);
     }//GEN-LAST:event_MenuCadastrarClientesActionPerformed
+
+    private void MenuUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuUsuariosMouseClicked
+            // TODO add your handling code here:
+        frmUsuarios janelaUsuario = new frmUsuarios();
+        add(janelaUsuario);
+        janelaUsuario.setVisible(true);
+    }//GEN-LAST:event_MenuUsuariosMouseClicked
 
     /**
      * @param args the command line arguments
