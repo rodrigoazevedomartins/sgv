@@ -51,6 +51,11 @@ public class frmPrincipal extends javax.swing.JFrame {
                 MenuListaUsuariosMouseClicked(evt);
             }
         });
+        MenuListaUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuListaUsuariosActionPerformed(evt);
+            }
+        });
         MenuUsuarios.add(MenuListaUsuarios);
 
         MenuCadastrarUsuarios.setText("Cadastrar Usuarios");
@@ -129,10 +134,15 @@ public class frmPrincipal extends javax.swing.JFrame {
 
     private void MenuUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuUsuariosMouseClicked
             // TODO add your handling code here:
+
+    }//GEN-LAST:event_MenuUsuariosMouseClicked
+
+    private void MenuListaUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuListaUsuariosActionPerformed
+        // TODO add your handling code here:
         frmUsuarios janelaUsuario = new frmUsuarios();
         add(janelaUsuario);
         janelaUsuario.setVisible(true);
-    }//GEN-LAST:event_MenuUsuariosMouseClicked
+    }//GEN-LAST:event_MenuListaUsuariosActionPerformed
 
     /**
      * @param args the command line arguments
