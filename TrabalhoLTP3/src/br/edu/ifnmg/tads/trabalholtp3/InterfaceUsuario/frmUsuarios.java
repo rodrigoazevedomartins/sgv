@@ -32,6 +32,7 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
         MenuListaUsuarios = new javax.swing.JMenu();
         MenuCadastrarUsuarios = new javax.swing.JMenu();
 
+        setResizable(true);
         setTitle("Usuarios");
 
         tblUsuarios.setModel(new javax.swing.table.DefaultTableModel(

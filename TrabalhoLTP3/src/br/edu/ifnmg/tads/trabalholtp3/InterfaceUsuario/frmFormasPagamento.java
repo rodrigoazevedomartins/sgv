@@ -33,6 +33,7 @@ public class frmFormasPagamento extends javax.swing.JInternalFrame {
         MenuFormaPagamento = new javax.swing.JMenu();
         MenuCadastrarForma = new javax.swing.JMenu();
 
+        setResizable(true);
         setTitle("Formas de Pagamento");
         setToolTipText("");
         setVerifyInputWhenFocusTarget(false);

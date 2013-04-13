@@ -21,6 +21,7 @@
     </Menu>
   </NonVisualComponents>
   <Properties>
+    <Property name="resizable" type="boolean" value="true"/>
     <Property name="title" type="java.lang.String" value="Cadastrar Forma de Pagamento"/>
   </Properties>
   <SyntheticProperties>

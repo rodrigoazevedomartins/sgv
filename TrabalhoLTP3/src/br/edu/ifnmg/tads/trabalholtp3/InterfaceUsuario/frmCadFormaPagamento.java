@@ -35,6 +35,7 @@ public class frmCadFormaPagamento extends javax.swing.JInternalFrame {
         MenuFormaPagamento = new javax.swing.JMenu();
         MenuCadastrarForma = new javax.swing.JMenu();
 
+        setResizable(true);
         setTitle("Cadastrar Forma de Pagamento");
 
         lblForma.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N

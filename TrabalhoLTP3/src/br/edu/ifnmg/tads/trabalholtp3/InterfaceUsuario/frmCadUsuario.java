@@ -91,6 +91,7 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
         MenuListaUsuarios = new javax.swing.JMenu();
         MenuCadastrarUsuarios = new javax.swing.JMenu();
 
+        setResizable(true);
         setTitle("Cadastrar Usuario");
 
         PanelDadosGerais.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N

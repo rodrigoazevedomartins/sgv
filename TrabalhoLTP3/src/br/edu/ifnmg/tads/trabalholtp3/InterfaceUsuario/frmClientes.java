@@ -33,6 +33,7 @@ public class frmClientes extends javax.swing.JInternalFrame {
         MenuListaClientes = new javax.swing.JMenu();
         MenuCadastrarClientes = new javax.swing.JMenu();
 
+        setResizable(true);
         setTitle("Clientes");
         setToolTipText("");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
