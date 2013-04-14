@@ -55,24 +55,37 @@ public class Produto {
         return valor_unitario_venda;
     }
 
-    public void setValorunitariovenda(double valor_unitario_venda) {
-        this.valor_unitario_venda = valor_unitario_venda;
+    public void setValorunitariovenda(double valor_unitario_venda) throws Exception{
+        if (valor_unitario_venda > 0){
+            this.valor_unitario_venda = valor_unitario_venda;
+        } else {
+        throw new Exception("Valor Unitário Venda Inválido. Insira um valor maior que 0.");
+        }
+        
     }
 
     public double getValorunitariocompra() {
         return valor_unitario_compra;
     }
 
-    public void setValorunitariocompra(double valor_unitario_compra) {
-        this.valor_unitario_compra = valor_unitario_compra;
+    public void setValorunitariocompra(double valor_unitario_compra) throws Exception{
+        if (valor_unitario_compra > 0){
+            this.valor_unitario_compra = valor_unitario_compra;
+        } else {
+        throw new Exception("Valor Unitário Compra Inválido. Insira um valor maior que 0.");
+        }    
     }
 
     public int getEstoque() {
         return estoque;
     }
 
-    public void setEstoque(int estoque) {
-        this.estoque = estoque;
+    public void setEstoque(int estoque) throws Exception{
+        if (estoque > 0){
+            this.estoque = estoque;
+        } else {
+        throw new Exception("Estoque Inválido. Insira um valor maior que 0.");
+        }
     }
 
     @Override
