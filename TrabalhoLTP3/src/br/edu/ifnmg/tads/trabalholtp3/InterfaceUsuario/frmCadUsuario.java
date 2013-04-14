@@ -3,19 +3,7 @@
  * and open the template in the editor.
  */
 package br.edu.ifnmg.tads.trabalholtp3.InterfaceUsuario;
-import br.edu.ifnmg.tads.trabalholtp3.DomainModel.Email;
-import br.edu.ifnmg.tads.trabalholtp3.DomainModel.Usuario;
-import br.edu.ifnmg.tads.trabalholtp3.DomainModel.Endereco;
-import br.edu.ifnmg.tads.trabalholtp3.DomainModel.Telefone;
-import java.text.SimpleDateFormat;
-        
-      
-
 import java.awt.Component;
-import java.text.ParseException;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -449,12 +437,6 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
-        // TODO add your handling code here:
-        frmUsuarios janelausuarios = new frmUsuarios();
-        add(janelausuarios);
-        janelausuarios.setVisible(true);
-        this.setVisible(false);
-        this.dispose();
     }//GEN-LAST:event_btnCancelarMouseClicked
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -466,67 +448,7 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        // TODO add your handling code here:
-        Usuario usuarios = new Usuario();
-        Endereco enderecos = new Endereco();
-        Telefone telefones = new Telefone();
-        Email emails = new Email();
-        
-        String nome = txtNome.getText();
-        String nomemae = txtNomeMae.getText();
-        String nomepai = txtNomePai.getText();
-        String rg = txtRg.getText();
-        int cpf = Integer.parseInt(txtCpf.getText());
-        String datanascimento = txtDataNasc.getText(); 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            Date datanasc = sdf.parse(datanascimento);
-        } catch (ParseException ex) {
-            Logger.getLogger(frmCadClientes.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        String naturalidade = txtNaturalidade.getText();
-        String rua = txtRua.getText();
-        int numero = Integer.parseInt(txtNumero.getText());
-        String complemento = txtComplemento.getText();
-        String bairro = txtBairro.getText();
-        String cidade = txtCidade.getText();
-        String estado = txtEstado.getText();
-        int cep = Integer.parseInt(txtCep.getText());
-        String pais = txtPais.getText();
-        int codarea = Integer.parseInt(txtArea.getText());
-        int numerotelefone = Integer.parseInt(txtNumeroTelefone.getText());
-        String email = txtEmail.getText();
-        String nomeusuario = txtUsuario.getText();
-        String senhausuario = pfSenha.getText();
-        
-        try {
-            usuarios.setNome(nome);
-        } catch (Exception ex) {
-            Logger.getLogger(frmCadUsuario.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        usuarios.setNomemae(nomemae);
-        usuarios.setNomepai(nomepai);
-        usuarios.setRg(rg);
-        usuarios.setCpf(cpf);
-        //usuarios.setDatanasc(datanasc);
-        usuarios.setNaturalidade(naturalidade);
-        usuarios.setNomeUsuario(nomeusuario);
-        usuarios.setSenhaUsuario(senhausuario);
-        
-        enderecos.setRua(rua);
-        enderecos.setNumero(numero);
-        enderecos.setComplemento(complemento);
-        enderecos.setBairro(bairro);
-        enderecos.setCidade(cidade);
-        enderecos.setCep(cep);
-        enderecos.setEstado(estado);
-        enderecos.setPais(pais);
-        
-        telefones.setArea(codarea);
-        telefones.setNumero(numerotelefone);
-        
-        emails.setEndereco(email);
-        
+        // TODO add your handling code here:        
         if (JOptionPane.showConfirmDialog(RootPane, "Deseja Cadastrar o Usuário?") == 0){
             JOptionPane.showMessageDialog(RootPane, "Usuário Cadastrado com Sucesso!");
             this.dispose();
