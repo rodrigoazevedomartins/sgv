@@ -32,7 +32,7 @@ public class frmCadProdutos extends javax.swing.JInternalFrame {
 
         lblForma = new javax.swing.JLabel();
         txtNomeProduto = new javax.swing.JTextField();
-        lblForma1 = new javax.swing.JLabel();
+        lblDescricao = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtDescricao = new javax.swing.JTextArea();
         lblValorVenda = new javax.swing.JLabel();
@@ -54,8 +54,8 @@ public class frmCadProdutos extends javax.swing.JInternalFrame {
         lblForma.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         lblForma.setText("NOME:");
 
-        lblForma1.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        lblForma1.setText("DESCRIÇÃO: ");
+        lblDescricao.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        lblDescricao.setText("DESCRIÇÃO: ");
 
         txtDescricao.setColumns(20);
         txtDescricao.setRows(5);
@@ -106,7 +106,7 @@ public class frmCadProdutos extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtValorVenda))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(lblForma1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
@@ -129,7 +129,7 @@ public class frmCadProdutos extends javax.swing.JInternalFrame {
                     .addComponent(txtNomeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblForma1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -175,8 +175,8 @@ public class frmCadProdutos extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblDescricao;
     private javax.swing.JLabel lblForma;
-    private javax.swing.JLabel lblForma1;
     private javax.swing.JLabel lblValorCompra;
     private javax.swing.JLabel lblValorCompra1;
     private javax.swing.JLabel lblValorVenda;
