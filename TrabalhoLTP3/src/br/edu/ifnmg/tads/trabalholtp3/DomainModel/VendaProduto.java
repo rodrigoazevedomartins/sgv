@@ -41,8 +41,13 @@ public class VendaProduto {
         return valor_unitario;
     }
 
-    public void setValor_unitario(double valor_unitario) {
-        this.valor_unitario = valor_unitario;
+    public void setValor_unitario(double valor_unitario) throws Exception{
+        if (valor_unitario > 0){
+            this.valor_unitario = valor_unitario;
+        } else {
+        throw new Exception("Valor Unitário Inválido. Insira um valor maior que 0.");
+        }
+        
     }
 
     public Produto getProduto() {
