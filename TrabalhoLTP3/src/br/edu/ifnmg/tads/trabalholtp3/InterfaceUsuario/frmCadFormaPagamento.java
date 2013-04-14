@@ -4,12 +4,14 @@
  */
 package br.edu.ifnmg.tads.trabalholtp3.InterfaceUsuario;
 import br.edu.ifnmg.tads.trabalholtp3.DomainModel.Pagamento;
+import java.awt.Component;
 import javax.swing.JOptionPane;
 /**
  *
  * @author Rodrigo
  */
 public class frmCadFormaPagamento extends javax.swing.JInternalFrame {
+    private Component RootPane;
 
     /**
      * Creates new form frmCadFormaPagamento
@@ -31,12 +33,12 @@ public class frmCadFormaPagamento extends javax.swing.JInternalFrame {
         txtForma = new javax.swing.JTextField();
         btnCadastrar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        MenuFormaPagamento = new javax.swing.JMenu();
-        MenuCadastrarForma = new javax.swing.JMenu();
 
+        setClosable(true);
+        setMaximizable(true);
         setResizable(true);
         setTitle("Cadastrar Forma de Pagamento");
+        setVisible(true);
 
         lblForma.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         lblForma.setText("FORMA DE PAGAMENTO:");
@@ -54,19 +56,6 @@ public class frmCadFormaPagamento extends javax.swing.JInternalFrame {
                 btnCancelarActionPerformed(evt);
             }
         });
-
-        MenuFormaPagamento.setText("Formas de Pagamento");
-        MenuFormaPagamento.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                MenuFormaPagamentoMouseClicked(evt);
-            }
-        });
-        jMenuBar1.add(MenuFormaPagamento);
-
-        MenuCadastrarForma.setText("Cadastrar Forma de Pagamento");
-        jMenuBar1.add(MenuCadastrarForma);
-
-        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -92,7 +81,7 @@ public class frmCadFormaPagamento extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblForma, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtForma, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCadastrar)
                     .addComponent(btnCancelar))
@@ -104,37 +93,28 @@ public class frmCadFormaPagamento extends javax.swing.JInternalFrame {
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         // TODO add your handling code here:
-        Pagamento formapagamento = new Pagamento();
-        String forma = txtForma.getText();
-        formapagamento.setNomeTipo(forma);
-        JOptionPane.showMessageDialog(rootPane, "Nova Forma de Pagamento Cadastrada com Sucesso");
+        if (JOptionPane.showConfirmDialog(RootPane, "Deseja Cadastrar Forma de Pagamento?") == 0){
+            JOptionPane.showMessageDialog(RootPane, "Forma de Pagamento Cadastrada com Sucesso!");
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(RootPane, "Cadastro Cancelado");
+        } 
+        
     }//GEN-LAST:event_btnCadastrarActionPerformed
-
-    private void MenuFormaPagamentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuFormaPagamentoMouseClicked
-        // TODO add your handling code here:
-        frmFormasPagamento janelaformapagamento = new frmFormasPagamento();
-        janelaformapagamento.setVisible(true);
-        add(janelaformapagamento);
-        this.setVisible(false);
-        this.dispose();
-    }//GEN-LAST:event_MenuFormaPagamentoMouseClicked
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
-        frmFormasPagamento janelaformapagamento = new frmFormasPagamento();
-        janelaformapagamento.setVisible(true);
-        add(janelaformapagamento);
-        this.setVisible(false);
-        this.dispose();
+       
+        if (JOptionPane.showConfirmDialog(RootPane, "Deseja Cancelar o Cadastro?") == 0){
+            JOptionPane.showMessageDialog(RootPane, "Cadastro Cancelado");
+            this.dispose();
+        }
         
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu MenuCadastrarForma;
-    private javax.swing.JMenu MenuFormaPagamento;
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JLabel lblForma;
     private javax.swing.JTextField txtForma;
     // End of variables declaration//GEN-END:variables

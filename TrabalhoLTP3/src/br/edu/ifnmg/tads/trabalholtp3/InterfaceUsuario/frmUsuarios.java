@@ -32,8 +32,11 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
         MenuListaUsuarios = new javax.swing.JMenu();
         MenuCadastrarUsuarios = new javax.swing.JMenu();
 
+        setClosable(true);
+        setMaximizable(true);
         setResizable(true);
         setTitle("Usuarios");
+        setVisible(true);
 
         tblUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -72,7 +75,7 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         pack();

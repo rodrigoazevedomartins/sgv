@@ -7,18 +7,21 @@ import br.edu.ifnmg.tads.trabalholtp3.DomainModel.Endereco;
 import br.edu.ifnmg.tads.trabalholtp3.DomainModel.Cliente;
 import br.edu.ifnmg.tads.trabalholtp3.DomainModel.Telefone;
 import br.edu.ifnmg.tads.trabalholtp3.DomainModel.Email;
+import java.awt.Component;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Rodrigo
  */
 public class frmCadClientes extends javax.swing.JInternalFrame {
+    private Component RootPane;
 
     /**
      * Creates new form frmCadClientes
@@ -81,10 +84,10 @@ public class frmCadClientes extends javax.swing.JInternalFrame {
         txtEmail = new javax.swing.JTextField();
         btnCadastrar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        MenuListaClientes = new javax.swing.JMenu();
-        MenuCadastrarUsuarios = new javax.swing.JMenu();
 
+        setClosable(true);
+        setMaximizable(true);
+        setResizable(true);
         setTitle("Cadastrar Cliente");
         setVisible(true);
 
@@ -357,24 +360,11 @@ public class frmCadClientes extends javax.swing.JInternalFrame {
         });
 
         btnCancelar.setText("Cancelar");
-
-        MenuListaClientes.setText("Lista Clientes");
-        MenuListaClientes.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                MenuListaClientesMouseClicked(evt);
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
             }
         });
-        jMenuBar1.add(MenuListaClientes);
-
-        MenuCadastrarUsuarios.setText("Cadastrar Cliente");
-        MenuCadastrarUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                MenuCadastrarUsuariosMouseClicked(evt);
-            }
-        });
-        jMenuBar1.add(MenuCadastrarUsuarios);
-
-        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -395,7 +385,7 @@ public class frmCadClientes extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(19, Short.MAX_VALUE)
+                .addContainerGap(44, Short.MAX_VALUE)
                 .addComponent(tbdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -409,85 +399,29 @@ public class frmCadClientes extends javax.swing.JInternalFrame {
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         // TODO add your handling code here:        
-        Cliente clientes = new Cliente();
-        Endereco enderecos = new Endereco();
-        Telefone telefones = new Telefone();
-        Email emails = new Email();
-        
-        String nome = txtNome.getText();
-        String nomemae = txtNomeMae.getText();
-        String nomepai = txtNomePai.getText();
-        String rg = txtRg.getText();
-        int cpf = Integer.parseInt(txtCpf.getText());
-        String datanascimento = txtDataNasc.getText(); 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            Date datanasc = sdf.parse(datanascimento);
-        } catch (ParseException ex) {
-            Logger.getLogger(frmCadClientes.class.getName()).log(Level.SEVERE, null, ex);
+        if (JOptionPane.showConfirmDialog(RootPane, "Deseja Cadastrar o Cliente?") == 0){
+            JOptionPane.showMessageDialog(RootPane, "Cliente Cadastrado com Sucesso!");
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(RootPane, "Cadastro Cancelado");
         }
-        String naturalidade = txtNaturalidade.getText();
-        String rua = txtRua.getText();
-        int numero = Integer.parseInt(txtNumero.getText());
-        String complemento = txtComplemento.getText();
-        String bairro = txtBairro.getText();
-        String cidade = txtCidade.getText();
-        String estado = txtEstado.getText();
-        int cep = Integer.parseInt(txtCep.getText());
-        String pais = txtPais.getText();
-        int codarea = Integer.parseInt(txtArea.getText());
-        int numerotelefone = Integer.parseInt(txtNumeroTelefone.getText());
-        String email = txtEmail.getText();
-        try {
-            clientes.setNome(nome);
-        } catch (Exception ex) {
-            Logger.getLogger(frmCadClientes.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        clientes.setNomemae(nomemae);
-        clientes.setNomepai(nomepai);
-        clientes.setRg(rg);
-        clientes.setCpf(cpf);
-        //clientes.setDatanasc(datanasc);
-        clientes.setNaturalidade(naturalidade);
-        
-        enderecos.setRua(rua);
-        enderecos.setNumero(numero);
-        enderecos.setComplemento(complemento);
-        enderecos.setBairro(bairro);
-        enderecos.setCidade(cidade);
-        enderecos.setCep(cep);
-        enderecos.setEstado(estado);
-        enderecos.setPais(pais);
-        
-        telefones.setArea(codarea);
-        telefones.setNumero(numerotelefone);
-        
-        emails.setEndereco(email);
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
-    private void MenuCadastrarUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuCadastrarUsuariosMouseClicked
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_MenuCadastrarUsuariosMouseClicked
-
-    private void MenuListaClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuListaClientesMouseClicked
-        // TODO add your handling code here:
-        frmClientes janelacliente = new frmClientes();
-        add(janelacliente);
-        janelacliente.setVisible(true);
-        this.setVisible(false);
-        this.dispose();
-    }//GEN-LAST:event_MenuListaClientesMouseClicked
+        if (JOptionPane.showConfirmDialog(RootPane, "Deseja Cancelar o Cadastro?") == 0){
+            JOptionPane.showMessageDialog(RootPane, "Cadastro Cancelado");
+            this.dispose();
+        }
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu MenuCadastrarUsuarios;
-    private javax.swing.JMenu MenuListaClientes;
     private javax.swing.JPanel PanelDadosGerais;
     private javax.swing.JPanel PanelEmail;
     private javax.swing.JPanel PanelEndereco;
     private javax.swing.JPanel PanelTelefone;
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JLabel lblBairro;
     private javax.swing.JLabel lblCep;
     private javax.swing.JLabel lblCidade;

@@ -30,9 +30,18 @@ public class frmPrincipal extends javax.swing.JFrame {
         MenuUsuarios = new javax.swing.JMenu();
         MenuListaUsuarios = new javax.swing.JMenuItem();
         MenuCadastrarUsuarios = new javax.swing.JMenuItem();
-        menuClientes = new javax.swing.JMenu();
+        MenuClientes = new javax.swing.JMenu();
         MenuListaClientes = new javax.swing.JMenuItem();
         MenuCadastrarClientes = new javax.swing.JMenuItem();
+        MenuForma = new javax.swing.JMenu();
+        MenuListaForma = new javax.swing.JMenuItem();
+        MenuCadastrarForma = new javax.swing.JMenuItem();
+        MenuProdutos = new javax.swing.JMenu();
+        MenuListaProdutos = new javax.swing.JMenuItem();
+        MenuCadastrarProdutos = new javax.swing.JMenuItem();
+        MenuVendas = new javax.swing.JMenu();
+        MenuListaVendas = new javax.swing.JMenuItem();
+        MenuNovaVenda = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema de Gerenciamento de Vendas - Principal");
@@ -68,7 +77,7 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         jMenuBar2.add(MenuUsuarios);
 
-        menuClientes.setText("Clientes");
+        MenuClientes.setText("Clientes");
 
         MenuListaClientes.setText("Lista Clientes");
         MenuListaClientes.addActionListener(new java.awt.event.ActionListener() {
@@ -76,7 +85,7 @@ public class frmPrincipal extends javax.swing.JFrame {
                 MenuListaClientesActionPerformed(evt);
             }
         });
-        menuClientes.add(MenuListaClientes);
+        MenuClientes.add(MenuListaClientes);
 
         MenuCadastrarClientes.setText("Cadastrar Clientes");
         MenuCadastrarClientes.addActionListener(new java.awt.event.ActionListener() {
@@ -84,9 +93,54 @@ public class frmPrincipal extends javax.swing.JFrame {
                 MenuCadastrarClientesActionPerformed(evt);
             }
         });
-        menuClientes.add(MenuCadastrarClientes);
+        MenuClientes.add(MenuCadastrarClientes);
 
-        jMenuBar2.add(menuClientes);
+        jMenuBar2.add(MenuClientes);
+
+        MenuForma.setText("Formas de Pagamento");
+
+        MenuListaForma.setText("Lista Formas");
+        MenuListaForma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuListaFormaActionPerformed(evt);
+            }
+        });
+        MenuForma.add(MenuListaForma);
+
+        MenuCadastrarForma.setText("Cadastrar Forma de Pagamento");
+        MenuForma.add(MenuCadastrarForma);
+
+        jMenuBar2.add(MenuForma);
+
+        MenuProdutos.setText("Produtos");
+
+        MenuListaProdutos.setText("Lista Produtos");
+        MenuListaProdutos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuListaProdutosActionPerformed(evt);
+            }
+        });
+        MenuProdutos.add(MenuListaProdutos);
+
+        MenuCadastrarProdutos.setText("Cadastrar Produtos");
+        MenuProdutos.add(MenuCadastrarProdutos);
+
+        jMenuBar2.add(MenuProdutos);
+
+        MenuVendas.setText("Vendas");
+
+        MenuListaVendas.setText("Lista Vendas");
+        MenuListaVendas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuListaVendasActionPerformed(evt);
+            }
+        });
+        MenuVendas.add(MenuListaVendas);
+
+        MenuNovaVenda.setText("Nova Venda");
+        MenuVendas.add(MenuNovaVenda);
+
+        jMenuBar2.add(MenuVendas);
 
         setJMenuBar(jMenuBar2);
 
@@ -144,6 +198,18 @@ public class frmPrincipal extends javax.swing.JFrame {
         janelaUsuario.setVisible(true);
     }//GEN-LAST:event_MenuListaUsuariosActionPerformed
 
+    private void MenuListaFormaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuListaFormaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MenuListaFormaActionPerformed
+
+    private void MenuListaProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuListaProdutosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MenuListaProdutosActionPerformed
+
+    private void MenuListaVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuListaVendasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MenuListaVendasActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -182,11 +248,20 @@ public class frmPrincipal extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem MenuCadastrarClientes;
+    private javax.swing.JMenuItem MenuCadastrarForma;
+    private javax.swing.JMenuItem MenuCadastrarProdutos;
     private javax.swing.JMenuItem MenuCadastrarUsuarios;
+    private javax.swing.JMenu MenuClientes;
+    private javax.swing.JMenu MenuForma;
     private javax.swing.JMenuItem MenuListaClientes;
+    private javax.swing.JMenuItem MenuListaForma;
+    private javax.swing.JMenuItem MenuListaProdutos;
     private javax.swing.JMenuItem MenuListaUsuarios;
+    private javax.swing.JMenuItem MenuListaVendas;
+    private javax.swing.JMenuItem MenuNovaVenda;
+    private javax.swing.JMenu MenuProdutos;
     private javax.swing.JMenu MenuUsuarios;
+    private javax.swing.JMenu MenuVendas;
     private javax.swing.JMenuBar jMenuBar2;
-    private javax.swing.JMenu menuClientes;
     // End of variables declaration//GEN-END:variables
 }

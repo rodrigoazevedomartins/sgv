@@ -33,11 +33,13 @@ public class frmFormasPagamento extends javax.swing.JInternalFrame {
         MenuFormaPagamento = new javax.swing.JMenu();
         MenuCadastrarForma = new javax.swing.JMenu();
 
+        setClosable(true);
+        setMaximizable(true);
         setResizable(true);
         setTitle("Formas de Pagamento");
         setToolTipText("");
         setVerifyInputWhenFocusTarget(false);
-        setVisible(false);
+        setVisible(true);
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
                 formInternalFrameActivated(evt);
@@ -58,23 +60,14 @@ public class frmFormasPagamento extends javax.swing.JInternalFrame {
 
         tblTipoPagamento.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null}
+                {"Cartão"},
+                {"Dinheiro"},
+                {"Cheque"}
             },
             new String [] {
                 "Tipo Pagamento"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ));
         jScrollPane1.setViewportView(tblTipoPagamento);
 
         MenuFormaPagamento.setText("Formas de Pagamento");
@@ -103,8 +96,8 @@ public class frmFormasPagamento extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(49, Short.MAX_VALUE))
         );
 
         pack();

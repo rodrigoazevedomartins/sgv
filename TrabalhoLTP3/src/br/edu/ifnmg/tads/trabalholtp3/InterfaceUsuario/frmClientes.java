@@ -33,6 +33,8 @@ public class frmClientes extends javax.swing.JInternalFrame {
         MenuListaClientes = new javax.swing.JMenu();
         MenuCadastrarClientes = new javax.swing.JMenu();
 
+        setClosable(true);
+        setMaximizable(true);
         setResizable(true);
         setTitle("Clientes");
         setToolTipText("");
@@ -74,7 +76,7 @@ public class frmClientes extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
 
         getAccessibleContext().setAccessibleParent(this);
