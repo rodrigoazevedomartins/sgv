@@ -28,14 +28,10 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tblUsuarios = new javax.swing.JTable();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        MenuListaUsuarios = new javax.swing.JMenu();
-        MenuCadastrarUsuarios = new javax.swing.JMenu();
 
         setClosable(true);
         setMaximizable(true);
-        setResizable(true);
-        setTitle("Usuarios");
+        setTitle("Lista de Usuários");
         setVisible(true);
 
         tblUsuarios.setModel(new javax.swing.table.DefaultTableModel(
@@ -47,19 +43,6 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
             }
         ));
         jScrollPane1.setViewportView(tblUsuarios);
-
-        MenuListaUsuarios.setText("Lista Usuarios");
-        jMenuBar1.add(MenuListaUsuarios);
-
-        MenuCadastrarUsuarios.setText("Cadastrar Usuario");
-        MenuCadastrarUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                MenuCadastrarUsuariosMouseClicked(evt);
-            }
-        });
-        jMenuBar1.add(MenuCadastrarUsuarios);
-
-        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -75,23 +58,13 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void MenuCadastrarUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuCadastrarUsuariosMouseClicked
-        // TODO add your handling code here:
-        frmCadUsuario janelaCadUsuario = new frmCadUsuario();
-        add(janelaCadUsuario);
-        janelaCadUsuario.setVisible(true);
-    }//GEN-LAST:event_MenuCadastrarUsuariosMouseClicked
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu MenuCadastrarUsuarios;
-    private javax.swing.JMenu MenuListaUsuarios;
-    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblUsuarios;
     // End of variables declaration//GEN-END:variables

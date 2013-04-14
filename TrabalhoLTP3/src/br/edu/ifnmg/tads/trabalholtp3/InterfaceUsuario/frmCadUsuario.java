@@ -351,8 +351,6 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
         lblUsuario.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         lblUsuario.setText("USUÁRIO: ");
 
-        pfSenha.setText("jPasswordField1");
-
         javax.swing.GroupLayout PanelDadosAcessoLayout = new javax.swing.GroupLayout(PanelDadosAcesso);
         PanelDadosAcesso.setLayout(PanelDadosAcessoLayout);
         PanelDadosAcessoLayout.setHorizontalGroup(
@@ -448,7 +446,7 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        // TODO add your handling code here:        
+        // TODO add your handling code here:
         if (JOptionPane.showConfirmDialog(RootPane, "Deseja Cadastrar o Usuário?") == 0){
             JOptionPane.showMessageDialog(RootPane, "Usuário Cadastrado com Sucesso!");
             this.dispose();

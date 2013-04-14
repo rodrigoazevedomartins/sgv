@@ -29,14 +29,11 @@ public class frmClientes extends javax.swing.JInternalFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tblClientes = new javax.swing.JTable();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        MenuListaClientes = new javax.swing.JMenu();
-        MenuCadastrarClientes = new javax.swing.JMenu();
 
         setClosable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("Clientes");
+        setTitle("Lista de Clientes");
         setToolTipText("");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setName(""); // NOI18N
@@ -54,14 +51,6 @@ public class frmClientes extends javax.swing.JInternalFrame {
         tblClientes.getColumnModel().getColumn(4).setResizable(false);
         tblClientes.getColumnModel().getColumn(5).setResizable(false);
 
-        MenuListaClientes.setText("Lista Clientes");
-        jMenuBar1.add(MenuListaClientes);
-
-        MenuCadastrarClientes.setText("Cadastrar Cliente");
-        jMenuBar1.add(MenuCadastrarClientes);
-
-        setJMenuBar(jMenuBar1);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -73,10 +62,10 @@ public class frmClientes extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(21, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         getAccessibleContext().setAccessibleParent(this);
@@ -84,9 +73,6 @@ public class frmClientes extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu MenuCadastrarClientes;
-    private javax.swing.JMenu MenuListaClientes;
-    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblClientes;
     // End of variables declaration//GEN-END:variables

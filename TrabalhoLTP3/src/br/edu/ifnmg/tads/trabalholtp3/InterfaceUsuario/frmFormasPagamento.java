@@ -29,14 +29,11 @@ public class frmFormasPagamento extends javax.swing.JInternalFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tblTipoPagamento = new javax.swing.JTable();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        MenuFormaPagamento = new javax.swing.JMenu();
-        MenuCadastrarForma = new javax.swing.JMenu();
 
         setClosable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("Formas de Pagamento");
+        setTitle("Lista de Formas de Pagamento");
         setToolTipText("");
         setVerifyInputWhenFocusTarget(false);
         setVisible(true);
@@ -70,19 +67,6 @@ public class frmFormasPagamento extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(tblTipoPagamento);
 
-        MenuFormaPagamento.setText("Formas de Pagamento");
-        jMenuBar1.add(MenuFormaPagamento);
-
-        MenuCadastrarForma.setText("Cadastrar Forma de Pagamento");
-        MenuCadastrarForma.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                MenuCadastrarFormaMouseClicked(evt);
-            }
-        });
-        jMenuBar1.add(MenuCadastrarForma);
-
-        setJMenuBar(jMenuBar1);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -97,7 +81,7 @@ public class frmFormasPagamento extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();
@@ -107,17 +91,7 @@ public class frmFormasPagamento extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_formInternalFrameActivated
 
-    private void MenuCadastrarFormaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuCadastrarFormaMouseClicked
-        // TODO add your handling code here:
-        frmCadFormaPagamento janelaCadFormaPagamento = new frmCadFormaPagamento();
-        add(janelaCadFormaPagamento);
-        janelaCadFormaPagamento.setVisible(true);
-    }//GEN-LAST:event_MenuCadastrarFormaMouseClicked
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu MenuCadastrarForma;
-    private javax.swing.JMenu MenuFormaPagamento;
-    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblTipoPagamento;
     // End of variables declaration//GEN-END:variables
