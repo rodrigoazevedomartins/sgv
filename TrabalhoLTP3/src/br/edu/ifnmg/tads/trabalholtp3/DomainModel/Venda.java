@@ -95,14 +95,14 @@ public class Venda {
     public void addProdutos(VendaProduto vp){
         if(!produtos.contains(vp)){
             produtos.add(vp);
-            valortotal += (vp.getValor_unitario() * vp.getQuantidade());
+            valortotal += (vp.getProduto().getValorunitariovenda() * vp.getQuantidade());
         }
     }
     
     public void removeProdutos(VendaProduto vp){
         if(produtos.contains(vp)){
             produtos.remove(vp);
-            valortotal -= (vp.getValor_unitario() * vp.getQuantidade());
+            valortotal -= (vp.getProduto().getValorunitariovenda() * vp.getQuantidade());
         }
     }
 

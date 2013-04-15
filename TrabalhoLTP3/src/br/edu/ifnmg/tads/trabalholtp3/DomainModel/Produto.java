@@ -18,13 +18,13 @@ public class Produto {
     private double valor_unitario_compra;
     private int estoque;
     
-    public Produto(){
-        codproduto = 0;
-        nome = "";
-        descricao = "";
-        valor_unitario_venda = 0;
-        valor_unitario_venda = 0;
-        estoque = 0;
+    public Produto(int cod, String nomea, String descricaoa, double valorunivenda, double valorunicompra, int estoquea){
+        codproduto = cod;
+        nome = nomea;
+        descricao = descricaoa;
+        valor_unitario_venda = valorunivenda;
+        valor_unitario_compra = valorunicompra;
+        estoque = estoquea;
     }
 
     public int getCodproduto() {
