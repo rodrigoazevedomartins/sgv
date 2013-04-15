@@ -67,27 +67,6 @@ public class VendaProduto {
     }
 
     @Override
-    public int hashCode() {
-        int hash = 5;
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final VendaProduto other = (VendaProduto) obj;
-        if (this.codvendaproduto != other.codvendaproduto) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
     public String toString() {
         return "VendaProduto{" + "codvendaproduto=" + codvendaproduto + ", quantidade=" + quantidade + ", valor_unitario=" + valor_unitario + ", produto=" + produto + ", venda=" + venda + '}';
     }
