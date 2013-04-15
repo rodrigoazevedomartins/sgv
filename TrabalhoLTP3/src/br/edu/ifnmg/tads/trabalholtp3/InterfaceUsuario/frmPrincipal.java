@@ -108,6 +108,11 @@ public class frmPrincipal extends javax.swing.JFrame {
         MenuForma.add(MenuListaForma);
 
         MenuCadastrarForma.setText("Cadastrar Forma de Pagamento");
+        MenuCadastrarForma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuCadastrarFormaActionPerformed(evt);
+            }
+        });
         MenuForma.add(MenuCadastrarForma);
 
         jMenuBar2.add(MenuForma);
@@ -123,6 +128,11 @@ public class frmPrincipal extends javax.swing.JFrame {
         MenuProdutos.add(MenuListaProdutos);
 
         MenuCadastrarProdutos.setText("Cadastrar Produtos");
+        MenuCadastrarProdutos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuCadastrarProdutosActionPerformed(evt);
+            }
+        });
         MenuProdutos.add(MenuCadastrarProdutos);
 
         jMenuBar2.add(MenuProdutos);
@@ -138,6 +148,11 @@ public class frmPrincipal extends javax.swing.JFrame {
         MenuVendas.add(MenuListaVendas);
 
         MenuNovaVenda.setText("Nova Venda");
+        MenuNovaVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuNovaVendaActionPerformed(evt);
+            }
+        });
         MenuVendas.add(MenuNovaVenda);
 
         jMenuBar2.add(MenuVendas);
@@ -160,9 +175,6 @@ public class frmPrincipal extends javax.swing.JFrame {
 
     private void MenuListaUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuListaUsuariosMouseClicked
         // TODO add your handling code here:
-        frmUsuarios janelaUsuario = new frmUsuarios();
-        add(janelaUsuario);
-        janelaUsuario.setVisible(true);
     }//GEN-LAST:event_MenuListaUsuariosMouseClicked
 
     private void MenuCadastrarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuCadastrarUsuariosActionPerformed
@@ -200,15 +212,45 @@ public class frmPrincipal extends javax.swing.JFrame {
 
     private void MenuListaFormaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuListaFormaActionPerformed
         // TODO add your handling code here:
+        frmFormasPagamento janelaForma = new frmFormasPagamento();
+        add(janelaForma);
+        janelaForma.setVisible(true);
     }//GEN-LAST:event_MenuListaFormaActionPerformed
 
     private void MenuListaProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuListaProdutosActionPerformed
         // TODO add your handling code here:
+        frmProdutos janelaProdutos = new frmProdutos();
+        add(janelaProdutos);
+        janelaProdutos.setVisible(true);
     }//GEN-LAST:event_MenuListaProdutosActionPerformed
 
     private void MenuListaVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuListaVendasActionPerformed
         // TODO add your handling code here:
+        frmVendas janelaVendas = new frmVendas();
+        add(janelaVendas);
+        janelaVendas.setVisible(true);
     }//GEN-LAST:event_MenuListaVendasActionPerformed
+
+    private void MenuCadastrarFormaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuCadastrarFormaActionPerformed
+        // TODO add your handling code here:
+        frmCadFormaPagamento janelaCadForma = new frmCadFormaPagamento();
+        add(janelaCadForma);
+        janelaCadForma.setVisible(true);
+    }//GEN-LAST:event_MenuCadastrarFormaActionPerformed
+
+    private void MenuCadastrarProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuCadastrarProdutosActionPerformed
+        // TODO add your handling code here:
+        frmCadProdutos janelaCadProduto = new frmCadProdutos();
+        add(janelaCadProduto);
+        janelaCadProduto.setVisible(true);
+    }//GEN-LAST:event_MenuCadastrarProdutosActionPerformed
+
+    private void MenuNovaVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuNovaVendaActionPerformed
+        // TODO add your handling code here:
+        frmCadVenda janelaCadVenda = new frmCadVenda();
+        add(janelaCadVenda);
+        janelaCadVenda.setVisible(true);
+    }//GEN-LAST:event_MenuNovaVendaActionPerformed
 
     /**
      * @param args the command line arguments
