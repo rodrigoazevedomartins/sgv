@@ -39,8 +39,12 @@ public class Produto {
         return nome;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNome(String nome) throws Exception{
+        if ((nome.length() >= 3) && (nome.length() <= 250)){
+            this.nome = nome;
+        } else {
+        throw new Exception("Nome Inválido. Insira um nome com no minimo 3 caracteres e com no máximo 250 caracteres.");
+        }
     }
 
     public String getDescricao() {
