@@ -4,10 +4,13 @@
  */
 package br.edu.ifnmg.tads.trabalholtp3.DomainModel;
 
+
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.text.SimpleDateFormat;
+import java.text.ParseException;
+
 /**
  *
  * @author Rodrigo
@@ -43,19 +46,23 @@ public class Pessoa {
         return codpessoa;
     }
 
-    public void setCodpessoa(int codpessoa) {
-        this.codpessoa = codpessoa;
+    public void setCodpessoa(int codpessoa) throws ErroValidacaoException{
+        if (codpessoa > 0){
+            this.codpessoa = codpessoa;
+        } else {
+            throw new ErroValidacaoException("Código Pessoa Inválido. Insira um código maior que 0.");
+        }
     }
 
     public String getNome() {
         return nome;
     }
 
-    public void setNome(String nome) throws Exception{
+    public void setNome(String nome) throws ErroValidacaoException{
         if ((nome.length() >= 3) && (nome.length() <= 250)){
             this.nome = nome;
         } else {
-        throw new Exception("Nome Inválido. Insira um nome com no minimo 3 caracteres e com no máximo 250 caracteres.");
+        throw new ErroValidacaoException("Nome Inválido. Insira um nome com no minimo 3 caracteres e com no máximo 250 caracteres.");
         }
     }
 
@@ -63,16 +70,25 @@ public class Pessoa {
         return nomepai;
     }
 
-    public void setNomepai(String nomepai) {
-        this.nomepai = nomepai;
+    public void setNomepai(String nomepai) throws ErroValidacaoException{
+        if ((nomepai.length() >= 3) && (nomepai.length() <= 250)){
+            this.nomepai = nomepai; }
+        else {
+            throw new ErroValidacaoException("Nome do pai Inválido. Insira um nome com no minimo 3 caracteres e com no máximo 250 caracteres.");
+    
+        }
     }
-
+    
     public String getNomemae() {
         return nomemae;
     }
 
-    public void setNomemae(String nomemae) {
-        this.nomemae = nomemae;
+    public void setNomemae(String nomemae) throws ErroValidacaoException{
+        if ((nomemae.length() >= 3) && (nomemae.length() <= 250)){
+            this.nomemae = nomemae;
+        } else {
+            throw new ErroValidacaoException("Nome da mãe Inválido. Insira um nome com no minimo 3 caracteres e com no máximo 250 caracteres.");
+        } 
     }
 
     public String getRg() {
@@ -95,14 +111,14 @@ public class Pessoa {
         return datanasc;
     }
 
-    public void setDatanasc(Date datanasc) throws Exception{
+    public void setDatanasc(Date datanasc) throws ErroValidacaoException, ParseException{
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         Date dataminima = sdf.parse("31/12/1899"); //converte a string em data
         
         if (datanasc.after(dataminima)){
             this.datanasc = datanasc;
         } else {
-            throw new Exception("Data de Nascimento Inválida. Insira uma data superior ou igual a 01/01/1900.");
+            throw new ErroValidacaoException("Data de Nascimento Inválida. Insira uma data superior ou igual a 01/01/1900.");
         }
     }
     
@@ -110,8 +126,13 @@ public class Pessoa {
         return naturalidade;
     }
 
-    public void setNaturalidade(String naturalidade) {
-        this.naturalidade = naturalidade;
+    public void setNaturalidade(String naturalidade) throws ErroValidacaoException{
+        if ((naturalidade.length() >= 3) && (naturalidade.length() <= 250)) {
+        this.naturalidade = naturalidade;    
+        } else {
+            throw new ErroValidacaoException("Naturalidade Inválida. Insira uma naturalidade com no minimo 3 caracteres e com no máximo 250 caracteres.");
+        }
+        
     }
 
     public List<Endereco> getEnderecos() {
