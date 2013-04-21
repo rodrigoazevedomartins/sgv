@@ -23,16 +23,24 @@ public class Email {
         return codemail;
     }
 
-    public void setCodemail(int codemail) {
-        this.codemail = codemail;
+    public void setCodemail(int codemail) throws ErroValidacaoException{
+        if (codemail > 0) {
+            this.codemail = codemail;
+        } else {
+            throw new ErroValidacaoException("Codemail Inválido. Insira um código maior que 0.");
+        }
     }
 
     public String getEndereco() {
         return endereco;
     }
 
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
+    public void setEndereco(String endereco) throws ErroValidacaoException{
+        if ((endereco.length() >=3) && (endereco.length() <=250)){
+            this.endereco = endereco;
+        } else {
+            throw new ErroValidacaoException("Email Inválido. Insira um email com no minimo 3 caracteres e com no máximo 250 caracteristicas.");
+        }
     }
 
     public Pessoa getPessoa() {
