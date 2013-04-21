@@ -24,26 +24,37 @@ public class Telefone {
         return codtelefone;
     }
 
-    public void setCodtelefone(int codtelefone) {
-        this.codtelefone = codtelefone;
+    public void setCodtelefone(int codtelefone) throws ErroValidacaoException{
+        if (codtelefone > 0) {
+            this.codtelefone = codtelefone;
+        } else {
+            throw new ErroValidacaoException("Código Telefone Inválido. Insira um código maior que 0.");
+        }
     }
-
     public int getArea() {
         return area;
     }
 
-    public void setArea(int area) {
-        this.area = area;
+    public void setArea(int area) throws ErroValidacaoException{
+        if (area > 0){ 
+            this.area = area;
+        } else {
+            throw new ErroValidacaoException("Código Área Inválido. Insira um código maior que 0.");
+        } 
+            
     }
 
     public int getNumero() {
         return numero;
     }
 
-    public void setNumero(int numero) {
-        this.numero = numero;
+    public void setNumero(int numero) throws ErroValidacaoException{
+        if (numero > 0) {
+            this.numero = numero;
+        } else {
+            throw new ErroValidacaoException("Número Inválido. Insira um número maior que 0.");
+        }
     }
-
     public Pessoa getPessoa() {
         return pessoa;
     }

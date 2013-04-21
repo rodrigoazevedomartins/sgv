@@ -25,29 +25,35 @@ public class VendaProduto {
         return codvendaproduto;
     }
 
-    public void setCodvendaproduto(int codvendaproduto) {
-        this.codvendaproduto = codvendaproduto;
+    public void setCodvendaproduto(int codvendaproduto) throws ErroValidacaoException{
+        if (codvendaproduto > 0){
+            this.codvendaproduto = codvendaproduto;
+        } else {
+            throw new ErroValidacaoException("Código VendaProduto Inválido. Insira um código maior que 0.");
+        }
     }
-
     public int getQuantidade() {
         return quantidade;
     }
 
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
+    public void setQuantidade(int quantidade) throws ErroValidacaoException{
+        if (quantidade > 0) {
+            this.quantidade = quantidade;
+        } else {
+            throw new ErroValidacaoException("Quantidade Inválida. Insira uma quantidade maior que 0.");
+        }
     }
 
     public double getValor_unitario() {
         return valor_unitario;
     }
 
-    public void setValor_unitario(double valor_unitario) throws Exception{
+    public void setValor_unitario(double valor_unitario) throws ErroValidacaoException{
         if (valor_unitario > 0){
             this.valor_unitario = valor_unitario;
         } else {
-        throw new Exception("Valor Unitário Inválido. Insira um valor maior que 0.");
+        throw new ErroValidacaoException("Valor Unitário Inválido. Insira um valor maior que 0.");
         }
-        
     }
 
     public Produto getProduto() {

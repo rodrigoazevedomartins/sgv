@@ -21,8 +21,12 @@ public class Cliente extends Pessoa {
         return codcliente;
     }
 
-    public void setCodcliente(int codcliente) {
-        this.codcliente = codcliente;
+    public void setCodcliente(int codcliente) throws ErroValidacaoException{
+        if (codcliente > 0){
+            this.codcliente = codcliente;
+        } else {
+            throw new ErroValidacaoException("Código Cliente Inválido. Insira um código maior que 0.");
+        }
     }
 
     public Pessoa getPessoa() {

@@ -22,18 +22,25 @@ public class Pagamento {
         return codpagamento;
     }
 
-    public void setCodpagamento(int codpagamento) {
-        this.codpagamento = codpagamento;
+    public void setCodpagamento(int codpagamento) throws ErroValidacaoException{
+        if(codpagamento > 0){
+            this.codpagamento = codpagamento;
+        } else {
+            throw new ErroValidacaoException("Código Pagamento Inválido. Insira um código maior que 0.");
+        }
     }
-
     public String getNomeTipo() {
         return tipo;
     }
 
-    public void setNomeTipo(String tipo) {
-        this.tipo = tipo;
+    public void setNomeTipo(String tipo) throws ErroValidacaoException{
+        if ((tipo.length() >=3) && (tipo.length() <=250)){
+            this.tipo = tipo;
+        } else {
+            throw new ErroValidacaoException("Tipo Pagamento Inválido. Insira um tipo com no minimo 3 caracteres e com no máximo 250 caracteristicas.");
+        }
     }
-
+    
     @Override
     public int hashCode() {
         int hash = 7;

@@ -4,6 +4,7 @@
  */
 package br.edu.ifnmg.tads.trabalholtp3.DomainModel;
 
+import java.text.ParseException;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.LinkedList;
@@ -33,22 +34,26 @@ public class Venda {
         return codvenda;
     }
 
-    public void setCodvenda(int codvenda) {
+    public void setCodvenda(int codvenda) throws ErroValidacaoException{
+        if (codvenda > 0){
         this.codvenda = codvenda;
+        } else {
+            throw new ErroValidacaoException("Código Venda Inválido. Insira um código maior que 0.");
+        }
     }
-
+    
     public Date getDatavenda() {
         return datavenda;
     }
 
-    public void setDatavenda(Date datavenda) throws Exception{
+    public void setDatavenda(Date datavenda) throws ErroValidacaoException, ParseException{
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         Date dataminima = sdf.parse("31/12/1899"); //converte a string em data
         
         if (datavenda.after(dataminima)){
             this.datavenda = datavenda;
         } else {
-            throw new Exception("Data de Venda Inválida. Insira uma data superior ou igual a 01/01/1900.");
+            throw new ErroValidacaoException("Data de Venda Inválida. Insira uma data superior ou igual a 01/01/1900.");
         }
     }
 
@@ -56,10 +61,13 @@ public class Venda {
         return valortotal;
     }
 
-    public void setValortotal(double valortotal) {
-        this.valortotal = valortotal;
+    public void setValortotal(double valortotal) throws ErroValidacaoException{
+        if (valortotal > 0){
+            this.valortotal = valortotal;
+        } else {
+            throw new ErroValidacaoException("Valo Total Inválido. Insira um valor maior que 0.");
+        }
     }
-
     public Cliente getCliente() {
         return cliente;
     }

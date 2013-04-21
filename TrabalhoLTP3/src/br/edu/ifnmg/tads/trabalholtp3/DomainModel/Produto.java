@@ -31,19 +31,22 @@ public class Produto {
         return codproduto;
     }
 
-    public void setCodproduto(int codproduto) {
-        this.codproduto = codproduto;
-    }
-
+    public void setCodproduto(int codproduto) throws ErroValidacaoException{
+        if (codproduto > 0){
+            this.codproduto = codproduto;
+        } else {
+            throw new ErroValidacaoException("Código Produto Inválido. Insira um código maior que 0.");
+        }
+    }   
     public String getNome() {
         return nome;
     }
 
-    public void setNome(String nome) throws Exception{
+    public void setNome(String nome) throws ErroValidacaoException{
         if ((nome.length() >= 3) && (nome.length() <= 250)){
             this.nome = nome;
         } else {
-        throw new Exception("Nome Inválido. Insira um nome com no minimo 3 caracteres e com no máximo 250 caracteres.");
+            throw new ErroValidacaoException("Nome Inválido. Insira um nome com no minimo 3 caracteres e com no máximo 250 caracteres.");
         }
     }
 
@@ -51,32 +54,34 @@ public class Produto {
         return descricao;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setDescricao(String descricao) throws ErroValidacaoException{
+        if ((nome.length() >= 3) && (nome.length() <= 250)){
+            this.descricao = descricao;
+        } else {
+            throw new ErroValidacaoException("Descrição Inválida. Insira uma descrição com no minimo 3 caracteres e com no máximo 250 caracteres.");
+        }
     }
-
     public double getValorunitariovenda() {
         return valor_unitario_venda;
     }
 
-    public void setValorunitariovenda(double valor_unitario_venda) throws Exception{
+    public void setValorunitariovenda(double valor_unitario_venda) throws ErroValidacaoException{
         if (valor_unitario_venda > 0){
             this.valor_unitario_venda = valor_unitario_venda;
         } else {
-        throw new Exception("Valor Unitário Venda Inválido. Insira um valor maior que 0.");
+        throw new ErroValidacaoException("Valor Unitário Venda Inválido. Insira um valor maior que 0.");
         }
-        
     }
 
     public double getValorunitariocompra() {
         return valor_unitario_compra;
     }
 
-    public void setValorunitariocompra(double valor_unitario_compra) throws Exception{
+    public void setValorunitariocompra(double valor_unitario_compra) throws ErroValidacaoException{
         if (valor_unitario_compra > 0){
             this.valor_unitario_compra = valor_unitario_compra;
         } else {
-        throw new Exception("Valor Unitário Compra Inválido. Insira um valor maior que 0.");
+        throw new ErroValidacaoException("Valor Unitário Compra Inválido. Insira um valor maior que 0.");
         }    
     }
 
@@ -84,11 +89,11 @@ public class Produto {
         return estoque;
     }
 
-    public void setEstoque(int estoque) throws Exception{
+    public void setEstoque(int estoque) throws ErroValidacaoException{
         if (estoque > 0){
             this.estoque = estoque;
         } else {
-        throw new Exception("Estoque Inválido. Insira um valor maior que 0.");
+        throw new ErroValidacaoException("Estoque Inválido. Insira um valor maior que 0.");
         }
     }
 

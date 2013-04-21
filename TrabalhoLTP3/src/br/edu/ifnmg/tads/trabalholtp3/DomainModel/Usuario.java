@@ -26,24 +26,34 @@ public class Usuario extends Pessoa{
         return codusuario;
     }
 
-    public void setCodusuario(int codusuario) {
-        this.codusuario = codusuario;
+    public void setCodusuario(int codusuario) throws ErroValidacaoException {
+        if (codusuario > 0){
+            this.codusuario = codusuario;
+        } else {
+            throw new ErroValidacaoException("Código Usuário Inválido. Insira um código maior que 0.");
+        }
     }
-
     public String getNomeUsuario() {
         return usuario;
     }
 
-    public void setNomeUsuario(String usuario) {
-        this.usuario = usuario;
+    public void setNomeUsuario(String usuario) throws ErroValidacaoException{
+        if ((usuario.length() >=3) && (usuario.length() <=250)){
+            this.usuario = usuario;
+        } else {
+            throw new ErroValidacaoException("Usuário Inválido. Insira um usuário com no minimo 3 caracteres e com no máximo 250 caracteristicas.");
+        }
     }
-
     public String getSenhaUsuario() {
         return senha;
     }
 
-    public void setSenhaUsuario(String senha) {
-        this.senha = senha;
+    public void setSenhaUsuario(String senha) throws ErroValidacaoException{
+        if ((senha.length() >=3) && (senha.length() <=250)){
+            this.senha = senha;
+        } else {
+            throw new ErroValidacaoException("Senha Inválida. Insira uma senha com no minimo 3 caracteres e com no máximo 250 caracteristicas.");
+        }
     }
 
     public Pessoa getPessoa() {
