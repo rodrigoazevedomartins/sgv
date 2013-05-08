@@ -3,7 +3,22 @@
  * and open the template in the editor.
  */
 package br.edu.ifnmg.tads.trabalholtp3.InterfaceUsuario;
+
+import br.edu.ifnmg.tads.trabalholtp3.DataAccess.BD;
+import br.edu.ifnmg.tads.trabalholtp3.DataAccess.EnderecoDAO;
+import br.edu.ifnmg.tads.trabalholtp3.DomainModel.Endereco;
+import br.edu.ifnmg.tads.trabalholtp3.DataAccess.TelefoneDAO;
+import br.edu.ifnmg.tads.trabalholtp3.DomainModel.Telefone;
+import br.edu.ifnmg.tads.trabalholtp3.DataAccess.EmailDAO;
+import br.edu.ifnmg.tads.trabalholtp3.DomainModel.Email;
+import br.edu.ifnmg.tads.trabalholtp3.DataAccess.PessoaDAO;
+import br.edu.ifnmg.tads.trabalholtp3.DomainModel.ErroValidacaoException;
+import br.edu.ifnmg.tads.trabalholtp3.DomainModel.Pessoa;
+
+
 import java.awt.Component;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -12,12 +27,18 @@ import javax.swing.JOptionPane;
  */
 public class frmCadUsuario extends javax.swing.JInternalFrame {
     private Component RootPane;
-
+    
+    private BD bd;
+    EnderecoDAO enderecodao = new EnderecoDAO();
+    TelefoneDAO telefonedao = new TelefoneDAO();
+    EmailDAO emaildao = new EmailDAO();
+    PessoaDAO pessoadao = new PessoaDAO();
     /**
      * Creates new form frmCadUsuario
      */
     public frmCadUsuario() {
         initComponents();
+        bd = new BD();
     }
 
     /**
@@ -70,6 +91,11 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
         PanelEmail = new javax.swing.JPanel();
         lblEmail = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
+        btnsalvaremail = new javax.swing.JButton();
+        btnnovoemail = new javax.swing.JButton();
+        btnapagaremail = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblemail = new javax.swing.JTable();
         PanelDadosAcesso = new javax.swing.JPanel();
         lblSenha = new javax.swing.JLabel();
         txtUsuario = new javax.swing.JTextField();
@@ -322,25 +348,68 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
         lblEmail.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         lblEmail.setText("EMAIL:");
 
+        btnsalvaremail.setText("Salvar");
+        btnsalvaremail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnsalvaremailActionPerformed(evt);
+            }
+        });
+
+        btnnovoemail.setText("Novo");
+
+        btnapagaremail.setText("Apagar");
+
+        tblemail.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tblemail);
+
         javax.swing.GroupLayout PanelEmailLayout = new javax.swing.GroupLayout(PanelEmail);
         PanelEmail.setLayout(PanelEmailLayout);
         PanelEmailLayout.setHorizontalGroup(
             PanelEmailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelEmailLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelEmailLayout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addComponent(lblEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(257, Short.MAX_VALUE))
+                .addGroup(PanelEmailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(PanelEmailLayout.createSequentialGroup()
+                        .addComponent(lblEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE)
+                .addGroup(PanelEmailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnsalvaremail)
+                    .addComponent(btnnovoemail)
+                    .addComponent(btnapagaremail))
+                .addGap(66, 66, 66))
         );
         PanelEmailLayout.setVerticalGroup(
             PanelEmailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelEmailLayout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addGroup(PanelEmailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(222, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(btnnovoemail)
+                .addGroup(PanelEmailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelEmailLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(PanelEmailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(PanelEmailLayout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(btnsalvaremail)))
+                .addGap(29, 29, 29)
+                .addGroup(PanelEmailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnapagaremail))
+                .addContainerGap(71, Short.MAX_VALUE))
         );
 
         tbdUsuario.addTab("Email", PanelEmail);
@@ -426,7 +495,7 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCadastrar)
                     .addComponent(btnCancelar))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         getAccessibleContext().setAccessibleDescription("");
@@ -447,13 +516,58 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         // TODO add your handling code here:
+        
+        
         if (JOptionPane.showConfirmDialog(RootPane, "Deseja Cadastrar o Usuário?") == 0){
-            JOptionPane.showMessageDialog(RootPane, "Usuário Cadastrado com Sucesso!");
-            this.dispose();
+            /*String datanascimento = txtDataNasc.getText(); 
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            Date datanasc = new Date();
+            try {
+                Date datanasc = (Date) sdf.parse(datanascimento);
+            } catch (ParseException ex) {
+                Logger.getLogger(frmCadUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            */
+            Pessoa pessoa = new Pessoa(0, txtNome.getText(), txtNomeMae.getText(), txtNomePai.getText(), txtRg.getText(), Integer.parseInt(txtCpf.getText()), txtNaturalidade.getText());
+            
+            if (pessoadao.Salvar(pessoa)) {
+                try {
+                    pessoa.setCodpessoa(pessoadao.Consultacodpessoa());
+                } catch (ErroValidacaoException ex) {
+                    Logger.getLogger(frmCadUsuario.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                Endereco endereco = new Endereco(0, txtRua.getText(), Integer.parseInt(txtNumero.getText()), txtComplemento.getText(), txtBairro.getText(), txtCidade.getText(), Integer.parseInt(txtCep.getText()), txtEstado.getText(), txtPais.getText(), pessoa);
+                Telefone telefone = new Telefone(0, Integer.parseInt(txtArea.getText()), Integer.parseInt(txtNumeroTelefone.getText()), pessoa);
+                Email email = new Email(0, txtEmail.getText(), pessoa);
+                
+                if ((emaildao.Salvar(email)) && (enderecodao.Salvar(endereco)) && (telefonedao.Salvar(telefone))){
+                JOptionPane.showMessageDialog(RootPane, "Usuário Cadastrado com Sucesso!");
+                this.dispose();
+                }
+            }
+        
         } else {
             JOptionPane.showMessageDialog(RootPane, "Cadastro Cancelado");
         }
     }//GEN-LAST:event_btnCadastrarActionPerformed
+
+    private void btnsalvaremailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsalvaremailActionPerformed
+        // TODO add your handling code here:
+        Email email = new Email();
+        try {
+            email.setEndereco(txtEmail.getText());
+        } catch (ErroValidacaoException ex) {
+            Logger.getLogger(frmCadUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        email.getPessoa().addEmails(email);
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_btnsalvaremailActionPerformed
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelDadosAcesso;
@@ -463,6 +577,10 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JPanel PanelTelefone;
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnapagaremail;
+    private javax.swing.JButton btnnovoemail;
+    private javax.swing.JButton btnsalvaremail;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBairro;
     private javax.swing.JLabel lblCep;
     private javax.swing.JLabel lblCidade;
@@ -485,6 +603,7 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JPasswordField pfSenha;
     private javax.swing.JTabbedPane tbdUsuario;
+    private javax.swing.JTable tblemail;
     private javax.swing.JTextField txtArea;
     private javax.swing.JTextField txtBairro;
     private javax.swing.JTextField txtCep;

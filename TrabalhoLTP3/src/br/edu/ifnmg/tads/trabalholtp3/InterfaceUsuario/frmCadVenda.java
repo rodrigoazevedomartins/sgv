@@ -4,6 +4,7 @@
  */
 package br.edu.ifnmg.tads.trabalholtp3.InterfaceUsuario;
 
+import br.edu.ifnmg.tads.trabalholtp3.DomainModel.ErroValidacaoException;
 import br.edu.ifnmg.tads.trabalholtp3.DomainModel.Produto;
 import br.edu.ifnmg.tads.trabalholtp3.DomainModel.Venda;
 import br.edu.ifnmg.tads.trabalholtp3.DomainModel.VendaProduto;
@@ -307,7 +308,11 @@ public class frmCadVenda extends javax.swing.JInternalFrame {
             } else {
                 VendaProduto produto = new VendaProduto();
                 produto.setProduto(p);
-                produto.setQuantidade(qtd);
+                try {
+                    produto.setQuantidade(qtd);
+                } catch (ErroValidacaoException ex) {
+                    Logger.getLogger(frmCadVenda.class.getName()).log(Level.SEVERE, null, ex);
+                }
 
                 vendas.addProdutos(produto);
 
@@ -325,7 +330,9 @@ public class frmCadVenda extends javax.swing.JInternalFrame {
 
     private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
         // TODO add your handling code here:
+        
          if (JOptionPane.showConfirmDialog(rootPane, "Deseja remover o item?") == 0) {
+ 
              JOptionPane.showMessageDialog(rootPane, "Item Removido com Sucesso!");
              
          }

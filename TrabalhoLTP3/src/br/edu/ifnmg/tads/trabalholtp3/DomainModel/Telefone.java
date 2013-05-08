@@ -13,7 +13,14 @@ public class Telefone {
     private int area;
     private int numero;
     private Pessoa pessoa;
-
+    
+    public Telefone(int cod, int aarea, int anumero, Pessoa apessoa){
+        codtelefone = cod;
+        area = aarea;
+        numero = anumero;
+        pessoa = apessoa;
+    }
+    
     public Telefone(){
         codtelefone = 0;
         area = 0;

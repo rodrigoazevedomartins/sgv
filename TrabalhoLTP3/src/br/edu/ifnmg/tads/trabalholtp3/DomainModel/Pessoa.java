@@ -28,6 +28,17 @@ public class Pessoa {
     private List<Email> emails;
     private List<Telefone> telefones;
     
+    public Pessoa(int cod, String anome, String anomepai, String anomemae, String arg, int acpf, String anaturalidade){
+        codpessoa = cod;
+        nome = anome;
+        nomepai = anomepai;
+        nomemae = anomemae;
+        rg = arg;
+        cpf = acpf;
+        //datanasc = adatanasc;
+        naturalidade = anaturalidade;
+    }
+    
     public Pessoa(){
         codpessoa = 0;
         nome = "";
@@ -194,6 +205,7 @@ public class Pessoa {
             telefones.remove(tel);
         }
     }
+    
 
     @Override
     public int hashCode() {
@@ -206,6 +218,7 @@ public class Pessoa {
         if (obj == null) {
             return false;
         }
+   
         if (getClass() != obj.getClass()) {
             return false;
         }

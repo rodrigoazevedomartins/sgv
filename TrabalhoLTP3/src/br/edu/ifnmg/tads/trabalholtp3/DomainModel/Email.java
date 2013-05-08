@@ -14,6 +14,12 @@ public class Email {
     private String endereco;
     private Pessoa pessoa;
     
+    public Email(int cod, String aendereco, Pessoa apessoa){
+        codemail = cod;
+        endereco = aendereco;
+        pessoa = apessoa;
+    }
+    
     public Email(){
         codemail = 0;
         endereco = "";
@@ -27,7 +33,7 @@ public class Email {
         if (codemail > 0) {
             this.codemail = codemail;
         } else {
-            throw new ErroValidacaoException("Codemail Inválido. Insira um código maior que 0.");
+            throw new ErroValidacaoException("Código Email Inválido. Insira um código maior que 0.");
         }
     }
 

@@ -3,7 +3,10 @@
  * and open the template in the editor.
  */
 package br.edu.ifnmg.tads.trabalholtp3.InterfaceUsuario;
+import br.edu.ifnmg.tads.trabalholtp3.DomainModel.ErroValidacaoException;
 import br.edu.ifnmg.tads.trabalholtp3.DomainModel.Usuario;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 /**
  *
@@ -101,9 +104,17 @@ public class frmLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
-        // TODO add your handling code here:
-        usuarios.setNomeUsuario("Rodrigo");
-        usuarios.setSenhaUsuario("12345");
+        try {
+            // TODO add your handling code here:
+            usuarios.setNomeUsuario("Rodrigo");
+        } catch (ErroValidacaoException ex) {
+            Logger.getLogger(frmLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            usuarios.setSenhaUsuario("12345");
+        } catch (ErroValidacaoException ex) {
+            Logger.getLogger(frmLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
         String usuario = txtUsuario.getText();
         String senha = pfSenha.getText();
         

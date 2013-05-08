@@ -21,6 +21,19 @@ public class Endereco {
     private String pais;
     private Pessoa pessoa;
     
+    public Endereco(int cod, String arua, int anumero, String acomplemento, String abairro, String acidade, int acep, String aestado, String apais, Pessoa apessoa){
+        codendereco = cod;
+        rua = arua;
+        numero = anumero;
+        complemento = acomplemento;
+        bairro = abairro;
+        cidade = acidade;
+        cep = acep;
+        estado = aestado;
+        pais = apais;
+        pessoa = apessoa;
+    }
+    
     public Endereco(){
         codendereco = 0;
         rua = "";
@@ -31,6 +44,7 @@ public class Endereco {
         cep = 0;
         estado = "";
         pais = "";
+        
         
     }
     

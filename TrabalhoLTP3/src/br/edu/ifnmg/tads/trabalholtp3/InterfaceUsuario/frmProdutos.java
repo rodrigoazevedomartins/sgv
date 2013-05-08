@@ -47,6 +47,11 @@ public class frmProdutos extends javax.swing.JInternalFrame {
             }
         ));
         jScrollPane1.setViewportView(tblProdutos);
+        tblProdutos.getColumnModel().getColumn(0).setHeaderValue("Nome");
+        tblProdutos.getColumnModel().getColumn(1).setHeaderValue("Descrição");
+        tblProdutos.getColumnModel().getColumn(2).setHeaderValue("Valor Unitário Venda");
+        tblProdutos.getColumnModel().getColumn(3).setHeaderValue("Valor Unitário Compra");
+        tblProdutos.getColumnModel().getColumn(4).setHeaderValue("Estoque");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -62,7 +67,7 @@ public class frmProdutos extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
 
         pack();

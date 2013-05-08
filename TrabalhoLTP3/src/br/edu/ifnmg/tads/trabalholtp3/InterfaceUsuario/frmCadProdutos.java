@@ -4,6 +4,8 @@
  */
 package br.edu.ifnmg.tads.trabalholtp3.InterfaceUsuario;
 
+import br.edu.ifnmg.tads.trabalholtp3.DomainModel.Produto;
+import br.edu.ifnmg.tads.trabalholtp3.DataAccess.ProdutoDAO;
 import java.awt.Component;
 import javax.swing.JOptionPane;
 
@@ -13,6 +15,8 @@ import javax.swing.JOptionPane;
  */
 public class frmCadProdutos extends javax.swing.JInternalFrame {
     private Component RootPane;
+    
+    ProdutoDAO dao = new ProdutoDAO();
 
     /**
      * Creates new form frmCadProdutos
@@ -155,9 +159,16 @@ public class frmCadProdutos extends javax.swing.JInternalFrame {
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         // TODO add your handling code here:
+        Produto produto = new Produto(0, txtNomeProduto.getText(), txtDescricao.getText() , Double.parseDouble(txtValorVenda.getText()), Double.parseDouble(txtValorCompra.getText()), Integer.parseInt(txtEstoque.getText()));
+        
         if (JOptionPane.showConfirmDialog(RootPane, "Deseja Cadastrar Produto?") == 0){
-            JOptionPane.showMessageDialog(RootPane, "Produto Cadastrado com Sucesso!");
-            this.dispose();
+            
+            if (dao.Salvar(produto)){
+                JOptionPane.showMessageDialog(RootPane, "Produto Cadastrado com Sucesso!");
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(RootPane, "Erro!");
+            }
         } else {
             JOptionPane.showMessageDialog(RootPane, "Cadastro Cancelado");
         } 
