@@ -16,6 +16,13 @@ public class Usuario extends Pessoa{
     private String senha;
     private Pessoa pessoa;
 
+    public Usuario(int cod, String usu, String sen, Pessoa apessoa){
+        codusuario = cod;
+        usuario = usu;
+        senha = sen;
+        pessoa = apessoa;
+    }
+    
     public Usuario() {
         codusuario = 0;
         usuario = "";

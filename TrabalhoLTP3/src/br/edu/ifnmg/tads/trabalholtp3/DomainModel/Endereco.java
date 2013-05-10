@@ -161,27 +161,6 @@ public class Endereco {
     }
 
     @Override
-    public int hashCode() {
-        int hash = 7;
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Endereco other = (Endereco) obj;
-        if (this.codendereco != other.codendereco) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
     public String toString() {
         return "Endereco{" + "codendereco=" + codendereco + ", rua=" + rua + ", numero=" + numero + ", complemento=" + complemento + ", bairro=" + bairro + ", cidade=" + cidade + ", cep=" + cep + ", estado=" + estado + ", pais=" + pais + ", pessoa=" + pessoa + '}';
     }

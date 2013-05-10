@@ -5,8 +5,7 @@
 package br.edu.ifnmg.tads.trabalholtp3.DataAccess;
 
 import br.edu.ifnmg.tads.trabalholtp3.DomainModel.Pessoa;
-import br.edu.ifnmg.tads.trabalholtp3.InterfaceUsuario.frmCadUsuario;
-import java.sql.Date;
+import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -39,24 +38,20 @@ public class PessoaDAO {
                 Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, null, ex);
                 
             }
-        return codpessoa;
-
-        
-    
-        
+        return codpessoa;    
     }
     
     public boolean Salvar(Pessoa pessoa){
         try{
             if (pessoa.getCodpessoa() == 0){
-                PreparedStatement comando = bd.getConexao().prepareStatement("insert into pessoa(nome, nomemae, nomepai, rg, cpf, naturalidade) values (?,?,?,?,?,?)");
+                PreparedStatement comando = bd.getConexao().prepareStatement("insert into pessoa(nome, nomemae, nomepai, rg, cpf, datanasc, naturalidade) values (?,?,?,?,?,?,?)");
                 comando.setString(1, pessoa.getNome());
                 comando.setString(2, pessoa.getNomemae());
                 comando.setString(3, pessoa.getNomepai());
                 comando.setString(4, pessoa.getRg());
                 comando.setInt(5, pessoa.getCpf());
-                //comando.setDate(6, (Date) pessoa.getDatanasc());
-                comando.setString(6, pessoa.getNaturalidade());
+                comando.setDate(6, (java.sql.Date) pessoa.getDatanasc());
+                comando.setString(7, pessoa.getNaturalidade());
                 comando.executeUpdate();
             } else {
                 PreparedStatement comando = bd.getConexao().prepareStatement("update pessoa set nome = ?, nomemae = ?, nomepai = ?, rg = ?, cpf = ?, datanasc = ?, naturalidade = ? where codpessoa = ?");
@@ -65,7 +60,7 @@ public class PessoaDAO {
                 comando.setString(3, pessoa.getNomepai());
                 comando.setString(4, pessoa.getRg());
                 comando.setInt(5, pessoa.getCpf());
-                comando.setDate(6, (Date) pessoa.getDatanasc());
+                comando.setDate(6, (java.sql.Date) pessoa.getDatanasc());
                 comando.setString(7, pessoa.getNaturalidade());
                 comando.setInt(8, pessoa.getCodpessoa());
                 comando.executeUpdate();
