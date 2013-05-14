@@ -4,6 +4,8 @@
  */
 package br.edu.ifnmg.tads.trabalholtp3.DomainModel;
 
+import java.util.Objects;
+
 /**
  *
  * @author Rodrigo
@@ -24,7 +26,7 @@ public class Email {
         codemail = 0;
         endereco = "";
     }
-       
+   
     public int getCodemail() {
         return codemail;
     }
@@ -57,6 +59,28 @@ public class Email {
         this.pessoa = pessoa;
     } 
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Email other = (Email) obj;
+        if (!Objects.equals(this.endereco, other.endereco)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
     @Override
     public String toString() {
         return "Email{" + "codemail=" + codemail + ", endereco=" + endereco + ", pessoa=" + pessoa + '}';

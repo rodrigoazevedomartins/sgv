@@ -4,6 +4,8 @@
  */
 package br.edu.ifnmg.tads.trabalholtp3.DomainModel;
 
+import java.util.Objects;
+
 /**
  *
  * @author Rodrigo
@@ -160,6 +162,50 @@ public class Endereco {
         this.pessoa = pessoa;
     }
 
+    
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Endereco other = (Endereco) obj;
+        if (!Objects.equals(this.rua, other.rua)) {
+            return false;
+        }
+        if (this.numero != other.numero) {
+            return false;
+        }
+        if (!Objects.equals(this.complemento, other.complemento)) {
+            return false;
+        }
+        if (!Objects.equals(this.bairro, other.bairro)) {
+            return false;
+        }
+        if (!Objects.equals(this.cidade, other.cidade)) {
+            return false;
+        }
+        if (this.cep != other.cep) {
+            return false;
+        }
+        if (!Objects.equals(this.estado, other.estado)) {
+            return false;
+        }
+        if (!Objects.equals(this.pais, other.pais)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
     @Override
     public String toString() {
         return "Endereco{" + "codendereco=" + codendereco + ", rua=" + rua + ", numero=" + numero + ", complemento=" + complemento + ", bairro=" + bairro + ", cidade=" + cidade + ", cep=" + cep + ", estado=" + estado + ", pais=" + pais + ", pessoa=" + pessoa + '}';

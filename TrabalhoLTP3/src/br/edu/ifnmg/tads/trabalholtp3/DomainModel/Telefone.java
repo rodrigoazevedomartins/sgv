@@ -71,6 +71,31 @@ public class Telefone {
     }
 
     @Override
+    public int hashCode() {
+        int hash = 5;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Telefone other = (Telefone) obj;
+        if (this.area != other.area) {
+            return false;
+        }
+        if (this.numero != other.numero) {
+            return false;
+        }
+        return true;
+    }
+    
+    
+    @Override
     public String toString() {
         return "Telefone{" + "codtelefone=" + codtelefone + ", area=" + area + ", numero=" + numero + ", pessoa=" + pessoa + '}';
     }
