@@ -4,20 +4,50 @@
  */
 package br.edu.ifnmg.tads.trabalholtp3.InterfaceUsuario;
 import br.edu.ifnmg.tads.trabalholtp3.DomainModel.Cliente;
+import br.edu.ifnmg.tads.trabalholtp3.DataAccess.ClienteDAO;
+import br.edu.ifnmg.tads.trabalholtp3.DomainModel.ErroValidacaoException;
+import br.edu.ifnmg.tads.trabalholtp3.DomainModel.Pessoa;
+import java.util.List;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Rodrigo
  */
 public class frmClientes extends javax.swing.JInternalFrame {
-
+    ClienteDAO clientedao;
     /**
      * Creates new form frmClientes
      */
     public frmClientes() {
         initComponents();
+        clientedao = new ClienteDAO();
+        List<Cliente> clientes = clientedao.listarClientes();
+        
+        preenchetabela(clientes);
     }
 
+    private void preenchetabela(List<Cliente> clientes){
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Código");
+        model.addColumn("Nome");
+        model.addColumn("RG");
+        model.addColumn("CPF");
+        for (Cliente cliente : clientes){
+            Vector v = new Vector();
+            v.add(0, cliente.getCodcliente());
+            v.add(1, cliente.getNome());
+            v.add(2, cliente.getRg());
+            v.add(3, cliente.getCpf());
+            model.addRow(v);
+        }
+        
+        tblClientes.setModel(model);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,6 +59,11 @@ public class frmClientes extends javax.swing.JInternalFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tblClientes = new javax.swing.JTable();
+        btnAlterarCliente = new javax.swing.JButton();
+        btnRemoverCliente = new javax.swing.JButton();
+        btnBuscarCliente = new javax.swing.JButton();
+        cbxfiltro = new javax.swing.JComboBox();
+        txtFiltro = new javax.swing.JTextField();
 
         setClosable(true);
         setMaximizable(true);
@@ -41,15 +76,47 @@ public class frmClientes extends javax.swing.JInternalFrame {
 
         tblClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Rodrigo", "Nove", "40", null, "Jussara", null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Nome", "Rua", "Numero", "Complemento", "Bairro", "Cidade", "Estado"
+                "Código", "Nome", "RG", "CPF"
             }
         ));
         jScrollPane1.setViewportView(tblClientes);
-        tblClientes.getColumnModel().getColumn(4).setResizable(false);
-        tblClientes.getColumnModel().getColumn(5).setResizable(false);
+
+        btnAlterarCliente.setText("Alterar");
+        btnAlterarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarClienteActionPerformed(evt);
+            }
+        });
+
+        btnRemoverCliente.setText("Remover");
+
+        btnBuscarCliente.setText("Buscar");
+        btnBuscarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarClienteActionPerformed(evt);
+            }
+        });
+
+        cbxfiltro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Código", "Nome", "RG", "CPF" }));
+        cbxfiltro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxfiltroActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -57,23 +124,105 @@ public class frmClientes extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 516, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 654, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 516, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(cbxfiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnRemoverCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAlterarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnBuscarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(21, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBuscarCliente)
+                    .addComponent(cbxfiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(btnAlterarCliente)
+                        .addGap(35, 35, 35)
+                        .addComponent(btnRemoverCliente)))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         getAccessibleContext().setAccessibleParent(this);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClienteActionPerformed
+        // TODO add your handling code here:
+        Cliente cliente = new Cliente();
+        Pessoa pessoa = new Pessoa();
+        try {
+            if (cbxfiltro.getSelectedIndex() == 0){
+                cliente.setCodcliente(Integer.parseInt(txtFiltro.getText()));
+                cliente.setPessoa(pessoa);   
+            }
+            
+            if (cbxfiltro.getSelectedIndex() == 1){
+                cliente.setNome(txtFiltro.getText());
+                cliente.setPessoa(pessoa);
+            }
+            
+            if (cbxfiltro.getSelectedIndex() == 2){
+                cliente.setRg(txtFiltro.getText());
+                cliente.setPessoa(pessoa);
+            }
+            
+            if (cbxfiltro.getSelectedIndex() == 3){
+                cliente.setCpf(Integer.parseInt(txtFiltro.getText()));
+                System.out.println(cliente.getCpf());
+                cliente.setPessoa(pessoa);
+            }
+            
+            
+        } catch (ErroValidacaoException ex) {
+            Logger.getLogger(frmClientes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        List<Cliente> Clientes = clientedao.buscarClientes(cliente);
+        
+        preenchetabela(Clientes);
+        
+    }//GEN-LAST:event_btnBuscarClienteActionPerformed
+
+    private void cbxfiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxfiltroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxfiltroActionPerformed
+
+    private void btnAlterarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarClienteActionPerformed
+        // TODO add your handling code here:
+        int codcliente = (int) tblClientes.getValueAt(tblClientes.getSelectedRow(), 0);
+        System.out.print(codcliente);
+        frmEditarClientes janela = new frmEditarClientes(codcliente);
+        this.getParent().add(janela);
+        janela.setVisible(true);
+        this.setVisible(false);
+        
+        
+        
+        
+    }//GEN-LAST:event_btnAlterarClienteActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAlterarCliente;
+    private javax.swing.JButton btnBuscarCliente;
+    private javax.swing.JButton btnRemoverCliente;
+    private javax.swing.JComboBox cbxfiltro;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblClientes;
+    private javax.swing.JTextField txtFiltro;
     // End of variables declaration//GEN-END:variables
 }

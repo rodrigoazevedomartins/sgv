@@ -4,11 +4,13 @@
  */
 package br.edu.ifnmg.tads.trabalholtp3.DataAccess;
 
+import br.edu.ifnmg.tads.trabalholtp3.DomainModel.ErroValidacaoException;
 import br.edu.ifnmg.tads.trabalholtp3.DomainModel.Pessoa;
 import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
     
@@ -44,14 +46,14 @@ public class PessoaDAO {
     public boolean Salvar(Pessoa pessoa){
         try{
             if (pessoa.getCodpessoa() == 0){
-                PreparedStatement comando = bd.getConexao().prepareStatement("insert into pessoa(nome, nomemae, nomepai, rg, cpf, datanasc, naturalidade) values (?,?,?,?,?,?,?)");
+                PreparedStatement comando = bd.getConexao().prepareStatement("insert into pessoa(nome, nomemae, nomepai, rg, cpf, naturalidade) values (?,?,?,?,?,?)");
                 comando.setString(1, pessoa.getNome());
                 comando.setString(2, pessoa.getNomemae());
                 comando.setString(3, pessoa.getNomepai());
                 comando.setString(4, pessoa.getRg());
                 comando.setInt(5, pessoa.getCpf());
-                comando.setDate(6, (java.sql.Date) pessoa.getDatanasc());
-                comando.setString(7, pessoa.getNaturalidade());
+                //comando.setDate(6, (java.sql.Date) pessoa.getDatanasc());
+                comando.setString(6, pessoa.getNaturalidade());
                 comando.executeUpdate();
             } else {
                 PreparedStatement comando = bd.getConexao().prepareStatement("update pessoa set nome = ?, nomemae = ?, nomepai = ?, rg = ?, cpf = ?, datanasc = ?, naturalidade = ? where codpessoa = ?");
@@ -68,8 +70,31 @@ public class PessoaDAO {
             
             return true;
         } catch (SQLException ex) {
-            Logger.getLogger(EmailDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
+    }
+    
+    public Pessoa Abrir(int cod){
+        try {
+            Pessoa pessoa = new Pessoa();
+            PreparedStatement comando;
+            comando = bd.getConexao().prepareStatement("select * from pessoa where codpessoa = ?");
+            comando.setInt(1, cod);
+            ResultSet resultado = comando.executeQuery();
+            resultado.first();
+            pessoa.setCodpessoa(resultado.getInt("codpessoa"));
+            pessoa.setNome(resultado.getString("nome"));
+            pessoa.setNomemae(resultado.getString("nomemae"));
+            pessoa.setNomepai(resultado.getString("nomepai"));
+            pessoa.setRg(resultado.getString("rg"));
+            pessoa.setCpf(resultado.getInt("cpf"));
+            pessoa.setDatanasc(resultado.getDate("datanasc"));
+            pessoa.setNaturalidade(resultado.getString("naturalidade"));
+            return pessoa;
+        } catch (SQLException | ErroValidacaoException | ParseException ex) {
+            Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }            
     }
 }

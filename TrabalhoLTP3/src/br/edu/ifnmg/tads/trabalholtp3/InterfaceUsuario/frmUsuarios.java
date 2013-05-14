@@ -4,17 +4,32 @@
  */
 package br.edu.ifnmg.tads.trabalholtp3.InterfaceUsuario;
 
+
+import br.edu.ifnmg.tads.trabalholtp3.DataAccess.UsuarioDAO;
+import br.edu.ifnmg.tads.trabalholtp3.DomainModel.ErroValidacaoException;
+import br.edu.ifnmg.tads.trabalholtp3.DomainModel.Pessoa;
+import br.edu.ifnmg.tads.trabalholtp3.DomainModel.Usuario;
+import java.util.List;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author Rodrigo
  */
 public class frmUsuarios extends javax.swing.JInternalFrame {
 
+    UsuarioDAO usuariodao;
     /**
      * Creates new form frmUsuarios
      */
     public frmUsuarios() {
         initComponents();
+        usuariodao = new UsuarioDAO();
+        List<Usuario> usuarios = usuariodao.ListarUsuario();
+        
+        preenchetabela(usuarios);
     }
 
     /**
@@ -28,6 +43,11 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tblUsuarios = new javax.swing.JTable();
+        btnRemoverUsuario = new javax.swing.JButton();
+        btnAlterarUsuario = new javax.swing.JButton();
+        btnBuscarUsuario = new javax.swing.JButton();
+        cbxfiltro = new javax.swing.JComboBox();
+        txtFiltro = new javax.swing.JTextField();
 
         setClosable(true);
         setMaximizable(true);
@@ -36,13 +56,47 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
 
         tblUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Rodrigo", "Nove", "40", null, "Jussara", null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Nome", "Rua", "Numero", "Complemento", "Bairro", "Cidade", "Estado"
+                "Código", "Nome", "RG", "CPF"
             }
         ));
         jScrollPane1.setViewportView(tblUsuarios);
+
+        btnRemoverUsuario.setText("Remover");
+
+        btnAlterarUsuario.setText("Alterar");
+        btnAlterarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarUsuarioActionPerformed(evt);
+            }
+        });
+
+        btnBuscarUsuario.setText("Buscar");
+        btnBuscarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarUsuarioActionPerformed(evt);
+            }
+        });
+
+        cbxfiltro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Código", "Nome", "RG", "CPF" }));
+        cbxfiltro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxfiltroActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -50,22 +104,112 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 516, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 654, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 516, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(cbxfiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnRemoverUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAlterarUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnBuscarUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBuscarUsuario)
+                    .addComponent(cbxfiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(btnAlterarUsuario)
+                        .addGap(35, 35, 35)
+                        .addComponent(btnRemoverUsuario)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
+    private void preenchetabela(List<Usuario> usuarios){
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Código");
+        model.addColumn("Nome");
+        model.addColumn("RG");
+        model.addColumn("CPF");
+        for (Usuario usuario : usuarios){
+            Vector v = new Vector();
+            v.add(0, usuario.getCodusuario());
+            v.add(1, usuario.getNome());
+            v.add(2, usuario.getRg());
+            v.add(3, usuario.getCpf());
+            model.addRow(v);
+        }
+        
+        tblUsuarios.setModel(model);
+    }
+    
+    private void btnAlterarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarUsuarioActionPerformed
+        // TODO add your handling code here:
+        int codusuario = (int) tblUsuarios.getValueAt(tblUsuarios.getSelectedRow(), 0);
+        
+    }//GEN-LAST:event_btnAlterarUsuarioActionPerformed
+
+    private void btnBuscarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarUsuarioActionPerformed
+        // TODO add your handling code here:
+        Usuario usuario = new Usuario();
+        Pessoa pessoa = new Pessoa();
+        try {
+            if (cbxfiltro.getSelectedIndex() == 0){
+                usuario.setCodusuario(Integer.parseInt(txtFiltro.getText()));
+                usuario.setPessoa(pessoa);
+            }
+
+            if (cbxfiltro.getSelectedIndex() == 1){
+                usuario.setNome(txtFiltro.getText());
+                usuario.setPessoa(pessoa);
+            }
+
+            if (cbxfiltro.getSelectedIndex() == 2){
+                usuario.setRg(txtFiltro.getText());
+                usuario.setPessoa(pessoa);
+            }
+
+            if (cbxfiltro.getSelectedIndex() == 3){
+                usuario.setCpf(Integer.parseInt(txtFiltro.getText()));
+                System.out.println(usuario.getCpf());
+                usuario.setPessoa(pessoa);
+            }
+
+        } catch (ErroValidacaoException ex) {
+            Logger.getLogger(frmUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        List<Usuario> Usuarios = usuariodao.buscarUsuarios(usuario);
+
+        preenchetabela(Usuarios);
+
+    }//GEN-LAST:event_btnBuscarUsuarioActionPerformed
+
+    private void cbxfiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxfiltroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxfiltroActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAlterarUsuario;
+    private javax.swing.JButton btnBuscarUsuario;
+    private javax.swing.JButton btnRemoverUsuario;
+    private javax.swing.JComboBox cbxfiltro;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblUsuarios;
+    private javax.swing.JTextField txtFiltro;
     // End of variables declaration//GEN-END:variables
 }

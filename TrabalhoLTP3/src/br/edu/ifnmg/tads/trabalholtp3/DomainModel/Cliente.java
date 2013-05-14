@@ -13,6 +13,11 @@ public class Cliente extends Pessoa {
     private int codcliente;
     private Pessoa pessoa;
     
+    public Cliente(int cod, Pessoa apessoa){
+        codcliente = cod;
+        pessoa = apessoa;
+    }
+    
     public Cliente(){
         codcliente = 0;
     }

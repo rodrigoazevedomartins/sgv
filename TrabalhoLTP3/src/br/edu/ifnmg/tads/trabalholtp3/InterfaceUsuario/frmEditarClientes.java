@@ -3,7 +3,6 @@
  * and open the template in the editor.
  */
 package br.edu.ifnmg.tads.trabalholtp3.InterfaceUsuario;
-
 import br.edu.ifnmg.tads.trabalholtp3.DataAccess.BD;
 import br.edu.ifnmg.tads.trabalholtp3.DataAccess.EnderecoDAO;
 import br.edu.ifnmg.tads.trabalholtp3.DomainModel.Endereco;
@@ -14,9 +13,8 @@ import br.edu.ifnmg.tads.trabalholtp3.DomainModel.Email;
 import br.edu.ifnmg.tads.trabalholtp3.DataAccess.PessoaDAO;
 import br.edu.ifnmg.tads.trabalholtp3.DomainModel.ErroValidacaoException;
 import br.edu.ifnmg.tads.trabalholtp3.DomainModel.Pessoa;
-import br.edu.ifnmg.tads.trabalholtp3.DomainModel.Usuario;
-import br.edu.ifnmg.tads.trabalholtp3.DataAccess.UsuarioDAO;
-
+import br.edu.ifnmg.tads.trabalholtp3.DataAccess.ClienteDAO;
+import br.edu.ifnmg.tads.trabalholtp3.DomainModel.Cliente;
 
 import java.awt.Component;
 import java.text.ParseException;
@@ -27,34 +25,36 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
 /**
  *
  * @author Rodrigo
  */
-public class frmCadUsuario extends javax.swing.JInternalFrame {
+public class frmEditarClientes extends javax.swing.JInternalFrame {
     private Component RootPane;
-    
     private BD bd;
     private EnderecoDAO enderecodao = new EnderecoDAO();
     private TelefoneDAO telefonedao = new TelefoneDAO();
     private EmailDAO emaildao = new EmailDAO();
     private PessoaDAO pessoadao = new PessoaDAO();
-    private UsuarioDAO usuariodao = new UsuarioDAO();
+    private ClienteDAO clientedao = new ClienteDAO();
     private Pessoa pessoa;
     private Email email;
     private Email emailselect;
     private Endereco endereco;
     private Telefone telefone;
-    private Usuario usuario;
+    private Cliente cliente;
+    
     /**
-     * Creates new form frmCadUsuario
+     * Creates new form frmEditarClientes
      */
-    public frmCadUsuario() {
+    public frmEditarClientes(int codcliente) {
         initComponents();
         bd = new BD();
-        pessoa = new Pessoa();
-    
+        cliente = clientedao.Abrir(codcliente);
+        pessoa = pessoadao.Abrir(cliente.getCodpessoa());
+        txtNome.setText(pessoa.getNome());
+        pessoa.setEmails(emaildao.Abrir(cliente.getCodpessoa()));
+        
     }
 
     /**
@@ -66,7 +66,7 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        tbdUsuario = new javax.swing.JTabbedPane();
+        tbdCliente = new javax.swing.JTabbedPane();
         PanelDadosGerais = new javax.swing.JPanel();
         lblNome = new javax.swing.JLabel();
         lblNomePai = new javax.swing.JLabel();
@@ -80,8 +80,8 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
         txtNomePai = new javax.swing.JTextField();
         txtRg = new javax.swing.JTextField();
         txtCpf = new javax.swing.JTextField();
-        txtNaturalidade = new javax.swing.JTextField();
         txtDataNasc = new javax.swing.JTextField();
+        txtNaturalidade = new javax.swing.JTextField();
         PanelEndereco = new javax.swing.JPanel();
         lblRua = new javax.swing.JLabel();
         lblNumero = new javax.swing.JLabel();
@@ -99,39 +99,33 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
         txtNumero = new javax.swing.JTextField();
         txtPais = new javax.swing.JTextField();
         txtCep = new javax.swing.JTextField();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tblenderecos = new javax.swing.JTable();
         btnAdicionarEndereco = new javax.swing.JButton();
         btnRemoverEndereco = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblenderecos = new javax.swing.JTable();
         PanelTelefone = new javax.swing.JPanel();
         lblCodigoArea = new javax.swing.JLabel();
         lblNumeroTelefone = new javax.swing.JLabel();
         txtNumeroTelefone = new javax.swing.JTextField();
         txtArea = new javax.swing.JTextField();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        tbltelefone = new javax.swing.JTable();
         btnAdicionarTelefone = new javax.swing.JButton();
         btnRemoverTelefone = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tbltelefone = new javax.swing.JTable();
         PanelEmail = new javax.swing.JPanel();
         lblEmail = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
-        btnAdicionarEmail = new javax.swing.JButton();
         btnRemoverEmail = new javax.swing.JButton();
+        btnAdicionarEmail = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblemail = new javax.swing.JTable();
-        PanelDadosAcesso = new javax.swing.JPanel();
-        lblSenha = new javax.swing.JLabel();
-        txtUsuario = new javax.swing.JTextField();
-        lblUsuario = new javax.swing.JLabel();
-        pfSenha = new javax.swing.JPasswordField();
-        btnCadastrar = new javax.swing.JButton();
+        btnAlterar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
 
         setClosable(true);
         setMaximizable(true);
-        setResizable(true);
-        setTitle("Cadastrar Usuario");
-        setVisible(true);
+        setTitle("Editar Cliente");
+        setToolTipText("");
 
         PanelDadosGerais.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
 
@@ -162,10 +156,12 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
             PanelDadosGeraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelDadosGeraisLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(PanelDadosGeraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(PanelDadosGeraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PanelDadosGeraisLayout.createSequentialGroup()
                         .addComponent(lblDataNasc, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                        .addComponent(txtDataNasc, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(36, 36, 36)
                         .addComponent(lblNaturalidade, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(txtNaturalidade, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -178,20 +174,16 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
                             .addComponent(lblRg, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(PanelDadosGeraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtNome)
-                            .addComponent(txtNomePai)
-                            .addComponent(txtNomeMae)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelDadosGeraisLayout.createSequentialGroup()
-                                .addGroup(PanelDadosGeraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtRg, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
-                                    .addGroup(PanelDadosGeraisLayout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(txtDataNasc, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(PanelDadosGeraisLayout.createSequentialGroup()
+                                .addComponent(txtRg, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
                                 .addGap(39, 39, 39)
                                 .addComponent(lblCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(17, Short.MAX_VALUE))
+                                .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtNome)
+                            .addComponent(txtNomePai)
+                            .addComponent(txtNomeMae))))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         PanelDadosGeraisLayout.setVerticalGroup(
             PanelDadosGeraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -218,12 +210,12 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
                 .addGroup(PanelDadosGeraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNaturalidade, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblDataNasc, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNaturalidade, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtDataNasc, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(137, Short.MAX_VALUE))
+                    .addComponent(txtDataNasc, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNaturalidade, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(134, Short.MAX_VALUE))
         );
 
-        tbdUsuario.addTab("Dados Gerais", PanelDadosGerais);
+        tbdCliente.addTab("Dados Gerais", PanelDadosGerais);
 
         lblRua.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         lblRua.setText("RUA:");
@@ -249,19 +241,6 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
         lblCep.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         lblCep.setText("CEP:");
 
-        tblenderecos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "Rua", "Numero", "Complemento", "Bairro", "Cidade"
-            }
-        ));
-        jScrollPane2.setViewportView(tblenderecos);
-
         btnAdicionarEndereco.setText("Adicionar");
         btnAdicionarEndereco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -276,6 +255,19 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
             }
         });
 
+        tblenderecos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Rua", "Numero", "Complemento", "Bairro", "Cidade"
+            }
+        ));
+        jScrollPane2.setViewportView(tblenderecos);
+
         javax.swing.GroupLayout PanelEnderecoLayout = new javax.swing.GroupLayout(PanelEndereco);
         PanelEndereco.setLayout(PanelEnderecoLayout);
         PanelEnderecoLayout.setHorizontalGroup(
@@ -284,12 +276,16 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(PanelEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PanelEnderecoLayout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 675, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(PanelEnderecoLayout.createSequentialGroup()
                         .addGroup(PanelEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(PanelEnderecoLayout.createSequentialGroup()
-                                .addGroup(PanelEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lblRua, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtRua))
+                            .addGroup(PanelEnderecoLayout.createSequentialGroup()
+                                .addGroup(PanelEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(PanelEnderecoLayout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(txtCep, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(PanelEnderecoLayout.createSequentialGroup()
                                         .addGroup(PanelEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(lblNumero, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
@@ -298,12 +294,8 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
                                         .addGroup(PanelEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(PanelEnderecoLayout.createSequentialGroup()
                                                 .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(0, 0, Short.MAX_VALUE))
-                                            .addComponent(txtBairro)))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelEnderecoLayout.createSequentialGroup()
-                                        .addComponent(lblCep, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(txtCep, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addGap(0, 2, Short.MAX_VALUE))
+                                            .addComponent(txtBairro))))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(PanelEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(PanelEnderecoLayout.createSequentialGroup()
@@ -323,17 +315,21 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
                                             .addGroup(PanelEnderecoLayout.createSequentialGroup()
                                                 .addComponent(lblPais, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(txtPais, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(PanelEnderecoLayout.createSequentialGroup()
-                                                .addComponent(btnAdicionarEndereco)
-                                                .addGap(77, 77, 77)
-                                                .addComponent(btnRemoverEndereco)))
-                                        .addGap(0, 0, Short.MAX_VALUE))))
+                                                .addComponent(txtPais, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(0, 0, Short.MAX_VALUE)))))
+                        .addGap(83, 83, 83))
+                    .addGroup(PanelEnderecoLayout.createSequentialGroup()
+                        .addComponent(lblCep, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(PanelEnderecoLayout.createSequentialGroup()
+                        .addGroup(PanelEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 675, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(PanelEnderecoLayout.createSequentialGroup()
-                                .addComponent(lblRua, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtRua)))
-                        .addGap(83, 83, 83))))
+                                .addGap(181, 181, 181)
+                                .addComponent(btnAdicionarEndereco)
+                                .addGap(77, 77, 77)
+                                .addComponent(btnRemoverEndereco)))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         PanelEnderecoLayout.setVerticalGroup(
             PanelEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -356,41 +352,28 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
                     .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
-                .addGroup(PanelEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCep, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblCep, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblPais, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPais, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
+                .addGroup(PanelEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPais, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblCep, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPais, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCep, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
                 .addGroup(PanelEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdicionarEndereco)
                     .addComponent(btnRemoverEndereco))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        tbdUsuario.addTab("Endereco", PanelEndereco);
+        tbdCliente.addTab("Endereco", PanelEndereco);
 
         lblCodigoArea.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         lblCodigoArea.setText("CODIGO AREA: ");
 
         lblNumeroTelefone.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         lblNumeroTelefone.setText("NÚMERO:");
-
-        tbltelefone.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Código Area", "Numero"
-            }
-        ));
-        jScrollPane3.setViewportView(tbltelefone);
 
         btnAdicionarTelefone.setText("Adicionar");
         btnAdicionarTelefone.addActionListener(new java.awt.event.ActionListener() {
@@ -406,6 +389,19 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
             }
         });
 
+        tbltelefone.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Código Area", "Numero"
+            }
+        ));
+        jScrollPane3.setViewportView(tbltelefone);
+
         javax.swing.GroupLayout PanelTelefoneLayout = new javax.swing.GroupLayout(PanelTelefone);
         PanelTelefone.setLayout(PanelTelefoneLayout);
         PanelTelefoneLayout.setHorizontalGroup(
@@ -413,21 +409,21 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
             .addGroup(PanelTelefoneLayout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addGroup(PanelTelefoneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 656, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(PanelTelefoneLayout.createSequentialGroup()
+                        .addComponent(lblNumeroTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtNumeroTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(PanelTelefoneLayout.createSequentialGroup()
                         .addComponent(lblCodigoArea, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtArea, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 656, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(PanelTelefoneLayout.createSequentialGroup()
-                        .addGroup(PanelTelefoneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnAdicionarTelefone)
-                            .addGroup(PanelTelefoneLayout.createSequentialGroup()
-                                .addComponent(lblNumeroTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtNumeroTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(206, 206, 206)
+                        .addComponent(btnAdicionarTelefone)
                         .addGap(60, 60, 60)
                         .addComponent(btnRemoverTelefone)))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
         PanelTelefoneLayout.setVerticalGroup(
             PanelTelefoneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -440,31 +436,31 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
                 .addGroup(PanelTelefoneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNumeroTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblNumeroTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addGroup(PanelTelefoneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdicionarTelefone)
                     .addComponent(btnRemoverTelefone))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
-        tbdUsuario.addTab("Telefone", PanelTelefone);
+        tbdCliente.addTab("Telefone", PanelTelefone);
 
         lblEmail.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         lblEmail.setText("EMAIL:");
-
-        btnAdicionarEmail.setText("Adicionar");
-        btnAdicionarEmail.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAdicionarEmailActionPerformed(evt);
-            }
-        });
 
         btnRemoverEmail.setText("Remover");
         btnRemoverEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRemoverEmailActionPerformed(evt);
+            }
+        });
+
+        btnAdicionarEmail.setText("Adicionar");
+        btnAdicionarEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdicionarEmailActionPerformed(evt);
             }
         });
 
@@ -490,31 +486,32 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
         PanelEmail.setLayout(PanelEmailLayout);
         PanelEmailLayout.setHorizontalGroup(
             PanelEmailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelEmailLayout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(PanelEmailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanelEmailLayout.createSequentialGroup()
-                        .addComponent(lblEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 672, Short.MAX_VALUE))
-                .addContainerGap())
             .addGroup(PanelEmailLayout.createSequentialGroup()
-                .addGap(221, 221, 221)
-                .addComponent(btnAdicionarEmail)
-                .addGap(48, 48, 48)
-                .addComponent(btnRemoverEmail)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(23, 23, 23)
+                .addComponent(lblEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(258, Short.MAX_VALUE))
+            .addGroup(PanelEmailLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(PanelEmailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(PanelEmailLayout.createSequentialGroup()
+                        .addGap(198, 198, 198)
+                        .addComponent(btnAdicionarEmail)
+                        .addGap(48, 48, 48)
+                        .addComponent(btnRemoverEmail)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 274, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         PanelEmailLayout.setVerticalGroup(
             PanelEmailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelEmailLayout.createSequentialGroup()
-                .addGap(40, 40, 40)
+                .addGap(34, 34, 34)
                 .addGroup(PanelEmailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15)
+                .addGap(18, 18, 18)
                 .addGroup(PanelEmailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdicionarEmail)
                     .addComponent(btnRemoverEmail))
@@ -523,58 +520,16 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
                 .addContainerGap(87, Short.MAX_VALUE))
         );
 
-        tbdUsuario.addTab("Email", PanelEmail);
+        tbdCliente.addTab("Email", PanelEmail);
 
-        lblSenha.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        lblSenha.setText("SENHA:");
-
-        lblUsuario.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        lblUsuario.setText("USUÁRIO: ");
-
-        javax.swing.GroupLayout PanelDadosAcessoLayout = new javax.swing.GroupLayout(PanelDadosAcesso);
-        PanelDadosAcesso.setLayout(PanelDadosAcessoLayout);
-        PanelDadosAcessoLayout.setHorizontalGroup(
-            PanelDadosAcessoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelDadosAcessoLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(PanelDadosAcessoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblSenha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(PanelDadosAcessoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtUsuario)
-                    .addComponent(pfSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE))
-                .addContainerGap(400, Short.MAX_VALUE))
-        );
-        PanelDadosAcessoLayout.setVerticalGroup(
-            PanelDadosAcessoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelDadosAcessoLayout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addGroup(PanelDadosAcessoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(PanelDadosAcessoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(275, Short.MAX_VALUE))
-        );
-
-        tbdUsuario.addTab("Dados de Acesso", PanelDadosAcesso);
-
-        btnCadastrar.setText("Cadastrar");
-        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
+        btnAlterar.setText("Alterar");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCadastrarActionPerformed(evt);
+                btnAlterarActionPerformed(evt);
             }
         });
 
         btnCancelar.setText("Cancelar");
-        btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnCancelarMouseClicked(evt);
-            }
-        });
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
@@ -585,37 +540,35 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addComponent(tbdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 710, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(321, 321, 321)
-                        .addComponent(btnCadastrar)
-                        .addGap(49, 49, 49)
-                        .addComponent(btnCancelar)))
-                .addContainerGap(38, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(289, Short.MAX_VALUE)
+                .addComponent(btnAlterar)
+                .addGap(84, 84, 84)
+                .addComponent(btnCancelar)
+                .addGap(238, 238, 238))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(tbdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 711, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(30, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(23, Short.MAX_VALUE)
-                .addComponent(tbdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(434, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCadastrar)
+                    .addComponent(btnAlterar)
                     .addComponent(btnCancelar))
-                .addGap(28, 28, 28))
+                .addContainerGap())
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(tbdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(64, Short.MAX_VALUE)))
         );
-
-        getAccessibleContext().setAccessibleDescription("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
-    }//GEN-LAST:event_btnCancelarMouseClicked
 
     private void adicionaemailtable(){
         DefaultTableModel model = new DefaultTableModel();
@@ -664,94 +617,6 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
         tbltelefone.setModel(model);
     }
     
-    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        // TODO add your handling code here:
-        if (JOptionPane.showConfirmDialog(RootPane, "Deseja Cancelar o Cadastro?") == 0){
-            JOptionPane.showMessageDialog(RootPane, "Cadastro Cancelado");
-            this.dispose();
-        }
-    }//GEN-LAST:event_btnCancelarActionPerformed
-
-    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        // TODO add your handling code here:
-        
-        
-        if (JOptionPane.showConfirmDialog(RootPane, "Deseja Cadastrar o Usuário?") == 0){
-                String datanascimento = txtDataNasc.getText(); 
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
-                Date datanasc = new Date();
-                try {
-                    datanasc = sdf.parse(datanascimento);
-                } catch (ParseException ex) {
-                    Logger.getLogger(frmCadUsuario.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                
-            try{
-                pessoa.setNome(txtNome.getText());
-                pessoa.setNomemae(txtNomeMae.getText());
-                pessoa.setNomepai(txtNomePai.getText());
-                pessoa.setRg(txtRg.getText());
-                pessoa.setCpf(Integer.parseInt(txtCpf.getText()));
-                //pessoa.setDatanasc(datanasc);
-                pessoa.setNaturalidade(txtNaturalidade.getText());
-            } catch (ErroValidacaoException ex) {
-                Logger.getLogger(frmCadUsuario.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-            if (pessoadao.Salvar(pessoa)) {
-                try {
-                    pessoa.setCodpessoa(pessoadao.Consultacodpessoa());
-                } catch (ErroValidacaoException ex) {
-                    Logger.getLogger(frmCadUsuario.class.getName()).log(Level.SEVERE, null, ex);
-                }
-              
-                for(Email em : pessoa.getEmails()){
-                    email = new Email(0, em.getEndereco(), pessoa);
-                    emaildao.Salvar(email);
-                }
-                
-                for (Endereco en : pessoa.getEnderecos()){
-                    endereco = new Endereco(0, en.getRua(), en.getNumero(), en.getComplemento(), en.getBairro(), en.getCidade(), en.getCep(), en.getEstado(), en.getPais(), pessoa);
-                    enderecodao.Salvar(endereco);
-                }
-                
-                for (Telefone tel : pessoa.getTelefones()){
-                    telefone = new Telefone(0, tel.getArea(), tel.getNumero(), pessoa);
-                    telefonedao.Salvar(telefone);
-                }
-                
-                Usuario usuario = new Usuario(0, txtUsuario.getText(), pfSenha.getText(), pessoa);
-                usuariodao.Salvar(usuario);
-                
-                JOptionPane.showMessageDialog(RootPane, "Usuário Cadastrado com Sucesso!");
-                this.dispose();
-            }
-        
-        } else {
-            JOptionPane.showMessageDialog(RootPane, "Cadastro Cancelado");
-        }
-    }//GEN-LAST:event_btnCadastrarActionPerformed
-
-    private void btnAdicionarEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarEmailActionPerformed
-        // TODO add your handling code here:
-        if (JOptionPane.showConfirmDialog(RootPane, "Deseja adicionar email?") == 0){
-            Email email = new Email();
-            try {
-                email.setEndereco(txtEmail.getText());
-            } catch (ErroValidacaoException ex) {
-                Logger.getLogger(frmCadUsuario.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            email.setPessoa(pessoa);
-            pessoa.addEmails(email);
-            adicionaemailtable();
-            JOptionPane.showMessageDialog(RootPane, "Email adicionado com sucesso!");
-            txtEmail.setText("");
-            
-        }
-        
-                
-    }//GEN-LAST:event_btnAdicionarEmailActionPerformed
-
     private void btnAdicionarEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarEnderecoActionPerformed
         // TODO add your handling code here:
         if (JOptionPane.showConfirmDialog(RootPane, "Deseja adicionar endereco?") == 0){
@@ -772,9 +637,25 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
             pessoa.addEnderecos(endereco);
             adicionaenderecotable();
             JOptionPane.showMessageDialog(RootPane, "Endereco adicionado com sucesso!");
-            
+
         }
     }//GEN-LAST:event_btnAdicionarEnderecoActionPerformed
+
+    private void btnRemoverEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverEnderecoActionPerformed
+        // TODO add your handling code here:
+        if (JOptionPane.showConfirmDialog(RootPane, "Deseja remover este endereço?") == 0){
+            Endereco enderecoselect = new Endereco(0, (String) tblenderecos.getValueAt(tblenderecos.getSelectedRow(), 0), (int) tblenderecos.getValueAt(tblenderecos.getSelectedRow(), 1), (String) tblenderecos.getValueAt(tblenderecos.getSelectedRow(), 2), (String) tblenderecos.getValueAt(tblenderecos.getSelectedRow(), 3), (String) tblenderecos.getValueAt(tblenderecos.getSelectedRow(), 4), 0, "", "", pessoa);
+
+            for (Endereco endereco : pessoa.getEnderecos()){
+                if (enderecoselect.getRua() == endereco.getRua()){
+                    pessoa.removeEnderecos(endereco);
+                }
+            }
+
+            JOptionPane.showMessageDialog(RootPane, "Endereço removido com sucesso!");
+            adicionaenderecotable();
+        }
+    }//GEN-LAST:event_btnRemoverEnderecoActionPerformed
 
     private void btnAdicionarTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarTelefoneActionPerformed
         // TODO add your handling code here:
@@ -792,20 +673,28 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(RootPane, "Telefone adicionado com sucesso!");
         }
     }//GEN-LAST:event_btnAdicionarTelefoneActionPerformed
-    
-    private void carregaitem(){
-        txtEmail.setText(emailselect.getEndereco());
-    }
-    
-    private void tblemailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblemailMouseClicked
-        // TODO add your handling code here:     
-        txtEmail.setText(""+tblemail.getValueAt(tblemail.getSelectedRow(), 0));
-    }//GEN-LAST:event_tblemailMouseClicked
+
+    private void btnRemoverTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverTelefoneActionPerformed
+        // TODO add your handling code here:
+        if (JOptionPane.showConfirmDialog(RootPane, "Deseja remover este telefone?") == 0){
+            Telefone telefoneselect = new Telefone(0, (int) tbltelefone.getValueAt(tbltelefone.getSelectedRow(), 0), (int) tbltelefone.getValueAt(tbltelefone.getSelectedRow(), 1), pessoa);
+
+            for (Telefone telefone : pessoa.getTelefones()){
+                if (telefoneselect.getNumero() == telefone.getNumero()){
+                    pessoa.removeTelefones(telefone);
+                }
+            }
+
+            JOptionPane.showMessageDialog(RootPane, "Telefone removido com sucesso!");
+
+            adicionatelefonetable();
+        }
+    }//GEN-LAST:event_btnRemoverTelefoneActionPerformed
 
     private void btnRemoverEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverEmailActionPerformed
         // TODO add your handling code here:
         if (JOptionPane.showConfirmDialog(RootPane, "Deseja remover este email?") == 0){
-        
+
             Email emailselect = new Email(0, (String) tblemail.getValueAt(tblemail.getSelectedRow(), 0), pessoa);
 
             for (Email email : pessoa.getEmails()){
@@ -818,40 +707,87 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnRemoverEmailActionPerformed
 
-    private void btnRemoverEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverEnderecoActionPerformed
+    private void btnAdicionarEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarEmailActionPerformed
         // TODO add your handling code here:
-        if (JOptionPane.showConfirmDialog(RootPane, "Deseja remover este endereço?") == 0){
-            Endereco enderecoselect = new Endereco(0, (String) tblenderecos.getValueAt(tblenderecos.getSelectedRow(), 0), (int) tblenderecos.getValueAt(tblenderecos.getSelectedRow(), 1), (String) tblenderecos.getValueAt(tblenderecos.getSelectedRow(), 2), (String) tblenderecos.getValueAt(tblenderecos.getSelectedRow(), 3), (String) tblenderecos.getValueAt(tblenderecos.getSelectedRow(), 4), 0, "", "", pessoa);
-
-            for (Endereco endereco : pessoa.getEnderecos()){
-                if (enderecoselect.getRua() == endereco.getRua()){
-                    pessoa.removeEnderecos(endereco);
-                }
+        if (JOptionPane.showConfirmDialog(RootPane, "Deseja adicionar email?") == 0){
+            Email email = new Email();
+            try {
+                email.setEndereco(txtEmail.getText());
+            } catch (ErroValidacaoException ex) {
+                Logger.getLogger(frmCadUsuario.class.getName()).log(Level.SEVERE, null, ex);
             }
-            JOptionPane.showMessageDialog(RootPane, "Endereço removido com sucesso!");
-            adicionaenderecotable();
-        }
-    }//GEN-LAST:event_btnRemoverEnderecoActionPerformed
+            email.setPessoa(pessoa);
+            pessoa.addEmails(email);
+            adicionaemailtable();
+            JOptionPane.showMessageDialog(RootPane, "Email adicionado com sucesso!");
+            txtEmail.setText("");
 
-    private void btnRemoverTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverTelefoneActionPerformed
+        }
+    }//GEN-LAST:event_btnAdicionarEmailActionPerformed
+
+    private void tblemailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblemailMouseClicked
         // TODO add your handling code here:
-        if (JOptionPane.showConfirmDialog(RootPane, "Deseja remover este telefone?") == 0){
-            Telefone telefoneselect = new Telefone(0, (int) tbltelefone.getValueAt(tbltelefone.getSelectedRow(), 0), (int) tbltelefone.getValueAt(tbltelefone.getSelectedRow(), 1), pessoa);
+        txtEmail.setText(""+tblemail.getValueAt(tblemail.getSelectedRow(), 0));
+    }//GEN-LAST:event_tblemailMouseClicked
 
-            for (Telefone telefone : pessoa.getTelefones()){
-                if (telefoneselect.getNumero() == telefone.getNumero()){
-                    pessoa.removeTelefones(telefone);
-                }
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        // TODO add your handling code here:
+        if (JOptionPane.showConfirmDialog(RootPane, "Deseja Cadastrar o Cliente?") == 0){
+
+            try{
+                pessoa.setNome(txtNome.getText());
+                pessoa.setNomemae(txtNomeMae.getText());
+                pessoa.setNomepai(txtNomePai.getText());
+                pessoa.setRg(txtRg.getText());
+                pessoa.setCpf(Integer.parseInt(txtCpf.getText()));
+                //pessoa.setDatanasc(datanasc);
+                pessoa.setNaturalidade(txtNaturalidade.getText());
+            } catch (ErroValidacaoException ex) {
+                Logger.getLogger(frmCadUsuario.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-            JOptionPane.showMessageDialog(RootPane, "Telefone removido com sucesso!");
-            
-            adicionatelefonetable();
+
+            if (pessoadao.Salvar(pessoa)) {
+                try {
+                    pessoa.setCodpessoa(pessoadao.Consultacodpessoa());
+                } catch (ErroValidacaoException ex) {
+                    Logger.getLogger(frmCadUsuario.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                for(Email em : pessoa.getEmails()){
+                    email = new Email(0, em.getEndereco(), pessoa);
+                    emaildao.Salvar(email);
+                }
+
+                for (Endereco en : pessoa.getEnderecos()){
+                    endereco = new Endereco(0, en.getRua(), en.getNumero(), en.getComplemento(), en.getBairro(), en.getCidade(), en.getCep(), en.getEstado(), en.getPais(), pessoa);
+                    enderecodao.Salvar(endereco);
+                }
+
+                for (Telefone tel : pessoa.getTelefones()){
+                    telefone = new Telefone(0, tel.getArea(), tel.getNumero(), pessoa);
+                    telefonedao.Salvar(telefone);
+                }
+
+                Cliente cliente = new Cliente(0, pessoa);
+                clientedao.Salvar(cliente);
+
+                JOptionPane.showMessageDialog(RootPane, "Cliente Cadastrado com Sucesso!");
+                this.dispose();
+            }
+        } else {
+            JOptionPane.showMessageDialog(RootPane, "Cadastro Cancelado");
         }
-    }//GEN-LAST:event_btnRemoverTelefoneActionPerformed
-    
+    }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        // TODO add your handling code here:
+        if (JOptionPane.showConfirmDialog(RootPane, "Deseja Cancelar o Cadastro?") == 0){
+            JOptionPane.showMessageDialog(RootPane, "Cadastro Cancelado");
+            this.dispose();
+        }
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel PanelDadosAcesso;
     private javax.swing.JPanel PanelDadosGerais;
     private javax.swing.JPanel PanelEmail;
     private javax.swing.JPanel PanelEndereco;
@@ -859,7 +795,7 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnAdicionarEmail;
     private javax.swing.JButton btnAdicionarEndereco;
     private javax.swing.JButton btnAdicionarTelefone;
-    private javax.swing.JButton btnCadastrar;
+    private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnRemoverEmail;
     private javax.swing.JButton btnRemoverEndereco;
@@ -885,10 +821,7 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblPais;
     private javax.swing.JLabel lblRg;
     private javax.swing.JLabel lblRua;
-    private javax.swing.JLabel lblSenha;
-    private javax.swing.JLabel lblUsuario;
-    private javax.swing.JPasswordField pfSenha;
-    private javax.swing.JTabbedPane tbdUsuario;
+    private javax.swing.JTabbedPane tbdCliente;
     private javax.swing.JTable tblemail;
     private javax.swing.JTable tblenderecos;
     private javax.swing.JTable tbltelefone;
@@ -910,6 +843,5 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtPais;
     private javax.swing.JTextField txtRg;
     private javax.swing.JTextField txtRua;
-    private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }

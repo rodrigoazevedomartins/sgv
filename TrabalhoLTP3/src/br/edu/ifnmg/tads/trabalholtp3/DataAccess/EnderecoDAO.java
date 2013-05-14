@@ -5,8 +5,12 @@
 package br.edu.ifnmg.tads.trabalholtp3.DataAccess;
 
 import br.edu.ifnmg.tads.trabalholtp3.DomainModel.Endereco;
+import br.edu.ifnmg.tads.trabalholtp3.DomainModel.ErroValidacaoException;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -52,6 +56,34 @@ public class EnderecoDAO {
         } catch (SQLException ex) {
                 Logger.getLogger(EnderecoDAO.class.getName()).log(Level.SEVERE, null, ex);
                 return false;
+        }
+    }
+    
+    public List<Endereco> Abrir(int cod){
+        List<Endereco> enderecos = new LinkedList<>();
+        try {
+            PreparedStatement comando = bd.getConexao().prepareStatement("select * from endereco where codpessoa = ?");
+            comando.setInt(1, cod);
+            ResultSet resultado = comando.executeQuery();
+            while(resultado.next()){
+                Endereco endereco = new Endereco();
+                endereco.setCodendereco(resultado.getInt("codendereco"));
+                endereco.setRua(resultado.getString("rua"));
+                endereco.setNumero(resultado.getInt("numero"));
+                endereco.setComplemento(resultado.getString("complemento"));
+                endereco.setBairro(resultado.getString("bairro"));
+                endereco.setCidade(resultado.getString("cidade"));
+                endereco.setCep(resultado.getInt("cep"));
+                endereco.setEstado(resultado.getString("estado"));
+                endereco.setPais(resultado.getString("pais"));
+                enderecos.add(endereco);
+            }
+            
+            
+            return enderecos;
+        } catch (SQLException | ErroValidacaoException ex) {
+            Logger.getLogger(EnderecoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
     }
 }
