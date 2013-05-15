@@ -13,6 +13,11 @@ public class Pagamento {
     private int codpagamento;
     private String tipo;
     
+    public Pagamento(int cod, String atipo){
+        codpagamento = cod;
+        tipo = atipo;
+    }
+    
     public Pagamento(){
         codpagamento = 0;
         tipo = "";

@@ -36,6 +36,7 @@ public class FormaPagamentoDAO {
                     PreparedStatement comando = bd.getConexao().prepareStatement("update pagamento set tipo = ? where codpagamento = ?");
                     comando.setString(1, forma.getNomeTipo());
                     comando.setInt(2, forma.getCodpagamento());
+                    comando.executeUpdate();
             }       
             return true;
         } catch (SQLException ex) {
@@ -70,19 +71,20 @@ public class FormaPagamentoDAO {
             String order = " ORDER BY codpagamento ASC";
 
             if (filtro.getCodpagamento() > 0){
-                where = "codpamento = " + filtro.getCodpagamento();
+                where = "codpagamento = " + filtro.getCodpagamento();
             }
 
             if (filtro.getNomeTipo().length() > 0){
                 if (where.length() > 0)
                     where = where + " and ";
-                where = "tipopagamento like '%" + filtro.getNomeTipo() + "%'";
+                where = "tipo like '%" + filtro.getNomeTipo() + "%'";
             }
 
-            if (where.length() > 0)
-                sql = sql + "where" + where;
+            if (where.length() > 0){
+                sql = sql + " where " + where;
+            }
             sql = sql + order;
-        
+            System.out.print(sql);
             Statement comando = bd.getConexao().createStatement();
             ResultSet resultado = comando.executeQuery(sql);
             List<Pagamento> formas = new LinkedList<>();
@@ -97,6 +99,35 @@ public class FormaPagamentoDAO {
         } catch (SQLException | ErroValidacaoException ex) {
             Logger.getLogger(FormaPagamentoDAO.class.getName()).log(Level.SEVERE, null, ex);
             return null;
+        }
+    }
+    
+    public Pagamento Abrir(int cod){
+        try {
+            PreparedStatement comando = bd.getConexao().prepareStatement("select * from pagamento where codpagamento = ?");
+            comando.setInt(1, cod);
+            ResultSet resultado = comando.executeQuery();
+            resultado.first();
+            Pagamento forma = new Pagamento();
+            forma.setCodpagamento(resultado.getInt("codpagamento"));
+            forma.setNomeTipo(resultado.getString("tipo"));
+            return forma;
+        } catch (SQLException | ErroValidacaoException ex) {
+            Logger.getLogger(FormaPagamentoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+        
+    }
+    
+    public boolean Apagar(int cod){
+        try {
+            PreparedStatement comando = bd.getConexao().prepareStatement("delete from pagamento where codpagamento = ?");
+            comando.setInt(1, cod);
+            comando.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(FormaPagamentoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
         
     }

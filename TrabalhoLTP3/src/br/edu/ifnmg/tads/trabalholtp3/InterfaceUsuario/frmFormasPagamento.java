@@ -3,18 +3,33 @@
  * and open the template in the editor.
  */
 package br.edu.ifnmg.tads.trabalholtp3.InterfaceUsuario;
+import br.edu.ifnmg.tads.trabalholtp3.DataAccess.FormaPagamentoDAO;
+import br.edu.ifnmg.tads.trabalholtp3.DomainModel.Pagamento;
+import br.edu.ifnmg.tads.trabalholtp3.DomainModel.ErroValidacaoException;
+import java.util.List;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import sun.security.x509.AttributeNameEnumeration;
 
 /**
  *
  * @author Rodrigo
  */
 public class frmFormasPagamento extends javax.swing.JInternalFrame {
-
+    FormaPagamentoDAO pagamentodao; 
+    List<Pagamento> formas;
     /**
      * Creates new form frmFormasPagamento
      */
     public frmFormasPagamento() {
         initComponents();
+        pagamentodao = new FormaPagamentoDAO();
+        formas = pagamentodao.ListarTodos();
+        
+        preenchetabela(formas);
     }
     
     
@@ -29,6 +44,11 @@ public class frmFormasPagamento extends javax.swing.JInternalFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tblTipoPagamento = new javax.swing.JTable();
+        txtFiltro = new javax.swing.JTextField();
+        cbxfiltro = new javax.swing.JComboBox();
+        btnBuscarForma = new javax.swing.JButton();
+        btnAlterarForma = new javax.swing.JButton();
+        btnRemoverForma = new javax.swing.JButton();
 
         setClosable(true);
         setMaximizable(true);
@@ -57,42 +77,166 @@ public class frmFormasPagamento extends javax.swing.JInternalFrame {
 
         tblTipoPagamento.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Cartão"},
-                {"Dinheiro"},
-                {"Cheque"}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "Tipo Pagamento"
+                "Código", "Forma de Pagamento"
             }
         ));
         jScrollPane1.setViewportView(tblTipoPagamento);
+
+        cbxfiltro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Código", "Forma" }));
+        cbxfiltro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxfiltroActionPerformed(evt);
+            }
+        });
+
+        btnBuscarForma.setText("Buscar");
+        btnBuscarForma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarFormaActionPerformed(evt);
+            }
+        });
+
+        btnAlterarForma.setText("Alterar");
+        btnAlterarForma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarFormaActionPerformed(evt);
+            }
+        });
+
+        btnRemoverForma.setText("Remover");
+        btnRemoverForma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoverFormaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 516, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(cbxfiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 613, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnRemoverForma, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAlterarForma, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnBuscarForma, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBuscarForma)
+                    .addComponent(cbxfiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addComponent(btnAlterarForma)
+                        .addGap(35, 35, 35)
+                        .addComponent(btnRemoverForma))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(142, 142, 142))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    private void preenchetabela(List<Pagamento> formas){
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Códgigo");
+        model.addColumn("Forma de Pagamento");
+        for (Pagamento forma : formas){
+            Vector v = new Vector();
+            v.add(0, forma.getCodpagamento());
+            v.add(1, forma.getNomeTipo());
+            model.addRow(v);
+        }
+        
+        tblTipoPagamento.setModel(model);
+    }
+    
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
         // TODO add your handling code here:
     }//GEN-LAST:event_formInternalFrameActivated
 
+    private void cbxfiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxfiltroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxfiltroActionPerformed
+
+    private void btnBuscarFormaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarFormaActionPerformed
+        // TODO add your handling code here:
+        Pagamento forma = new Pagamento();
+        try {
+            if (cbxfiltro.getSelectedIndex() == 0){
+                forma.setCodpagamento(Integer.parseInt(txtFiltro.getText()));
+            }
+
+            if (cbxfiltro.getSelectedIndex() == 1){
+                forma.setNomeTipo(txtFiltro.getText());
+            }
+
+        } catch (ErroValidacaoException ex) {
+            Logger.getLogger(frmFormasPagamento.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        formas = pagamentodao.buscarFormas(forma);
+
+        preenchetabela(formas);
+
+    }//GEN-LAST:event_btnBuscarFormaActionPerformed
+
+    private void btnAlterarFormaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarFormaActionPerformed
+        // TODO add your handling code here:
+        int codforma = (int) tblTipoPagamento.getValueAt(tblTipoPagamento.getSelectedRow(), 0);
+        frmEditarFormaPagamento janela = new frmEditarFormaPagamento(codforma);
+        this.getParent().add(janela);
+        janela.setVisible(true);
+        this.setVisible(false);
+
+    }//GEN-LAST:event_btnAlterarFormaActionPerformed
+
+    private void btnRemoverFormaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverFormaActionPerformed
+        // TODO add your handling code here:
+        formas = pagamentodao.ListarTodos();
+        Pagamento forma = new Pagamento();
+        if(JOptionPane.showConfirmDialog(rootPane, "Deseja remover essa forma de pagamento") == 0){
+        
+        int codforma = (int) tblTipoPagamento.getValueAt(tblTipoPagamento.getSelectedRow(), 0);
+        forma = pagamentodao.Abrir(codforma);
+        if (pagamentodao.Apagar(codforma)){        
+                formas.remove(forma);
+               JOptionPane.showMessageDialog(rootPane, "Forma de Pagamento Removida com sucesso");
+            }
+        }
+        
+        preenchetabela(formas);
+    }//GEN-LAST:event_btnRemoverFormaActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAlterarForma;
+    private javax.swing.JButton btnBuscarForma;
+    private javax.swing.JButton btnRemoverForma;
+    private javax.swing.JComboBox cbxfiltro;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblTipoPagamento;
+    private javax.swing.JTextField txtFiltro;
     // End of variables declaration//GEN-END:variables
 }
