@@ -67,5 +67,18 @@ public class TelefoneDAO {
                 Logger.getLogger(TelefoneDAO.class.getName()).log(Level.SEVERE, null, ex);
                 return null;
             }       
-    } 
+    }
+    
+    public boolean Apagar(int cod){
+            try {
+                PreparedStatement comando = bd.getConexao().prepareStatement("delete from telefone where codtelefone = ?");
+                comando.setInt(1, cod);
+                comando.executeUpdate();
+                return true;
+            } catch (SQLException ex) {
+                Logger.getLogger(TelefoneDAO.class.getName()).log(Level.SEVERE, null, ex);
+                return false;
+            }
+        
+    }
 }

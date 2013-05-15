@@ -143,4 +143,16 @@ public class ClienteDAO {
         }
     }
     
+    public boolean Apagar(int cod){
+        try {
+            PreparedStatement comando = bd.getConexao().prepareStatement("delete from cliente where codcliente = ?");
+            comando.setInt(1, cod);
+            comando.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
 }

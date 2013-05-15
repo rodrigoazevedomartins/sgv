@@ -7,10 +7,21 @@ import br.edu.ifnmg.tads.trabalholtp3.DomainModel.Cliente;
 import br.edu.ifnmg.tads.trabalholtp3.DataAccess.ClienteDAO;
 import br.edu.ifnmg.tads.trabalholtp3.DomainModel.ErroValidacaoException;
 import br.edu.ifnmg.tads.trabalholtp3.DomainModel.Pessoa;
+import br.edu.ifnmg.tads.trabalholtp3.DomainModel.Email;
+import br.edu.ifnmg.tads.trabalholtp3.DomainModel.Endereco;
+import br.edu.ifnmg.tads.trabalholtp3.DomainModel.Telefone;
+
+import br.edu.ifnmg.tads.trabalholtp3.DataAccess.PessoaDAO;
+import br.edu.ifnmg.tads.trabalholtp3.DataAccess.EmailDAO;
+import br.edu.ifnmg.tads.trabalholtp3.DataAccess.EnderecoDAO;
+import br.edu.ifnmg.tads.trabalholtp3.DataAccess.TelefoneDAO;
+import java.util.LinkedList;
+
 import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -19,6 +30,10 @@ import javax.swing.table.DefaultTableModel;
  */
 public class frmClientes extends javax.swing.JInternalFrame {
     ClienteDAO clientedao;
+    PessoaDAO pessoadao;
+    EmailDAO emaildao;
+    EnderecoDAO enderecodao;
+    TelefoneDAO telefonedao;
     /**
      * Creates new form frmClientes
      */
@@ -103,6 +118,11 @@ public class frmClientes extends javax.swing.JInternalFrame {
         });
 
         btnRemoverCliente.setText("Remover");
+        btnRemoverCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoverClienteActionPerformed(evt);
+            }
+        });
 
         btnBuscarCliente.setText("Buscar");
         btnBuscarCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -153,7 +173,7 @@ public class frmClientes extends javax.swing.JInternalFrame {
                         .addComponent(btnAlterarCliente)
                         .addGap(35, 35, 35)
                         .addComponent(btnRemoverCliente)))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         getAccessibleContext().setAccessibleParent(this);
@@ -205,7 +225,7 @@ public class frmClientes extends javax.swing.JInternalFrame {
     private void btnAlterarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarClienteActionPerformed
         // TODO add your handling code here:
         int codcliente = (int) tblClientes.getValueAt(tblClientes.getSelectedRow(), 0);
-        System.out.print(codcliente);
+        //System.out.print(codcliente);
         frmEditarClientes janela = new frmEditarClientes(codcliente);
         this.getParent().add(janela);
         janela.setVisible(true);
@@ -215,6 +235,46 @@ public class frmClientes extends javax.swing.JInternalFrame {
         
         
     }//GEN-LAST:event_btnAlterarClienteActionPerformed
+
+    private void btnRemoverClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverClienteActionPerformed
+        // TODO add your handling code here:
+        Cliente cliente;
+        Pessoa pessoa;
+        Object codcliente = tblClientes.getValueAt(tblClientes.getSelectedRow(), 0);
+        cliente = (Cliente) codcliente;
+        
+        int codpessoa = clientedao.Abrir(cliente.getCodcliente()).getCodpessoa();
+        //int codpessoa = clientedao.Abrir(codcliente).getCodpessoa();
+        System.out.print(codpessoa);
+        pessoa = pessoadao.Abrir(codpessoa);
+        List<Email> emails = new LinkedList<>();
+        List<Telefone> telefones = new LinkedList<>();
+        List<Endereco> enderecos = new LinkedList<>();
+        
+        
+        enderecos = enderecodao.Abrir(codpessoa);
+        telefones = telefonedao.Abrir(codpessoa);
+        emails = emaildao.Abrir(codpessoa);
+        
+        for (Endereco en : enderecos){
+            enderecodao.Apagar(en.getCodendereco());
+        }
+        
+        for (Telefone tel : telefones){
+            telefonedao.Apagar(tel.getCodtelefone());
+        }
+        
+        for (Email em : emails){
+            emaildao.Apagar(em.getCodemail());
+        }
+        
+        if (clientedao.Apagar(cliente.getCodcliente()) && pessoadao.Apagar(codpessoa)){
+            JOptionPane.showMessageDialog(rootPane, "Cliente Removido com sucesso");
+        }
+        
+        
+        
+    }//GEN-LAST:event_btnRemoverClienteActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterarCliente;

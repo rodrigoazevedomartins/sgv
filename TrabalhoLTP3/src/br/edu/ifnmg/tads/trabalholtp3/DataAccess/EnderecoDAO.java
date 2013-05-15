@@ -86,4 +86,18 @@ public class EnderecoDAO {
             return null;
         }
     }
+    
+    public boolean Apagar(int cod){
+        try {
+            PreparedStatement comando = bd.getConexao().prepareStatement("delete from endereco where codendereco = ?");
+            comando.setInt(1, cod);
+            comando.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(EnderecoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        
+        
+    }
 }

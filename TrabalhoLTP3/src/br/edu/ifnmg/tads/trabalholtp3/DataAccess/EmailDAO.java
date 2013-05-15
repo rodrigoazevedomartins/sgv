@@ -34,7 +34,6 @@ public class EmailDAO {
         if (email.getCodemail() == 0){
                 PreparedStatement comando = bd.getConexao().prepareStatement("insert into email(endereco, codpessoa) values(?, ?)");
                 comando.setString(1, email.getEndereco());
-                System.out.println(email.getPessoa().getCodpessoa());
                 comando.setInt(2, email.getPessoa().getCodpessoa());
                 comando.executeUpdate();
                 
@@ -68,5 +67,18 @@ public class EmailDAO {
             Logger.getLogger(EmailDAO.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
+    }
+    
+    public boolean Apagar(int cod){
+        try {
+            PreparedStatement comando = bd.getConexao().prepareStatement("delete from email where codemail = ?");
+            comando.setInt(1, cod);
+            comando.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(EmailDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        
     }
 }

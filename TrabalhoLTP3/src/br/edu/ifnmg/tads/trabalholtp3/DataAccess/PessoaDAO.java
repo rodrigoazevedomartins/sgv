@@ -97,4 +97,18 @@ public class PessoaDAO {
             return null;
         }            
     }
+    
+    public boolean Apagar(int cod){
+        try {
+            PreparedStatement comando = bd.getConexao().prepareStatement("delete from pessoa where codpessoa = ?");
+            comando.setInt(1, cod);
+            comando.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+        
+    
+    }
 }
