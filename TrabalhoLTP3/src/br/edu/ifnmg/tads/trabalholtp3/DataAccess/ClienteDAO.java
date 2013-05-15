@@ -60,10 +60,7 @@ public class ClienteDAO {
             
             return clientes;
             
-        } catch (SQLException ex) {
-            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        } catch (ErroValidacaoException ex) {
+        } catch (SQLException | ErroValidacaoException ex) {
             Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
