@@ -3,10 +3,10 @@
  * and open the template in the editor.
  */
 package br.edu.ifnmg.tads.trabalholtp3.InterfaceUsuario;
-
-import br.edu.ifnmg.tads.trabalholtp3.DomainModel.Produto;
+import br.edu.ifnmg.tads.trabalholtp3.DataAccess.BD;
 import br.edu.ifnmg.tads.trabalholtp3.DataAccess.ProdutoDAO;
 import br.edu.ifnmg.tads.trabalholtp3.DomainModel.ErroValidacaoException;
+import br.edu.ifnmg.tads.trabalholtp3.DomainModel.Produto;
 import java.awt.Component;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,17 +16,21 @@ import javax.swing.JOptionPane;
  *
  * @author Rodrigo
  */
-public class frmCadProdutos extends javax.swing.JInternalFrame {
-    private Component RootPane;
+public class frmEditarProduto extends javax.swing.JInternalFrame {
+    private BD bd;
     private Produto produto;
     private ProdutoDAO produtodao;
-
+    private Component RootPane;
     /**
-     * Creates new form frmCadProdutos
+     * Creates new form frmEditarProduto
      */
-    public frmCadProdutos() {
+    public frmEditarProduto(int cod) {
         initComponents();
+        bd = new BD();
         produtodao = new ProdutoDAO();
+        produto = produtodao.Abrir(cod);
+        carregadadosproduto();
+        
     }
 
     /**
@@ -38,26 +42,30 @@ public class frmCadProdutos extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblForma = new javax.swing.JLabel();
         txtNomeProduto = new javax.swing.JTextField();
-        lblDescricao = new javax.swing.JLabel();
+        lblValorCompra = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtDescricao = new javax.swing.JTextArea();
-        lblValorVenda = new javax.swing.JLabel();
+        lblForma = new javax.swing.JLabel();
+        lblDescricao = new javax.swing.JLabel();
         txtValorVenda = new javax.swing.JTextField();
-        lblValorCompra = new javax.swing.JLabel();
+        lblValorVenda = new javax.swing.JLabel();
         txtValorCompra = new javax.swing.JTextField();
         lblValorCompra1 = new javax.swing.JLabel();
         txtEstoque = new javax.swing.JTextField();
-        btnCadastrar = new javax.swing.JButton();
+        btnAlterarProduto = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
 
         setClosable(true);
         setMaximizable(true);
-        setResizable(true);
-        setTitle("Cadastrar Produto");
-        setName(""); // NOI18N
-        setVisible(true);
+        setTitle("Editar Produto");
+
+        lblValorCompra.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        lblValorCompra.setText("VALOR UNITÁRIO COMPRA:");
+
+        txtDescricao.setColumns(20);
+        txtDescricao.setRows(5);
+        jScrollPane1.setViewportView(txtDescricao);
 
         lblForma.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         lblForma.setText("NOME:");
@@ -65,23 +73,16 @@ public class frmCadProdutos extends javax.swing.JInternalFrame {
         lblDescricao.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         lblDescricao.setText("DESCRIÇÃO: ");
 
-        txtDescricao.setColumns(20);
-        txtDescricao.setRows(5);
-        jScrollPane1.setViewportView(txtDescricao);
-
         lblValorVenda.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         lblValorVenda.setText("VALOR UNITÁRIO VENDA:");
-
-        lblValorCompra.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        lblValorCompra.setText("VALOR UNITÁRIO COMPRA:");
 
         lblValorCompra1.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         lblValorCompra1.setText("ESTOQUE:");
 
-        btnCadastrar.setText("Cadastrar");
-        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
+        btnAlterarProduto.setText("Alterar");
+        btnAlterarProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCadastrarActionPerformed(evt);
+                btnAlterarProdutoActionPerformed(evt);
             }
         });
 
@@ -123,10 +124,10 @@ public class frmCadProdutos extends javax.swing.JInternalFrame {
                                 .addComponent(txtEstoque))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(123, 123, 123)
-                        .addComponent(btnCadastrar)
+                        .addComponent(btnAlterarProduto)
                         .addGap(175, 175, 175)
                         .addComponent(btnCancelar)))
-                .addContainerGap(105, Short.MAX_VALUE))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,38 +154,56 @@ public class frmCadProdutos extends javax.swing.JInternalFrame {
                     .addComponent(txtEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCadastrar)
+                    .addComponent(btnAlterarProduto)
                     .addComponent(btnCancelar))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+    private void carregadadosproduto(){
+        txtNomeProduto.setText(produto.getNome());
+        txtDescricao.setText(produto.getDescricao());
+        txtValorVenda.setText(Double.toString(produto.getValorunitariovenda()));
+        txtValorCompra.setText(Double.toString(produto.getValorunitariocompra()));
+        txtEstoque.setText(Integer.toString(produto.getEstoque()));        
+    } 
+    
+    private void btnAlterarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarProdutoActionPerformed
         // TODO add your handling code here:
-        if (JOptionPane.showConfirmDialog(RootPane, "Deseja Cadastrar Produto?") == 0){
-            produto = new Produto(0, txtNomeProduto.getText(), txtDescricao.getText(), Double.parseDouble(txtValorCompra.getText()), Double.parseDouble(txtValorVenda.getText()), Integer.parseInt(txtEstoque.getText()));
-                
-            if (produtodao.Salvar(produto)){   
-                JOptionPane.showMessageDialog(RootPane, "Produto Cadastrado com Sucesso!");
-                this.dispose();
+        
+        if (JOptionPane.showConfirmDialog(RootPane, "Deseja Alterar Produto?") == 0){
+            try {
+                produto.setNome(txtNomeProduto.getText());
+                produto.setDescricao(txtDescricao.getText());
+                produto.setValorunitariocompra(Double.parseDouble(txtValorCompra.getText()));
+                produto.setValorunitariovenda(Double.parseDouble(txtValorVenda.getText()));
+                produto.setEstoque(Integer.parseInt(txtEstoque.getText()));
+            } catch (ErroValidacaoException ex) {
+                Logger.getLogger(frmEditarProduto.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else {
-            JOptionPane.showMessageDialog(RootPane, "Cadastro Cancelado");
-        } 
-    }//GEN-LAST:event_btnCadastrarActionPerformed
+            
+            
+            if (produtodao.Salvar(produto)){
+                JOptionPane.showMessageDialog(RootPane, "Produto Alterado com Sucesso!");
+                this.dispose();
+            } 
+        } else { 
+            JOptionPane.showMessageDialog(RootPane, "Alteração Cancelada!");
+        }
+    }//GEN-LAST:event_btnAlterarProdutoActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
-        if (JOptionPane.showConfirmDialog(RootPane, "Deseja Cancelar o Cadastro do Produto?") == 0){
-            JOptionPane.showMessageDialog(RootPane, "Cadastro Cancelado");
+        if (JOptionPane.showConfirmDialog(RootPane, "Deseja Cancelar a Alteração do Produto?") == 0){
+            JOptionPane.showMessageDialog(RootPane, "Alteração Cancelada!");
             this.dispose();
         }
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCadastrar;
+    private javax.swing.JButton btnAlterarProduto;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblDescricao;

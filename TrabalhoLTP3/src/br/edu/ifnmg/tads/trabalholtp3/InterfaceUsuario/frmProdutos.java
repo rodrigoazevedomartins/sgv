@@ -4,17 +4,37 @@
  */
 package br.edu.ifnmg.tads.trabalholtp3.InterfaceUsuario;
 
+import br.edu.ifnmg.tads.trabalholtp3.DomainModel.ErroValidacaoException;
+import br.edu.ifnmg.tads.trabalholtp3.DataAccess.ProdutoDAO;
+import br.edu.ifnmg.tads.trabalholtp3.DataAccess.BD;
+import br.edu.ifnmg.tads.trabalholtp3.DomainModel.Produto;
+import br.edu.ifnmg.tads.trabalholtp3.DomainModel.Usuario;
+import java.util.List;
+import java.util.Vector;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Rodrigo
  */
 public class frmProdutos extends javax.swing.JInternalFrame {
-
+    private BD bd;
+    private Produto produto;
+    private ProdutoDAO produtodao;
+    private List<Produto> produtos;
     /**
      * Creates new form frmProdutos
      */
     public frmProdutos() {
         initComponents();
+        produtodao = new ProdutoDAO();
+        produtos = produtodao.listarProdutos();
+        
+        preenchetabela(produtos);
     }
 
     /**
@@ -28,6 +48,11 @@ public class frmProdutos extends javax.swing.JInternalFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tblProdutos = new javax.swing.JTable();
+        txtFiltro = new javax.swing.JTextField();
+        cbxfiltro = new javax.swing.JComboBox();
+        btnBuscarProduto = new javax.swing.JButton();
+        btnAlterarProduto = new javax.swing.JButton();
+        btnRemoverProduto = new javax.swing.JButton();
 
         setClosable(true);
         setMaximizable(true);
@@ -53,27 +78,165 @@ public class frmProdutos extends javax.swing.JInternalFrame {
         tblProdutos.getColumnModel().getColumn(3).setHeaderValue("Valor Unitário Compra");
         tblProdutos.getColumnModel().getColumn(4).setHeaderValue("Estoque");
 
+        cbxfiltro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Código", "Nome", "Descrição", "Estoque" }));
+        cbxfiltro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxfiltroActionPerformed(evt);
+            }
+        });
+
+        btnBuscarProduto.setText("Buscar");
+        btnBuscarProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarProdutoActionPerformed(evt);
+            }
+        });
+
+        btnAlterarProduto.setText("Alterar");
+        btnAlterarProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarProdutoActionPerformed(evt);
+            }
+        });
+
+        btnRemoverProduto.setText("Remover");
+        btnRemoverProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoverProdutoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 632, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(110, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 516, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(18, 18, 18)
+                    .addComponent(cbxfiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(18, 18, 18)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(btnRemoverProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnAlterarProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnBuscarProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(62, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(69, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(24, 24, 24)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnBuscarProduto)
+                        .addComponent(cbxfiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(42, 42, 42)
+                    .addComponent(btnAlterarProduto)
+                    .addGap(35, 35, 35)
+                    .addComponent(btnRemoverProduto)
+                    .addContainerGap(50, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void preenchetabela(List<Produto> produtos){
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Código");
+        model.addColumn("Nome");
+        model.addColumn("Descrição");
+        model.addColumn("Estoque");
+        for (Produto produto : produtos){
+            Vector v = new Vector();
+            v.add(0, produto.getCodproduto());
+            v.add(1, produto.getNome());
+            v.add(2, produto.getDescricao());
+            v.add(3, produto.getEstoque());
+            model.addRow(v);
+        }
+        
+        tblProdutos.setModel(model);
+    }
+    
+    
+    private void cbxfiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxfiltroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxfiltroActionPerformed
+
+    private void btnBuscarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarProdutoActionPerformed
+        // TODO add your handling code here:
+        Produto produto = new Produto();
+        try {
+            if (cbxfiltro.getSelectedIndex() == 0){
+                produto.setCodproduto(Integer.parseInt(txtFiltro.getText()));
+            }
+
+            if (cbxfiltro.getSelectedIndex() == 1){
+                produto.setNome(txtFiltro.getText());
+            }
+
+            if (cbxfiltro.getSelectedIndex() == 2){
+                produto.setDescricao(txtFiltro.getText());
+            }
+
+            if (cbxfiltro.getSelectedIndex() == 3){
+                produto.setEstoque(Integer.parseInt(txtFiltro.getText()));
+            }
+
+        } catch (ErroValidacaoException ex) {
+            Logger.getLogger(frmProdutos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        produtos = produtodao.buscarProdutos(produto);
+
+        preenchetabela(produtos);
+    }//GEN-LAST:event_btnBuscarProdutoActionPerformed
+
+    private void btnAlterarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarProdutoActionPerformed
+        // TODO add your handling code here:
+        int codproduto = (int) tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 0);
+        frmEditarProduto janela = new frmEditarProduto(codproduto);
+        this.getParent().add(janela);
+        janela.setVisible(true);
+        this.setVisible(false);
+
+    }//GEN-LAST:event_btnAlterarProdutoActionPerformed
+
+    private void btnRemoverProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverProdutoActionPerformed
+        // TODO add your handling code here:
+        produtos = produtodao.listarProdutos();
+        if (JOptionPane.showConfirmDialog(rootPane, "Deseja Apagar esse Produto?") == 0){
+
+            int codproduto = (int) tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 0);
+            produto = produtodao.Abrir(codproduto);
+            if (produtodao.Apagar(codproduto)){
+                produtos.remove(produto);
+                JOptionPane.showMessageDialog(rootPane, "Produto Removido com sucesso");
+            } else {
+            JOptionPane.showMessageDialog(rootPane, "Ação cancelada");
+            }
+        }
+
+        preenchetabela(produtos);
+    }//GEN-LAST:event_btnRemoverProdutoActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAlterarProduto;
+    private javax.swing.JButton btnBuscarProduto;
+    private javax.swing.JButton btnRemoverProduto;
+    private javax.swing.JComboBox cbxfiltro;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblProdutos;
+    private javax.swing.JTextField txtFiltro;
     // End of variables declaration//GEN-END:variables
 }
