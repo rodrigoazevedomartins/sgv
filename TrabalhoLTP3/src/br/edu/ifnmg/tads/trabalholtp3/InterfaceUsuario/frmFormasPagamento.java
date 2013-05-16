@@ -225,6 +225,8 @@ public class frmFormasPagamento extends javax.swing.JInternalFrame {
                 formas.remove(forma);
                JOptionPane.showMessageDialog(rootPane, "Forma de Pagamento Removida com sucesso");
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Ação cancelada");
         }
         
         preenchetabela(formas);
