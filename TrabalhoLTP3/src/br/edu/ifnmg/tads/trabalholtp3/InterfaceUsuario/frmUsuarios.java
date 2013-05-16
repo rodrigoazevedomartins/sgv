@@ -36,6 +36,7 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
     private TelefoneDAO telefonedao;
     private Usuario usuario;
     private Pessoa pessoa;
+    private List<Usuario> usuarios;
     /**
      * Creates new form frmUsuarios
      */
@@ -47,7 +48,7 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
         emaildao = new EmailDAO();
         telefonedao = new TelefoneDAO();
         
-        List<Usuario> usuarios = usuariodao.ListarUsuario();
+        usuarios = usuariodao.ListarUsuario();
         
         preenchetabela(usuarios);
     }
@@ -235,6 +236,7 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
 
     private void btnRemoverUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverUsuarioActionPerformed
         // TODO add your handling code here:
+        usuarios = usuariodao.ListarUsuario();
         if (JOptionPane.showConfirmDialog(rootPane, "Deseja Apagar esse Usuário?") == 0){
         
             int codusuario = (int) tblUsuarios.getValueAt(tblUsuarios.getSelectedRow(), 0);      
@@ -258,12 +260,14 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
             }
 
             if (usuariodao.Apagar(usuario.getCodusuario()) && pessoadao.Apagar(pessoa.getCodpessoa())){
+                usuarios.remove(usuario);
                 JOptionPane.showMessageDialog(rootPane, "Usuário Removido com sucesso");
             }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Ação cancelada");
         }
         
+        preenchetabela(usuarios);
     }//GEN-LAST:event_btnRemoverUsuarioActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

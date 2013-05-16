@@ -37,6 +37,7 @@ public class frmClientes extends javax.swing.JInternalFrame {
     private TelefoneDAO telefonedao;
     private Cliente cliente;
     private Pessoa pessoa;
+    private List<Cliente> clientes;
     /**
      * Creates new form frmClientes
      */
@@ -48,7 +49,7 @@ public class frmClientes extends javax.swing.JInternalFrame {
         emaildao = new EmailDAO();
         telefonedao = new TelefoneDAO();
         
-        List<Cliente> clientes = clientedao.listarClientes();
+        clientes = clientedao.listarClientes();
         
         
         preenchetabela(clientes);
@@ -246,6 +247,7 @@ public class frmClientes extends javax.swing.JInternalFrame {
 
     private void btnRemoverClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverClienteActionPerformed
         // TODO add your handling code here:
+        clientes = clientedao.listarClientes();
         if (JOptionPane.showConfirmDialog(rootPane, "Deseja Apagar esse Cliente?") == 0){
             int codcliente = (int) tblClientes.getValueAt(tblClientes.getSelectedRow(), 0);      
 
@@ -268,12 +270,15 @@ public class frmClientes extends javax.swing.JInternalFrame {
             }
 
             if (clientedao.Apagar(cliente.getCodcliente()) && pessoadao.Apagar(pessoa.getCodpessoa())){
+                clientes.remove(cliente);
                 JOptionPane.showMessageDialog(rootPane, "Cliente Removido com sucesso");
             }
             
         } else {
             JOptionPane.showMessageDialog(rootPane, "Ação cancelada");
         }
+        
+        preenchetabela(clientes);
 
     }//GEN-LAST:event_btnRemoverClienteActionPerformed
 
