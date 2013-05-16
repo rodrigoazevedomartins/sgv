@@ -579,15 +579,14 @@ public class frmEditarClientes extends javax.swing.JInternalFrame {
             .addGroup(PanelEmailLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(PanelEmailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 686, Short.MAX_VALUE)
                     .addGroup(PanelEmailLayout.createSequentialGroup()
                         .addGap(198, 198, 198)
                         .addComponent(btnAdicionarEmail)
                         .addGap(48, 48, 48)
                         .addComponent(btnRemoverEmail)
                         .addGap(46, 46, 46)
-                        .addComponent(btnLimparEmail)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(btnLimparEmail)))
                 .addContainerGap())
             .addGroup(PanelEmailLayout.createSequentialGroup()
                 .addGap(23, 23, 23)
@@ -658,7 +657,7 @@ public class frmEditarClientes extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(450, Short.MAX_VALUE)
+                .addContainerGap(454, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAlterar)
                     .addComponent(btnCancelar))
@@ -667,7 +666,7 @@ public class frmEditarClientes extends javax.swing.JInternalFrame {
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(tbdCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(46, Short.MAX_VALUE)))
+                    .addContainerGap(50, Short.MAX_VALUE)))
         );
 
         pack();
@@ -747,14 +746,14 @@ public class frmEditarClientes extends javax.swing.JInternalFrame {
     }
     
     private void LimpaCamposEmail(){
-        lblcodigoemail.setText("");
-        txtEmail.setText(Integer.toString(0));
+        lblcodigoemail.setText(Integer.toString(0));
+        txtEmail.setText("");
     }
     
     private void LimpaCamposTelefone(){
-        lblcodigotelefone.setText("");
+        lblcodigotelefone.setText(Integer.toString(0));
         txtArea.setText("");
-        txtNumeroTelefone.setText(Integer.toString(0));
+        txtNumeroTelefone.setText("");
     }
     
     private void btnAdicionarEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarEnderecoActionPerformed
@@ -926,7 +925,7 @@ public class frmEditarClientes extends javax.swing.JInternalFrame {
                 }
                 email.setEndereco(txtEmail.getText());
             } catch (ErroValidacaoException ex) {
-                Logger.getLogger(frmCadUsuario.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(frmEditarClientes.class.getName()).log(Level.SEVERE, null, ex);
             }
             email.setPessoa(pessoa);
             
@@ -965,7 +964,7 @@ public class frmEditarClientes extends javax.swing.JInternalFrame {
                 //pessoa.setDatanasc(datanasc);
                 pessoa.setNaturalidade(txtNaturalidade.getText());
             } catch (ErroValidacaoException ex) {
-                Logger.getLogger(frmCadUsuario.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(frmEditarClientes.class.getName()).log(Level.SEVERE, null, ex);
             }
 
             if (pessoadao.Salvar(pessoa)) {

@@ -5,14 +5,23 @@
 package br.edu.ifnmg.tads.trabalholtp3.InterfaceUsuario;
 
 
+import br.edu.ifnmg.tads.trabalholtp3.DataAccess.EmailDAO;
+import br.edu.ifnmg.tads.trabalholtp3.DataAccess.EnderecoDAO;
+import br.edu.ifnmg.tads.trabalholtp3.DataAccess.PessoaDAO;
+import br.edu.ifnmg.tads.trabalholtp3.DataAccess.TelefoneDAO;
 import br.edu.ifnmg.tads.trabalholtp3.DataAccess.UsuarioDAO;
+import br.edu.ifnmg.tads.trabalholtp3.DomainModel.Email;
+import br.edu.ifnmg.tads.trabalholtp3.DomainModel.Endereco;
 import br.edu.ifnmg.tads.trabalholtp3.DomainModel.ErroValidacaoException;
 import br.edu.ifnmg.tads.trabalholtp3.DomainModel.Pessoa;
+import br.edu.ifnmg.tads.trabalholtp3.DomainModel.Telefone;
 import br.edu.ifnmg.tads.trabalholtp3.DomainModel.Usuario;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 /**
  *
@@ -20,13 +29,24 @@ import javax.swing.table.DefaultTableModel;
  */
 public class frmUsuarios extends javax.swing.JInternalFrame {
 
-    UsuarioDAO usuariodao;
+    private UsuarioDAO usuariodao;
+    private PessoaDAO pessoadao;
+    private EmailDAO emaildao;
+    private EnderecoDAO enderecodao;
+    private TelefoneDAO telefonedao;
+    private Usuario usuario;
+    private Pessoa pessoa;
     /**
      * Creates new form frmUsuarios
      */
     public frmUsuarios() {
         initComponents();
         usuariodao = new UsuarioDAO();
+        pessoadao = new PessoaDAO();
+        enderecodao = new EnderecoDAO();
+        emaildao = new EmailDAO();
+        telefonedao = new TelefoneDAO();
+        
         List<Usuario> usuarios = usuariodao.ListarUsuario();
         
         preenchetabela(usuarios);
@@ -76,6 +96,11 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(tblUsuarios);
 
         btnRemoverUsuario.setText("Remover");
+        btnRemoverUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoverUsuarioActionPerformed(evt);
+            }
+        });
 
         btnAlterarUsuario.setText("Alterar");
         btnAlterarUsuario.addActionListener(new java.awt.event.ActionListener() {
@@ -133,7 +158,7 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
                         .addComponent(btnAlterarUsuario)
                         .addGap(35, 35, 35)
                         .addComponent(btnRemoverUsuario)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
@@ -160,6 +185,11 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
     private void btnAlterarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarUsuarioActionPerformed
         // TODO add your handling code here:
         int codusuario = (int) tblUsuarios.getValueAt(tblUsuarios.getSelectedRow(), 0);
+        frmEditarUsuario janela = new frmEditarUsuario(codusuario);
+        this.getParent().add(janela);
+        janela.setVisible(true);
+        this.setVisible(false);
+        
         
     }//GEN-LAST:event_btnAlterarUsuarioActionPerformed
 
@@ -202,6 +232,39 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
     private void cbxfiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxfiltroActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbxfiltroActionPerformed
+
+    private void btnRemoverUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverUsuarioActionPerformed
+        // TODO add your handling code here:
+        if (JOptionPane.showConfirmDialog(rootPane, "Deseja Apagar esse Usuário?") == 0){
+        
+            int codusuario = (int) tblUsuarios.getValueAt(tblUsuarios.getSelectedRow(), 0);      
+
+            usuario = usuariodao.Abrir(codusuario);
+            pessoa = pessoadao.Abrir(usuario.getCodpessoa());  
+            pessoa.setEmails(emaildao.Abrir(usuario.getCodpessoa()));
+            pessoa.setEnderecos(enderecodao.Abrir(usuario.getCodpessoa()));
+            pessoa.setTelefones(telefonedao.Abrir(usuario.getCodpessoa()));
+
+            for (Endereco en : pessoa.getEnderecos()){
+                enderecodao.Apagar(en.getCodendereco());
+            }    
+
+            for (Telefone tel : pessoa.getTelefones()){
+                telefonedao.Apagar(tel.getCodtelefone());
+            }
+
+            for (Email em : pessoa.getEmails()){
+                emaildao.Apagar(em.getCodemail());
+            }
+
+            if (usuariodao.Apagar(usuario.getCodusuario()) && pessoadao.Apagar(pessoa.getCodpessoa())){
+                JOptionPane.showMessageDialog(rootPane, "Usuário Removido com sucesso");
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Ação cancelada");
+        }
+        
+    }//GEN-LAST:event_btnRemoverUsuarioActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterarUsuario;

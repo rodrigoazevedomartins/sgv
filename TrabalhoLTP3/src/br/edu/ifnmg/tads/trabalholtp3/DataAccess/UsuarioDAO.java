@@ -133,9 +133,10 @@ public class UsuarioDAO {
         Usuario usuario = new Usuario();
         try {
             PreparedStatement comando = bd.getConexao().prepareStatement("select * from usuario where codusuario = ?");
-            comando.setInt(0, cod);
+            comando.setInt(1, cod);
             ResultSet resultado = comando.executeQuery();
             resultado.first();
+            usuario.setCodusuario(resultado.getInt("codusuario"));
             usuario.setNomeUsuario(resultado.getString("usuario"));
             usuario.setSenhaUsuario(resultado.getString("senha"));
             usuario.setCodpessoa(resultado.getInt("codpessoa"));

@@ -10,6 +10,7 @@ import br.edu.ifnmg.tads.trabalholtp3.DomainModel.Pessoa;
 import br.edu.ifnmg.tads.trabalholtp3.DomainModel.Email;
 import br.edu.ifnmg.tads.trabalholtp3.DomainModel.Endereco;
 import br.edu.ifnmg.tads.trabalholtp3.DomainModel.Telefone;
+import br.edu.ifnmg.tads.trabalholtp3.DataAccess.BD;
 
 import br.edu.ifnmg.tads.trabalholtp3.DataAccess.PessoaDAO;
 import br.edu.ifnmg.tads.trabalholtp3.DataAccess.EmailDAO;
@@ -29,18 +30,26 @@ import javax.swing.table.DefaultTableModel;
  * @author Rodrigo
  */
 public class frmClientes extends javax.swing.JInternalFrame {
-    ClienteDAO clientedao;
-    PessoaDAO pessoadao;
-    EmailDAO emaildao;
-    EnderecoDAO enderecodao;
-    TelefoneDAO telefonedao;
+    private ClienteDAO clientedao;
+    private PessoaDAO pessoadao;
+    private EmailDAO emaildao;
+    private EnderecoDAO enderecodao;
+    private TelefoneDAO telefonedao;
+    private Cliente cliente;
+    private Pessoa pessoa;
     /**
      * Creates new form frmClientes
      */
     public frmClientes() {
         initComponents();
         clientedao = new ClienteDAO();
+        pessoadao = new PessoaDAO();
+        enderecodao = new EnderecoDAO();
+        emaildao = new EmailDAO();
+        telefonedao = new TelefoneDAO();
+        
         List<Cliente> clientes = clientedao.listarClientes();
+        
         
         preenchetabela(clientes);
     }
@@ -225,7 +234,6 @@ public class frmClientes extends javax.swing.JInternalFrame {
     private void btnAlterarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarClienteActionPerformed
         // TODO add your handling code here:
         int codcliente = (int) tblClientes.getValueAt(tblClientes.getSelectedRow(), 0);
-        //System.out.print(codcliente);
         frmEditarClientes janela = new frmEditarClientes(codcliente);
         this.getParent().add(janela);
         janela.setVisible(true);
@@ -238,42 +246,35 @@ public class frmClientes extends javax.swing.JInternalFrame {
 
     private void btnRemoverClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverClienteActionPerformed
         // TODO add your handling code here:
-        Cliente cliente;
-        Pessoa pessoa;
-        Object codcliente = tblClientes.getValueAt(tblClientes.getSelectedRow(), 0);
-        cliente = (Cliente) codcliente;
-        
-        int codpessoa = clientedao.Abrir(cliente.getCodcliente()).getCodpessoa();
-        //int codpessoa = clientedao.Abrir(codcliente).getCodpessoa();
-        System.out.print(codpessoa);
-        pessoa = pessoadao.Abrir(codpessoa);
-        List<Email> emails = new LinkedList<>();
-        List<Telefone> telefones = new LinkedList<>();
-        List<Endereco> enderecos = new LinkedList<>();
-        
-        
-        enderecos = enderecodao.Abrir(codpessoa);
-        telefones = telefonedao.Abrir(codpessoa);
-        emails = emaildao.Abrir(codpessoa);
-        
-        for (Endereco en : enderecos){
-            enderecodao.Apagar(en.getCodendereco());
+        if (JOptionPane.showConfirmDialog(rootPane, "Deseja Apagar esse Cliente?") == 0){
+            int codcliente = (int) tblClientes.getValueAt(tblClientes.getSelectedRow(), 0);      
+
+            cliente = clientedao.Abrir(codcliente);
+            pessoa = pessoadao.Abrir(cliente.getCodpessoa());  
+            pessoa.setEmails(emaildao.Abrir(cliente.getCodpessoa()));
+            pessoa.setEnderecos(enderecodao.Abrir(cliente.getCodpessoa()));
+            pessoa.setTelefones(telefonedao.Abrir(cliente.getCodpessoa()));
+
+            for (Endereco en : pessoa.getEnderecos()){
+                enderecodao.Apagar(en.getCodendereco());
+            }    
+
+            for (Telefone tel : pessoa.getTelefones()){
+                telefonedao.Apagar(tel.getCodtelefone());
+            }
+
+            for (Email em : pessoa.getEmails()){
+                emaildao.Apagar(em.getCodemail());
+            }
+
+            if (clientedao.Apagar(cliente.getCodcliente()) && pessoadao.Apagar(pessoa.getCodpessoa())){
+                JOptionPane.showMessageDialog(rootPane, "Cliente Removido com sucesso");
+            }
+            
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Ação cancelada");
         }
-        
-        for (Telefone tel : telefones){
-            telefonedao.Apagar(tel.getCodtelefone());
-        }
-        
-        for (Email em : emails){
-            emaildao.Apagar(em.getCodemail());
-        }
-        
-        if (clientedao.Apagar(cliente.getCodcliente()) && pessoadao.Apagar(codpessoa)){
-            JOptionPane.showMessageDialog(rootPane, "Cliente Removido com sucesso");
-        }
-        
-        
-        
+
     }//GEN-LAST:event_btnRemoverClienteActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

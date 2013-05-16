@@ -103,6 +103,7 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
         tblenderecos = new javax.swing.JTable();
         btnAdicionarEndereco = new javax.swing.JButton();
         btnRemoverEndereco = new javax.swing.JButton();
+        btnLimparEndereco = new javax.swing.JButton();
         PanelTelefone = new javax.swing.JPanel();
         lblCodigoArea = new javax.swing.JLabel();
         lblNumeroTelefone = new javax.swing.JLabel();
@@ -112,6 +113,7 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
         tbltelefone = new javax.swing.JTable();
         btnAdicionarTelefone = new javax.swing.JButton();
         btnRemoverTelefone = new javax.swing.JButton();
+        btnLimparTelefone = new javax.swing.JButton();
         PanelEmail = new javax.swing.JPanel();
         lblEmail = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
@@ -119,6 +121,7 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
         btnRemoverEmail = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblemail = new javax.swing.JTable();
+        btnLimparEmail = new javax.swing.JButton();
         PanelDadosAcesso = new javax.swing.JPanel();
         lblSenha = new javax.swing.JLabel();
         txtUsuario = new javax.swing.JTextField();
@@ -260,6 +263,11 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
                 "Rua", "Numero", "Complemento", "Bairro", "Cidade"
             }
         ));
+        tblenderecos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblenderecosMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblenderecos);
 
         btnAdicionarEndereco.setText("Adicionar");
@@ -273,6 +281,13 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
         btnRemoverEndereco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRemoverEnderecoActionPerformed(evt);
+            }
+        });
+
+        btnLimparEndereco.setText("Limpar Campos");
+        btnLimparEndereco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparEnderecoActionPerformed(evt);
             }
         });
 
@@ -323,17 +338,21 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
                                             .addGroup(PanelEnderecoLayout.createSequentialGroup()
                                                 .addComponent(lblPais, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(txtPais, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(PanelEnderecoLayout.createSequentialGroup()
-                                                .addComponent(btnAdicionarEndereco)
-                                                .addGap(77, 77, 77)
-                                                .addComponent(btnRemoverEndereco)))
+                                                .addComponent(txtPais, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addGap(0, 0, Short.MAX_VALUE))))
                             .addGroup(PanelEnderecoLayout.createSequentialGroup()
                                 .addComponent(lblRua, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(txtRua)))
                         .addGap(83, 83, 83))))
+            .addGroup(PanelEnderecoLayout.createSequentialGroup()
+                .addGap(153, 153, 153)
+                .addComponent(btnAdicionarEndereco)
+                .addGap(64, 64, 64)
+                .addComponent(btnRemoverEndereco)
+                .addGap(64, 64, 64)
+                .addComponent(btnLimparEndereco)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         PanelEnderecoLayout.setVerticalGroup(
             PanelEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -365,7 +384,8 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(PanelEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdicionarEndereco)
-                    .addComponent(btnRemoverEndereco))
+                    .addComponent(btnRemoverEndereco)
+                    .addComponent(btnLimparEndereco))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -390,6 +410,11 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
                 "Código Area", "Numero"
             }
         ));
+        tbltelefone.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbltelefoneMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(tbltelefone);
 
         btnAdicionarTelefone.setText("Adicionar");
@@ -406,27 +431,38 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
             }
         });
 
+        btnLimparTelefone.setText("Limpar Campos");
+        btnLimparTelefone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparTelefoneActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout PanelTelefoneLayout = new javax.swing.GroupLayout(PanelTelefone);
         PanelTelefone.setLayout(PanelTelefoneLayout);
         PanelTelefoneLayout.setHorizontalGroup(
             PanelTelefoneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelTelefoneLayout.createSequentialGroup()
-                .addGap(23, 23, 23)
                 .addGroup(PanelTelefoneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PanelTelefoneLayout.createSequentialGroup()
-                        .addComponent(lblCodigoArea, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtArea, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 656, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(PanelTelefoneLayout.createSequentialGroup()
-                        .addGroup(PanelTelefoneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnAdicionarTelefone)
+                        .addGap(23, 23, 23)
+                        .addGroup(PanelTelefoneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(PanelTelefoneLayout.createSequentialGroup()
+                                .addComponent(lblCodigoArea, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtArea, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 656, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(PanelTelefoneLayout.createSequentialGroup()
                                 .addComponent(lblNumeroTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtNumeroTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtNumeroTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(PanelTelefoneLayout.createSequentialGroup()
+                        .addGap(157, 157, 157)
+                        .addComponent(btnAdicionarTelefone)
                         .addGap(60, 60, 60)
-                        .addComponent(btnRemoverTelefone)))
+                        .addComponent(btnRemoverTelefone)
+                        .addGap(56, 56, 56)
+                        .addComponent(btnLimparTelefone)))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
         PanelTelefoneLayout.setVerticalGroup(
@@ -443,7 +479,8 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
                 .addGap(33, 33, 33)
                 .addGroup(PanelTelefoneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdicionarTelefone)
-                    .addComponent(btnRemoverTelefone))
+                    .addComponent(btnRemoverTelefone)
+                    .addComponent(btnLimparTelefone))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(20, Short.MAX_VALUE))
@@ -486,6 +523,13 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tblemail);
 
+        btnLimparEmail.setText("Limpar Campos");
+        btnLimparEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparEmailActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout PanelEmailLayout = new javax.swing.GroupLayout(PanelEmail);
         PanelEmail.setLayout(PanelEmailLayout);
         PanelEmailLayout.setHorizontalGroup(
@@ -501,10 +545,12 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 672, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(PanelEmailLayout.createSequentialGroup()
-                .addGap(221, 221, 221)
+                .addGap(164, 164, 164)
                 .addComponent(btnAdicionarEmail)
                 .addGap(48, 48, 48)
                 .addComponent(btnRemoverEmail)
+                .addGap(53, 53, 53)
+                .addComponent(btnLimparEmail)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         PanelEmailLayout.setVerticalGroup(
@@ -517,7 +563,8 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
                 .addGap(15, 15, 15)
                 .addGroup(PanelEmailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdicionarEmail)
-                    .addComponent(btnRemoverEmail))
+                    .addComponent(btnRemoverEmail)
+                    .addComponent(btnLimparEmail))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(87, Short.MAX_VALUE))
@@ -600,7 +647,7 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(23, Short.MAX_VALUE)
+                .addContainerGap(27, Short.MAX_VALUE)
                 .addComponent(tbdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -617,11 +664,13 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
     private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
     }//GEN-LAST:event_btnCancelarMouseClicked
 
-    private void adicionaemailtable(){
+     private void adicionaemailtable(){
         DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Código");
         model.addColumn("Emails");
         for (Email em : pessoa.getEmails()){
             Vector v = new Vector();
+            v.add(em.getCodemail());
             v.add(em.getEndereco());
             model.addRow(v);
         }
@@ -632,6 +681,7 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
     
     private void adicionaenderecotable(){
         DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Código");
         model.addColumn("Rua");
         model.addColumn("Numero");
         model.addColumn("Complemento");
@@ -639,6 +689,7 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
         model.addColumn("Cidade");
         for (Endereco en : pessoa.getEnderecos()){
             Vector v = new Vector();
+            v.add(en.getCodendereco());
             v.add(en.getRua());
             v.add(en.getNumero());
             v.add(en.getComplemento());
@@ -652,16 +703,38 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
     
     private void adicionatelefonetable(){
         DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Código");
         model.addColumn("Codigo Area");
         model.addColumn("Numero");
         for (Telefone tel : pessoa.getTelefones()){
             Vector v = new Vector();
+            v.add(tel.getCodtelefone());
             v.add(tel.getArea());
             v.add(tel.getNumero());
             model.addRow(v);
         }
         
         tbltelefone.setModel(model);
+    }
+    
+    private void LimpaCamposEndereco(){
+        txtRua.setText("");
+        txtNumero.setText("");
+        txtComplemento.setText("");
+        txtBairro.setText("");
+        txtCidade.setText("");
+        txtCep.setText("");
+        txtEstado.setText("");
+        txtPais.setText("");
+    }
+    
+    private void LimpaCamposEmail(){
+        txtEmail.setText("");
+    }
+    
+    private void LimpaCamposTelefone(){
+        txtArea.setText("");
+        txtNumeroTelefone.setText("");
     }
     
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -675,16 +748,8 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         // TODO add your handling code here:
         
-        
         if (JOptionPane.showConfirmDialog(RootPane, "Deseja Cadastrar o Usuário?") == 0){
-                String datanascimento = txtDataNasc.getText(); 
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
-                Date datanasc = new Date();
-                try {
-                    datanasc = sdf.parse(datanascimento);
-                } catch (ParseException ex) {
-                    Logger.getLogger(frmCadUsuario.class.getName()).log(Level.SEVERE, null, ex);
-                }
+            
                 
             try{
                 pessoa.setNome(txtNome.getText());
@@ -742,11 +807,15 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
                 Logger.getLogger(frmCadUsuario.class.getName()).log(Level.SEVERE, null, ex);
             }
             email.setPessoa(pessoa);
-            pessoa.addEmails(email);
-            adicionaemailtable();
-            JOptionPane.showMessageDialog(RootPane, "Email adicionado com sucesso!");
-            txtEmail.setText("");
             
+            if (pessoa.getEmails().contains(email)){
+                JOptionPane.showMessageDialog(RootPane, "Email já adicionado!");
+            } else {
+                pessoa.addEmails(email);
+                adicionaemailtable();
+                LimpaCamposEmail();
+                JOptionPane.showMessageDialog(RootPane, "Email adicionado com sucesso!");
+            }       
         }
         
                 
@@ -769,10 +838,14 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
                 Logger.getLogger(frmCadUsuario.class.getName()).log(Level.SEVERE, null, ex);
             }
             endereco.setPessoa(pessoa);
-            pessoa.addEnderecos(endereco);
-            adicionaenderecotable();
-            JOptionPane.showMessageDialog(RootPane, "Endereco adicionado com sucesso!");
-            
+            if (pessoa.getEnderecos().contains(endereco)){
+               JOptionPane.showMessageDialog(RootPane, "Endereço já adicionado!");
+            } else {
+                pessoa.addEnderecos(endereco);
+                adicionaenderecotable();
+                LimpaCamposEndereco();
+                JOptionPane.showMessageDialog(RootPane, "Endereço adicionado com sucesso!");
+            }            
         }
     }//GEN-LAST:event_btnAdicionarEnderecoActionPerformed
 
@@ -787,68 +860,122 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
                 Logger.getLogger(frmCadUsuario.class.getName()).log(Level.SEVERE, null, ex);
             }
             telefone.setPessoa(pessoa);
-            pessoa.addTelefones(telefone);
-            adicionatelefonetable();
-            JOptionPane.showMessageDialog(RootPane, "Telefone adicionado com sucesso!");
+            
+            if(pessoa.getTelefones().contains(telefone)){
+                JOptionPane.showMessageDialog(RootPane, "Telefone já adicionado!");
+            } else {
+                pessoa.addTelefones(telefone);
+                adicionatelefonetable();
+                LimpaCamposTelefone();
+                JOptionPane.showMessageDialog(RootPane, "Telefone adicionado com sucesso!");
+            }
         }
     }//GEN-LAST:event_btnAdicionarTelefoneActionPerformed
-    
-    private void carregaitem(){
-        txtEmail.setText(emailselect.getEndereco());
-    }
-    
+        
     private void tblemailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblemailMouseClicked
         // TODO add your handling code here:     
-        txtEmail.setText(""+tblemail.getValueAt(tblemail.getSelectedRow(), 0));
+       int codemail = (int) tblemail.getValueAt(tblemail.getSelectedRow(), 0);
+       for (Email ema : pessoa.getEmails()){
+            if (ema.getCodemail() == codemail){
+                txtEmail.setText(ema.getEndereco());
+            }
+        }
     }//GEN-LAST:event_tblemailMouseClicked
 
     private void btnRemoverEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverEmailActionPerformed
         // TODO add your handling code here:
         if (JOptionPane.showConfirmDialog(RootPane, "Deseja remover este email?") == 0){
         
-            Email emailselect = new Email(0, (String) tblemail.getValueAt(tblemail.getSelectedRow(), 0), pessoa);
+            Email emailselect = new Email((int) tblemail.getValueAt(tblemail.getSelectedRow(), 0), (String) tblemail.getValueAt(tblemail.getSelectedRow(), 1), pessoa);
 
-            for (Email email : pessoa.getEmails()){
-                if (emailselect.getEndereco() == email.getEndereco()){
-                    pessoa.removeEmails(email);
-                }
+            if (pessoa.getEmails().contains(emailselect)){
+                pessoa.removeEmails(emailselect);
             }
+            
+            
+            
             JOptionPane.showMessageDialog(RootPane, "Email removido com sucesso!");
+            
             adicionaemailtable();
+            LimpaCamposEmail();
+
         }
     }//GEN-LAST:event_btnRemoverEmailActionPerformed
 
     private void btnRemoverEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverEnderecoActionPerformed
         // TODO add your handling code here:
         if (JOptionPane.showConfirmDialog(RootPane, "Deseja remover este endereço?") == 0){
-            Endereco enderecoselect = new Endereco(0, (String) tblenderecos.getValueAt(tblenderecos.getSelectedRow(), 0), (int) tblenderecos.getValueAt(tblenderecos.getSelectedRow(), 1), (String) tblenderecos.getValueAt(tblenderecos.getSelectedRow(), 2), (String) tblenderecos.getValueAt(tblenderecos.getSelectedRow(), 3), (String) tblenderecos.getValueAt(tblenderecos.getSelectedRow(), 4), 0, "", "", pessoa);
+            Endereco enderecoselect = new Endereco((int) tblenderecos.getValueAt(tblenderecos.getSelectedRow(), 0), (String) tblenderecos.getValueAt(tblenderecos.getSelectedRow(), 1), (int) tblenderecos.getValueAt(tblenderecos.getSelectedRow(), 2), (String) tblenderecos.getValueAt(tblenderecos.getSelectedRow(), 3), (String) tblenderecos.getValueAt(tblenderecos.getSelectedRow(), 4), (String) tblenderecos.getValueAt(tblenderecos.getSelectedRow(), 5), Integer.parseInt(txtCep.getText()), txtEstado.getText(), txtPais.getText(), pessoa);
 
-            for (Endereco endereco : pessoa.getEnderecos()){
-                if (enderecoselect.getRua() == endereco.getRua()){
-                    pessoa.removeEnderecos(endereco);
-                }
+            if (pessoa.getEnderecos().contains(enderecoselect)){
+                pessoa.removeEnderecos(enderecoselect);
             }
+            
             JOptionPane.showMessageDialog(RootPane, "Endereço removido com sucesso!");
             adicionaenderecotable();
+            LimpaCamposEndereco();
         }
     }//GEN-LAST:event_btnRemoverEnderecoActionPerformed
 
     private void btnRemoverTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverTelefoneActionPerformed
         // TODO add your handling code here:
         if (JOptionPane.showConfirmDialog(RootPane, "Deseja remover este telefone?") == 0){
-            Telefone telefoneselect = new Telefone(0, (int) tbltelefone.getValueAt(tbltelefone.getSelectedRow(), 0), (int) tbltelefone.getValueAt(tbltelefone.getSelectedRow(), 1), pessoa);
+            Telefone telefoneselect = new Telefone((int) tbltelefone.getValueAt(tbltelefone.getSelectedRow(), 0), (int) tbltelefone.getValueAt(tbltelefone.getSelectedRow(), 1), (int) tbltelefone.getValueAt(tbltelefone.getSelectedRow(), 2), pessoa);
 
-            for (Telefone telefone : pessoa.getTelefones()){
-                if (telefoneselect.getNumero() == telefone.getNumero()){
-                    pessoa.removeTelefones(telefone);
-                }
+            if (pessoa.getTelefones().contains(telefoneselect)){
+                pessoa.removeTelefones(telefoneselect);
             }
-            
+
             JOptionPane.showMessageDialog(RootPane, "Telefone removido com sucesso!");
-            
+
             adicionatelefonetable();
+            LimpaCamposTelefone();
         }
     }//GEN-LAST:event_btnRemoverTelefoneActionPerformed
+
+    private void tblenderecosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblenderecosMouseClicked
+        // TODO add your handling code here:
+        int codendereco = (int) tblenderecos.getValueAt(tblenderecos.getSelectedRow(), 0);
+        for (Endereco en : pessoa.getEnderecos()){
+            if (en.getCodendereco() == codendereco){
+                txtRua.setText(en.getRua());
+                txtNumero.setText(Integer.toString(en.getNumero()));
+                txtComplemento.setText(en.getComplemento());
+                txtBairro.setText(en.getBairro());
+                txtCidade.setText(en.getCidade());
+                txtCep.setText(Integer.toString(en.getCep()));
+                txtEstado.setText(en.getEstado());
+                txtPais.setText(en.getPais());
+                
+            }
+        }
+    }//GEN-LAST:event_tblenderecosMouseClicked
+
+    private void tbltelefoneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbltelefoneMouseClicked
+        // TODO add your handling code here:
+        int codtelefone = (int) tbltelefone.getValueAt(tbltelefone.getSelectedRow(), 0);
+        for (Telefone tel : pessoa.getTelefones()){
+            if (tel.getCodtelefone() == codtelefone){
+                txtArea.setText(Integer.toString(tel.getArea()));
+                txtNumeroTelefone.setText(Integer.toString(tel.getNumero()));
+            }
+        }
+    }//GEN-LAST:event_tbltelefoneMouseClicked
+
+    private void btnLimparEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparEmailActionPerformed
+        // TODO add your handling code here:
+        LimpaCamposEmail();
+    }//GEN-LAST:event_btnLimparEmailActionPerformed
+
+    private void btnLimparTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparTelefoneActionPerformed
+        // TODO add your handling code here
+        LimpaCamposTelefone();
+    }//GEN-LAST:event_btnLimparTelefoneActionPerformed
+
+    private void btnLimparEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparEnderecoActionPerformed
+        // TODO add your handling code here:
+        LimpaCamposEndereco();
+    }//GEN-LAST:event_btnLimparEnderecoActionPerformed
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelDadosAcesso;
@@ -861,6 +988,9 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnAdicionarTelefone;
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnLimparEmail;
+    private javax.swing.JButton btnLimparEndereco;
+    private javax.swing.JButton btnLimparTelefone;
     private javax.swing.JButton btnRemoverEmail;
     private javax.swing.JButton btnRemoverEndereco;
     private javax.swing.JButton btnRemoverTelefone;
