@@ -235,6 +235,10 @@ public class Pessoa {
     public String toString() {
         return "Pessoa{" + "codpessoa=" + codpessoa + ", nome=" + nome + ", nomepai=" + nomepai + ", nomemae=" + nomemae + ", rg=" + rg + ", cpf=" + cpf + ", datanasc=" + datanasc + ", naturalidade=" + naturalidade + ", enderecos=" + enderecos + ", emails=" + emails + ", telefones=" + telefones + '}';
     }
+
+    public void setDatanasc(long parse) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
     

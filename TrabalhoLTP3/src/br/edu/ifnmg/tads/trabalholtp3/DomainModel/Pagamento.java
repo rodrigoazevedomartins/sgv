@@ -69,7 +69,7 @@ public class Pagamento {
 
     @Override
     public String toString() {
-        return "Pagamento{" + "codpagamento=" + codpagamento + ", tipo=" + tipo + '}';
+        return getNomeTipo();
     }
     
     

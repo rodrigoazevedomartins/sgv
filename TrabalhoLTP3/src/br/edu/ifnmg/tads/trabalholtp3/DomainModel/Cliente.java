@@ -65,8 +65,12 @@ public class Cliente extends Pessoa {
 
     @Override
     public String toString() {
-        return "Cliente{" + "codcliente=" + codcliente + ", pessoa=" + pessoa + '}';
+        return getNome();
     }
+
+    
+
+    
     
     
     

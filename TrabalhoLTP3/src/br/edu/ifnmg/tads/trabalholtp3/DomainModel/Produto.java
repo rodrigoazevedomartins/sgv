@@ -99,10 +99,10 @@ public class Produto {
     }
 
     public void setEstoque(int estoque) throws ErroValidacaoException{
-        if (estoque > 0){
+        if (estoque >= 0){
             this.estoque = estoque;
         } else {
-        throw new ErroValidacaoException("Estoque Inválido. Insira um valor maior que 0.");
+        throw new ErroValidacaoException("Estoque Inválido. Insira um valor maior ou igusl a 0.");
         }
     }
 

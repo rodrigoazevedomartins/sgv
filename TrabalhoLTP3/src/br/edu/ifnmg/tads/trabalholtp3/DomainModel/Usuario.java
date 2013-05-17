@@ -97,7 +97,7 @@ public class Usuario extends Pessoa{
 
     @Override
     public String toString() {
-        return "Usuario{" + "codusuario=" + codusuario + ", usuario=" + usuario + ", senha=" + senha + ", pessoa=" + pessoa + '}';
+        return getNome();
     }
 
 
