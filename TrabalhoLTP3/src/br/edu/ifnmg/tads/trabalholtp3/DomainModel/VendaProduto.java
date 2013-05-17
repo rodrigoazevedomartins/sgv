@@ -4,6 +4,8 @@
  */
 package br.edu.ifnmg.tads.trabalholtp3.DomainModel;
 
+import java.util.Objects;
+
 /**
  *
  * @author Rodrigo
@@ -15,6 +17,14 @@ public class VendaProduto {
     private Produto produto;
     private Venda venda;
 
+    public VendaProduto(int cod, int qtde, double valor, Produto vpproduto, Venda vpvenda){
+        codvendaproduto = 0;
+        quantidade = qtde;
+        valor_unitario = valor;
+        produto = vpproduto;
+        venda = vpvenda;
+    }
+    
     public VendaProduto(){
         codvendaproduto = 0;
         quantidade = 0;
@@ -73,9 +83,43 @@ public class VendaProduto {
     }
 
     @Override
-    public String toString() {
-        return "VendaProduto{" + "codvendaproduto=" + codvendaproduto + ", quantidade=" + quantidade + ", valor_unitario=" + valor_unitario + ", produto=" + produto + ", venda=" + venda + '}';
+    public int hashCode() {
+        int hash = 5;
+        return hash;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final VendaProduto other = (VendaProduto) obj;
+        if (this.quantidade != other.quantidade) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.valor_unitario) != Double.doubleToLongBits(other.valor_unitario)) {
+            return false;
+        }
+        if (!Objects.equals(this.produto, other.produto)) {
+            return false;
+        }
+        if (!Objects.equals(this.venda, other.venda)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "" + codvendaproduto;
+    }
+    
+    
+    
+    
     
     
     

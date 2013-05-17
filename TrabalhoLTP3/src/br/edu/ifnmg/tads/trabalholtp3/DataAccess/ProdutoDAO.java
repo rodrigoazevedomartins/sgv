@@ -64,6 +64,8 @@ public class ProdutoDAO {
                 produto.setNome(resultado.getString("nome"));
                 produto.setDescricao(resultado.getString("descricao"));
                 produto.setEstoque(resultado.getInt("estoque"));
+                produto.setValorunitariocompra(resultado.getDouble("valor_unitario_compra"));
+                produto.setValorunitariovenda(resultado.getDouble("valor_unitario_venda"));
                 produtos.add(produto);
             }
             return produtos;

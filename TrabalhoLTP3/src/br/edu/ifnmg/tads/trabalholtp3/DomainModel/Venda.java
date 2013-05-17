@@ -23,6 +23,14 @@ public class Venda {
     private Pagamento pagamento;
     private List <VendaProduto> produtos;
     
+    public Venda(int cod, Cliente acliente, Usuario ausuario, Pagamento apagamento){
+        codvenda = cod;
+        //datavenda = data;
+        cliente = acliente;
+        usuario = ausuario;
+        pagamento = apagamento;
+    }
+    
     public Venda(){
         codvenda = 0;
         datavenda = new Date();
@@ -137,8 +145,10 @@ public class Venda {
 
     @Override
     public String toString() {
-        return "Venda{" + "codvenda=" + codvenda + ", datavenda=" + datavenda + ", valortotal=" + valortotal + ", cliente=" + cliente + ", usuario=" + usuario + ", pagamento=" + pagamento + ", produtos=" + produtos + '}';
+        return "" + codvenda;
     }
+
+    
     
     
     
