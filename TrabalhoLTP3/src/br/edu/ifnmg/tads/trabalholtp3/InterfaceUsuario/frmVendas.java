@@ -249,7 +249,7 @@ public class frmVendas extends javax.swing.JInternalFrame {
         if (JOptionPane.showConfirmDialog(rootPane, "Deseja Apagar essa Venda?") == 0){
 
            Venda venda = (Venda) tblVendas.getValueAt(tblVendas.getSelectedRow(), 0);
-
+            
             if (vendadao.Apagar(venda.getCodvenda()) && vendaprodutodao.Apagar(venda.getCodvenda())){
                 vendas.remove(venda);
                 JOptionPane.showMessageDialog(rootPane, "Venda Apagada com sucesso");

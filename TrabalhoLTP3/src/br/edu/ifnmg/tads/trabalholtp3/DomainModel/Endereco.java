@@ -208,7 +208,7 @@ public class Endereco {
     
     @Override
     public String toString() {
-        return "Endereco{" + "codendereco=" + codendereco + ", rua=" + rua + ", numero=" + numero + ", complemento=" + complemento + ", bairro=" + bairro + ", cidade=" + cidade + ", cep=" + cep + ", estado=" + estado + ", pais=" + pais + ", pessoa=" + pessoa + '}';
+        return "" +  getCodendereco();
     }
     
     

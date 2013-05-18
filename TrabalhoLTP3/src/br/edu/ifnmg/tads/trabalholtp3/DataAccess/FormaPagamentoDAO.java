@@ -29,8 +29,9 @@ public class FormaPagamentoDAO {
         try {
             if (forma.getCodpagamento() == 0){
 
-                    PreparedStatement comando = bd.getConexao().prepareStatement("insert into pagamento(tipo) values(?)");
+                    PreparedStatement comando = bd.getConexao().prepareStatement("insert into pagamento(tipo, status) values(?,?)");
                     comando.setString(1, forma.getNomeTipo());
+                    comando.setInt(2, 1);
                     comando.executeUpdate();
             } else {
                     PreparedStatement comando = bd.getConexao().prepareStatement("update pagamento set tipo = ? where codpagamento = ?");
@@ -47,7 +48,7 @@ public class FormaPagamentoDAO {
     
     public List<Pagamento> ListarTodos(){     
         try {
-            PreparedStatement comando = bd.getConexao().prepareStatement("select * from pagamento order by codpagamento ASC");
+            PreparedStatement comando = bd.getConexao().prepareStatement("select * from pagamento where status = 1 order by codpagamento ASC");
             ResultSet resultado = comando.executeQuery();
             List<Pagamento> formas = new LinkedList<>();
             while(resultado.next()){
@@ -81,10 +82,9 @@ public class FormaPagamentoDAO {
             }
 
             if (where.length() > 0){
-                sql = sql + " where " + where;
+                sql = sql + " where " + where + " and status = 1";
             }
             sql = sql + order;
-            System.out.print(sql);
             Statement comando = bd.getConexao().createStatement();
             ResultSet resultado = comando.executeQuery(sql);
             List<Pagamento> formas = new LinkedList<>();
@@ -121,7 +121,7 @@ public class FormaPagamentoDAO {
     
     public boolean Apagar(int cod){
         try {
-            PreparedStatement comando = bd.getConexao().prepareStatement("delete from pagamento where codpagamento = ?");
+            PreparedStatement comando = bd.getConexao().prepareStatement("update pagamento set status = 0 where codpagamento = ?");
             comando.setInt(1, cod);
             comando.executeUpdate();
             return true;

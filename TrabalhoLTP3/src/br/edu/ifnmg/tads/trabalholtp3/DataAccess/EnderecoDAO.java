@@ -28,7 +28,7 @@ public class EnderecoDAO {
     public boolean Salvar(Endereco endereco){
         try{
         if (endereco.getCodendereco() == 0){
-            PreparedStatement comando = bd.getConexao().prepareStatement("insert into endereco(rua, numero, complemento, bairro, cidade, cep, estado, pais, codpessoa) values (?,?,?,?,?,?,?,?,?)");
+            PreparedStatement comando = bd.getConexao().prepareStatement("insert into endereco(rua, numero, complemento, bairro, cidade, cep, estado, pais, codpessoa, status) values (?,?,?,?,?,?,?,?,?,?)");
                 comando.setString(1, endereco.getRua());
                 comando.setInt(2, endereco.getNumero());
                 comando.setString(3, endereco.getComplemento());
@@ -38,6 +38,7 @@ public class EnderecoDAO {
                 comando.setString(7, endereco.getEstado());
                 comando.setString(8, endereco.getPais());
                 comando.setInt(9, endereco.getPessoa().getCodpessoa());
+                comando.setInt(10, 1);
                 comando.executeUpdate();
         } else {
             PreparedStatement comando = bd.getConexao().prepareStatement("update endereco set rua = ?, numero = ?, complemento = ?, bairro = ?, cidade = ?, cep = ?, estado = ?, pais = ? where codendereco = ?");
@@ -62,7 +63,7 @@ public class EnderecoDAO {
     public List<Endereco> Abrir(int cod){
         List<Endereco> enderecos = new LinkedList<>();
         try {
-            PreparedStatement comando = bd.getConexao().prepareStatement("select * from endereco where codpessoa = ?");
+            PreparedStatement comando = bd.getConexao().prepareStatement("select * from endereco where codpessoa = ? and status = 1");
             comando.setInt(1, cod);
             ResultSet resultado = comando.executeQuery();
             while(resultado.next()){
@@ -89,7 +90,7 @@ public class EnderecoDAO {
     
     public boolean Apagar(int cod){
         try {
-            PreparedStatement comando = bd.getConexao().prepareStatement("delete from endereco where codendereco = ?");
+            PreparedStatement comando = bd.getConexao().prepareStatement("update endereco set status = 0 where codendereco = ?");
             comando.setInt(1, cod);
             comando.executeUpdate();
             return true;

@@ -159,7 +159,7 @@ public class frmProdutos extends javax.swing.JInternalFrame {
         for (Produto produto : produtos){
             Vector v = new Vector();
             v.add(0, produto.getCodproduto());
-            v.add(1, produto.getNome());
+            v.add(1, produto);
             v.add(2, produto.getDescricao());
             v.add(3, produto.getEstoque());
             model.addRow(v);
@@ -204,8 +204,8 @@ public class frmProdutos extends javax.swing.JInternalFrame {
 
     private void btnAlterarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarProdutoActionPerformed
         // TODO add your handling code here:
-        int codproduto = (int) tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 0);
-        frmEditarProduto janela = new frmEditarProduto(codproduto);
+        Produto produto = (Produto) tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 1); 
+        frmEditarProduto janela = new frmEditarProduto(produto.getCodproduto());
         this.getParent().add(janela);
         janela.setVisible(true);
         this.setVisible(false);
@@ -217,17 +217,15 @@ public class frmProdutos extends javax.swing.JInternalFrame {
         produtos = produtodao.listarProdutos();
         if (JOptionPane.showConfirmDialog(rootPane, "Deseja Apagar esse Produto?") == 0){
 
-            int codproduto = (int) tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 0);
-            produto = produtodao.Abrir(codproduto);
-            if (produtodao.Apagar(codproduto)){
+            Produto produto = (Produto) tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 1); 
+            if (produtodao.Apagar(produto.getCodproduto())){
                 produtos.remove(produto);
                 JOptionPane.showMessageDialog(rootPane, "Produto Removido com sucesso");
-            } else {
-            JOptionPane.showMessageDialog(rootPane, "Ação cancelada");
+                preenchetabela(produtos);
             }
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Ação cancelada");
         }
-
-        preenchetabela(produtos);
     }//GEN-LAST:event_btnRemoverProdutoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

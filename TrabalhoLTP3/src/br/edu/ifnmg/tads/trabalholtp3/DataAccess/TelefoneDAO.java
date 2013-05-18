@@ -28,10 +28,11 @@ public class TelefoneDAO {
     public boolean Salvar(Telefone telefone){
        try {
             if (telefone.getCodtelefone() == 0){
-                PreparedStatement comando = bd.getConexao().prepareStatement("insert into telefone(area, numero, codpessoa) values (?,?,?)");
+                PreparedStatement comando = bd.getConexao().prepareStatement("insert into telefone(area, numero, codpessoa, status) values (?,?,?,?)");
                 comando.setInt(1, telefone.getArea());
                 comando.setInt(2, telefone.getNumero());
                 comando.setInt(3, telefone.getPessoa().getCodpessoa());
+                comando.setInt(4, 1);
                 comando.executeUpdate();
                 
             } else {
@@ -52,7 +53,7 @@ public class TelefoneDAO {
     public List<Telefone> Abrir(int cod){
         List<Telefone> telefones = new LinkedList<>();    
         try {
-                PreparedStatement comando = bd.getConexao().prepareStatement("select * from telefone where codpessoa = ?");
+                PreparedStatement comando = bd.getConexao().prepareStatement("select * from telefone where codpessoa = ? and status = 1");
                 comando.setInt(1, cod);
                 ResultSet resultado = comando.executeQuery();
                 while(resultado.next()){
@@ -71,7 +72,7 @@ public class TelefoneDAO {
     
     public boolean Apagar(int cod){
             try {
-                PreparedStatement comando = bd.getConexao().prepareStatement("delete from telefone where codtelefone = ?");
+                PreparedStatement comando = bd.getConexao().prepareStatement("update telefone set status = 0 where codtelefone = ?");
                 comando.setInt(1, cod);
                 comando.executeUpdate();
                 return true;

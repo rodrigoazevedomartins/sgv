@@ -32,9 +32,10 @@ public class EmailDAO {
     public boolean Salvar(Email email){
         try {
         if (email.getCodemail() == 0){
-                PreparedStatement comando = bd.getConexao().prepareStatement("insert into email(endereco, codpessoa) values(?, ?)");
+                PreparedStatement comando = bd.getConexao().prepareStatement("insert into email(endereco, codpessoa, status) values(?, ?, ?)");
                 comando.setString(1, email.getEndereco());
                 comando.setInt(2, email.getPessoa().getCodpessoa());
+                comando.setInt(3, 1);
                 comando.executeUpdate();
                 
         } else {
@@ -53,7 +54,7 @@ public class EmailDAO {
     public List<Email> Abrir(int cod){
         List<Email> emails = new LinkedList<>();
         try {
-            PreparedStatement comando = bd.getConexao().prepareStatement("select * from email where codpessoa = ?");
+            PreparedStatement comando = bd.getConexao().prepareStatement("select * from email where codpessoa = ? and status = 1");
             comando.setInt(1, cod);
             ResultSet resultado = comando.executeQuery();
             while(resultado.next()){
@@ -71,7 +72,7 @@ public class EmailDAO {
     
     public boolean Apagar(int cod){
         try {
-            PreparedStatement comando = bd.getConexao().prepareStatement("delete from email where codemail = ?");
+            PreparedStatement comando = bd.getConexao().prepareStatement("update email set status = 0 where codemail = ?");
             comando.setInt(1, cod);
             comando.executeUpdate();
             return true;

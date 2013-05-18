@@ -48,7 +48,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="tbdCliente" max="32767" attributes="0"/>
+              <Component id="tbdCliente" pref="414" max="32767" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnCadastrar" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -153,7 +153,7 @@
                           <Component id="txtDataNasc" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                           <Component id="txtNaturalidade" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="151" max="32767" attributes="0"/>
+                      <EmptySpace pref="155" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -363,7 +363,7 @@
                           <Component id="btnRemoverEndereco" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnLimparEndereco" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="26" max="32767" attributes="0"/>
+                      <EmptySpace pref="30" max="32767" attributes="0"/>
                       <Component id="jScrollPane2" min="-2" pref="117" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -561,7 +561,7 @@
                           <Component id="txtNumeroTelefone" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                           <Component id="lblNumeroTelefone" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="56" max="32767" attributes="0"/>
+                      <EmptySpace pref="60" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="btnAdicionarTelefone" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnRemoverTelefone" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -697,7 +697,7 @@
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jScrollPane1" min="-2" pref="167" max="-2" attributes="0"/>
-                      <EmptySpace pref="104" max="32767" attributes="0"/>
+                      <EmptySpace pref="108" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

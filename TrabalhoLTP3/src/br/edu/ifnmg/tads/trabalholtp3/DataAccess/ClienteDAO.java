@@ -29,8 +29,9 @@ public class ClienteDAO {
         try {
             if (cliente.getCodcliente()==0){
                 PreparedStatement comando;
-                comando = bd.getConexao().prepareStatement("insert into cliente(codpessoa) values (?)");
+                comando = bd.getConexao().prepareStatement("insert into cliente(codpessoa, status) values (?,?)");
                 comando.setInt(1, cliente.getPessoa().getCodpessoa());
+                comando.setInt(2, 1);
                 comando.executeUpdate();
             }
             return true;
@@ -44,7 +45,7 @@ public class ClienteDAO {
     
     public List<Cliente> listarClientes(){
         try{
-            PreparedStatement comando = bd.getConexao().prepareStatement("select * from cliente c INNER JOIN pessoa p ON (p.codpessoa = c.codpessoa) ORDER BY c.codcliente ASC");
+            PreparedStatement comando = bd.getConexao().prepareStatement("select * from cliente c INNER JOIN pessoa p ON (p.codpessoa = c.codpessoa) where c.status = 1 ORDER BY c.codcliente ASC");
             ResultSet resultado = comando.executeQuery();
             List<Cliente> clientes = new LinkedList<>();
             while(resultado.next()){
@@ -95,7 +96,7 @@ public class ClienteDAO {
             }
             
             if (where.length() > 0){
-                sql = sql + " where " + where;
+                sql = sql + " where " + where + " and c.status = 1";
             }
             
             sql = sql + order;
@@ -142,7 +143,7 @@ public class ClienteDAO {
     
     public boolean Apagar(int cod){
         try {
-            PreparedStatement comando = bd.getConexao().prepareStatement("delete from cliente where codcliente = ?");
+            PreparedStatement comando = bd.getConexao().prepareStatement("update cliente set status = 0 where codcliente = ?");
             comando.setInt(1, cod);
             comando.executeUpdate();
             return true;

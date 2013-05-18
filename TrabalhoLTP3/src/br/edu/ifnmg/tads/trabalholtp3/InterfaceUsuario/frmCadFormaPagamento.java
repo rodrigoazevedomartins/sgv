@@ -102,7 +102,6 @@ public class frmCadFormaPagamento extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         if (JOptionPane.showConfirmDialog(RootPane, "Deseja Cadastrar Forma de Pagamento?") == 0){
             formapagamento = new Pagamento(0, txtForma.getText());
-            System.out.print(formapagamento.toString());
             if (pagamentodao.Salvar(formapagamento)){
             
             JOptionPane.showMessageDialog(RootPane, "Forma de Pagamento Cadastrada com Sucesso!");

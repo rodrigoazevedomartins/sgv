@@ -29,10 +29,11 @@ public class UsuarioDAO {
     public boolean Salvar(Usuario usuario){
         try {
             if (usuario.getCodusuario() == 0){
-                PreparedStatement comando = bd.getConexao().prepareStatement("insert into usuario(usuario, senha, codpessoa) values (?,?,?)");
+                PreparedStatement comando = bd.getConexao().prepareStatement("insert into usuario(usuario, senha, codpessoa, status) values (?,?,?,?)");
                 comando.setString(1, usuario.getNomeUsuario());
                 comando.setString(2, usuario.getSenhaUsuario());
                 comando.setInt(3, usuario.getPessoa().getCodpessoa());
+                comando.setInt(4, 1);
                 comando.executeUpdate();
             } else {
                 PreparedStatement comando = bd.getConexao().prepareStatement("update usuario set usuario = ?, senha = ? where codusuario = ?");
@@ -79,7 +80,7 @@ public class UsuarioDAO {
             }
             
             if (where.length() > 0){
-                sql = sql + " where " + where;
+                sql = sql + " where " + where + " and u.status = 1";
             }
             
             sql = sql + order;
@@ -108,7 +109,7 @@ public class UsuarioDAO {
     
     public List<Usuario> ListarUsuario(){
         try{
-            PreparedStatement comando = bd.getConexao().prepareStatement("select * from usuario u INNER JOIN pessoa p ON (p.codpessoa = u.codpessoa) ORDER BY u.codpessoa ASC");
+            PreparedStatement comando = bd.getConexao().prepareStatement("select * from usuario u INNER JOIN pessoa p ON (p.codpessoa = u.codpessoa) where u.status = 1 ORDER BY u.codpessoa ASC");
             ResultSet resultado = comando.executeQuery();
             List<Usuario> usuarios = new LinkedList<>();
             while(resultado.next()){
@@ -150,7 +151,7 @@ public class UsuarioDAO {
     
     public boolean Apagar(int cod){
         try {
-            PreparedStatement comando = bd.getConexao().prepareStatement("delete from usuario where codusuario = ?");
+            PreparedStatement comando = bd.getConexao().prepareStatement("update usuario set status = 0 where codusuario = ?");
             comando.setInt(1, cod);
             comando.executeUpdate();
             return true;

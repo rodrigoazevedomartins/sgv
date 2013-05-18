@@ -29,12 +29,13 @@ public class ProdutoDAO {
     public boolean Salvar(Produto produto) {
         try {
             if (produto.getCodproduto() == 0) {
-                PreparedStatement comando = bd.getConexao().prepareStatement("insert into produto(nome,descricao, valor_unitario_venda, valor_unitario_compra, estoque) values(?,?,?,?,?)");
+                PreparedStatement comando = bd.getConexao().prepareStatement("insert into produto(nome,descricao, valor_unitario_venda, valor_unitario_compra, estoque, status) values(?,?,?,?,?,?)");
                 comando.setString(1, produto.getNome());
                 comando.setString(2, produto.getDescricao());
                 comando.setDouble(3, produto.getValorunitariovenda());
                 comando.setDouble(4, produto.getValorunitariocompra());
                 comando.setInt(5, produto.getEstoque());
+                comando.setInt(6, 1);
                 comando.executeUpdate();
             } else {
                 PreparedStatement comando = bd.getConexao().prepareStatement("update produto set nome = ?, descricao = ?, valor_unitario_venda = ?, valor_unitario_compra = ?, estoque = ? where codproduto = ?");
@@ -55,7 +56,7 @@ public class ProdutoDAO {
     
         public List<Produto> listarProdutos() {
         try {
-            PreparedStatement comando = bd.getConexao().prepareStatement("select * from produto ORDER BY codproduto ASC");
+            PreparedStatement comando = bd.getConexao().prepareStatement("select * from produto where status = 1 ORDER BY codproduto ASC");
             ResultSet resultado = comando.executeQuery();
             List<Produto> produtos = new LinkedList<>();
             while(resultado.next()){
@@ -108,7 +109,7 @@ public class ProdutoDAO {
         }
         
         if (where.length() > 0){
-            sql = sql + " where " + where;
+            sql = sql + " where " + where + " and status = 1";
         }
         
         sql = sql + order;
@@ -156,7 +157,7 @@ public class ProdutoDAO {
 
     public boolean Apagar(int cod) {
         try {
-            PreparedStatement comando = bd.getConexao().prepareStatement("delete from produto where codproduto = ?");
+            PreparedStatement comando = bd.getConexao().prepareStatement("update produto set status = 0 where codproduto = ?");
             comando.setInt(1, cod);
             comando.executeUpdate();
             return true;

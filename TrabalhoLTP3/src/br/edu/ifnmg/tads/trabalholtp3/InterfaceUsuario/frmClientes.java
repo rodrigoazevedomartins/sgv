@@ -64,7 +64,7 @@ public class frmClientes extends javax.swing.JInternalFrame {
         for (Cliente cliente : clientes){
             Vector v = new Vector();
             v.add(0, cliente.getCodcliente());
-            v.add(1, cliente.getNome());
+            v.add(1, cliente);
             v.add(2, cliente.getRg());
             v.add(3, cliente.getCpf());
             model.addRow(v);
@@ -234,8 +234,8 @@ public class frmClientes extends javax.swing.JInternalFrame {
 
     private void btnAlterarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarClienteActionPerformed
         // TODO add your handling code here:
-        int codcliente = (int) tblClientes.getValueAt(tblClientes.getSelectedRow(), 0);
-        frmEditarClientes janela = new frmEditarClientes(codcliente);
+        Cliente cliente = (Cliente) tblClientes.getValueAt(tblClientes.getSelectedRow(), 1);
+        frmEditarClientes janela = new frmEditarClientes(cliente.getCodcliente());
         this.getParent().add(janela);
         janela.setVisible(true);
         this.setVisible(false);
@@ -249,9 +249,8 @@ public class frmClientes extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         clientes = clientedao.listarClientes();
         if (JOptionPane.showConfirmDialog(rootPane, "Deseja Apagar esse Cliente?") == 0){
-            int codcliente = (int) tblClientes.getValueAt(tblClientes.getSelectedRow(), 0);      
-
-            cliente = clientedao.Abrir(codcliente);
+            Cliente cliente = (Cliente) tblClientes.getValueAt(tblClientes.getSelectedRow(), 1);      
+            
             pessoa = pessoadao.Abrir(cliente.getCodpessoa());  
             pessoa.setEmails(emaildao.Abrir(cliente.getCodpessoa()));
             pessoa.setEnderecos(enderecodao.Abrir(cliente.getCodpessoa()));

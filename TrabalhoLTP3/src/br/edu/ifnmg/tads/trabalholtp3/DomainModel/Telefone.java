@@ -97,7 +97,7 @@ public class Telefone {
     
     @Override
     public String toString() {
-        return "Telefone{" + "codtelefone=" + codtelefone + ", area=" + area + ", numero=" + numero + ", pessoa=" + pessoa + '}';
+        return "" + getCodtelefone();
     }
     
     

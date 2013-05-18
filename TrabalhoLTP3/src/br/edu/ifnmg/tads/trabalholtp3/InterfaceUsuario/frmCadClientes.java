@@ -618,7 +618,7 @@ public class frmCadClientes extends javax.swing.JInternalFrame {
         model.addColumn("Emails");
         for (Email em : pessoa.getEmails()){
             Vector v = new Vector();
-            v.add(em.getCodemail());
+            v.add(em);
             v.add(em.getEndereco());
             model.addRow(v);
         }
@@ -637,7 +637,7 @@ public class frmCadClientes extends javax.swing.JInternalFrame {
         model.addColumn("Cidade");
         for (Endereco en : pessoa.getEnderecos()){
             Vector v = new Vector();
-            v.add(en.getCodendereco());
+            v.add(en);
             v.add(en.getRua());
             v.add(en.getNumero());
             v.add(en.getComplemento());
@@ -656,7 +656,7 @@ public class frmCadClientes extends javax.swing.JInternalFrame {
         model.addColumn("Numero");
         for (Telefone tel : pessoa.getTelefones()){
             Vector v = new Vector();
-            v.add(tel.getCodtelefone());
+            v.add(tel);
             v.add(tel.getArea());
             v.add(tel.getNumero());
             model.addRow(v);
@@ -775,7 +775,7 @@ public class frmCadClientes extends javax.swing.JInternalFrame {
     private void btnRemoverEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverEnderecoActionPerformed
         // TODO add your handling code here:
         if (JOptionPane.showConfirmDialog(RootPane, "Deseja remover este endereço?") == 0){
-            Endereco enderecoselect = new Endereco((int) tblenderecos.getValueAt(tblenderecos.getSelectedRow(), 0), (String) tblenderecos.getValueAt(tblenderecos.getSelectedRow(), 1), (int) tblenderecos.getValueAt(tblenderecos.getSelectedRow(), 2), (String) tblenderecos.getValueAt(tblenderecos.getSelectedRow(), 3), (String) tblenderecos.getValueAt(tblenderecos.getSelectedRow(), 4), (String) tblenderecos.getValueAt(tblenderecos.getSelectedRow(), 5), Integer.parseInt(txtCep.getText()), txtEstado.getText(), txtPais.getText(), pessoa);
+            Endereco enderecoselect = (Endereco) tblenderecos.getValueAt(tblenderecos.getSelectedRow(), 0);
 
             if (pessoa.getEnderecos().contains(enderecoselect)){
                 pessoa.removeEnderecos(enderecoselect);
@@ -812,7 +812,7 @@ public class frmCadClientes extends javax.swing.JInternalFrame {
     private void btnRemoverTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverTelefoneActionPerformed
         // TODO add your handling code here:
         if (JOptionPane.showConfirmDialog(RootPane, "Deseja remover este telefone?") == 0){
-            Telefone telefoneselect = new Telefone((int) tbltelefone.getValueAt(tbltelefone.getSelectedRow(), 0), (int) tbltelefone.getValueAt(tbltelefone.getSelectedRow(), 1), (int) tbltelefone.getValueAt(tbltelefone.getSelectedRow(), 2), pessoa);
+            Telefone telefoneselect = (Telefone) tbltelefone.getValueAt(tbltelefone.getSelectedRow(), 0);
 
             if (pessoa.getTelefones().contains(telefoneselect)){
                 pessoa.removeTelefones(telefoneselect);
@@ -829,7 +829,7 @@ public class frmCadClientes extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         if (JOptionPane.showConfirmDialog(RootPane, "Deseja remover este email?") == 0){
 
-             Email emailselect = new Email((int) tblemail.getValueAt(tblemail.getSelectedRow(), 0), (String) tblemail.getValueAt(tblemail.getSelectedRow(), 1), pessoa);
+             Email emailselect = (Email) tblemail.getValueAt(tblemail.getSelectedRow(), 0);
 
             if (pessoa.getEmails().contains(emailselect)){
                 pessoa.removeEmails(emailselect);
@@ -870,19 +870,13 @@ public class frmCadClientes extends javax.swing.JInternalFrame {
 
     private void tblemailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblemailMouseClicked
         // TODO add your handling code here:
-       int codemail = (int) tblemail.getValueAt(tblemail.getSelectedRow(), 0);
-       for (Email ema : pessoa.getEmails()){
-            if (ema.getCodemail() == codemail){
+       Email ema = (Email) tblemail.getValueAt(tblemail.getSelectedRow(), 0);
                 txtEmail.setText(ema.getEndereco());
-            }
-        }
     }//GEN-LAST:event_tblemailMouseClicked
 
     private void tblenderecosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblenderecosMouseClicked
         // TODO add your handling code here:
-        int codendereco = (int) tblenderecos.getValueAt(tblenderecos.getSelectedRow(), 0);
-        for (Endereco en : pessoa.getEnderecos()){
-            if (en.getCodendereco() == codendereco){
+        Endereco en = (Endereco) tblenderecos.getValueAt(tblenderecos.getSelectedRow(), 0);
                 txtRua.setText(en.getRua());
                 txtNumero.setText(Integer.toString(en.getNumero()));
                 txtComplemento.setText(en.getComplemento());
@@ -891,20 +885,13 @@ public class frmCadClientes extends javax.swing.JInternalFrame {
                 txtCep.setText(Integer.toString(en.getCep()));
                 txtEstado.setText(en.getEstado());
                 txtPais.setText(en.getPais());
-                
-            }
-        }
     }//GEN-LAST:event_tblenderecosMouseClicked
 
     private void tbltelefoneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbltelefoneMouseClicked
         // TODO add your handling code here:
-        int codtelefone = (int) tbltelefone.getValueAt(tbltelefone.getSelectedRow(), 0);
-        for (Telefone tel : pessoa.getTelefones()){
-            if (tel.getCodtelefone() == codtelefone){
+        Telefone tel = (Telefone) tbltelefone.getValueAt(tbltelefone.getSelectedRow(), 0);
                 txtArea.setText(Integer.toString(tel.getArea()));
                 txtNumeroTelefone.setText(Integer.toString(tel.getNumero()));
-            }
-        }
     }//GEN-LAST:event_tbltelefoneMouseClicked
 
     private void btnLimparEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparEnderecoActionPerformed

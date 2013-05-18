@@ -36,7 +36,6 @@ public class VendaDAO {
             ResultSet resultado = comando.executeQuery();
             resultado.first();
             cod = resultado.getInt("codvenda");
-            System.out.print(cod);
             return cod;
             
         } catch (SQLException ex) {
@@ -48,11 +47,12 @@ public class VendaDAO {
     public boolean Salvar(Venda venda){
         try {     
         if (venda.getCodvenda() == 0){
-               PreparedStatement comando = bd.getConexao().prepareStatement("insert into venda(codpagamento, codcliente, codusuario) values(?,?,?)");
+               PreparedStatement comando = bd.getConexao().prepareStatement("insert into venda(codpagamento, codcliente, codusuario, status) values(?,?,?,?)");
                //comando.setDate(1, (Date) venda.getDatavenda());
                comando.setInt(1, venda.getPagamento().getCodpagamento());
                comando.setInt(2, venda.getCliente().getCodcliente());
                comando.setInt(3, venda.getUsuario().getCodusuario());
+               comando.setInt(4, 1);
                comando.executeUpdate();
         } else {
                PreparedStatement comando = bd.getConexao().prepareStatement("update venda set datavenda = ?, codpagamento = ?, codcliente = ?, codusuario = ? where codvenda = ?");
@@ -131,19 +131,19 @@ public class VendaDAO {
                 where = "v.codvenda = " + filtro.getCodvenda();
             }
 
-            if (filtro.getCliente().getNome().length() > 3){
+            if (filtro.getCliente().getNome().length() > 0){
                 if (where.length() > 0)
                       where = where + " and ";
                 where = "pc.nome like '%" + filtro.getCliente().getNome() + "%'";
             }
 
-            if (filtro.getUsuario().getNome().length() > 3){
+            if (filtro.getUsuario().getNome().length() > 0){
                 if (where.length() > 0)
                     where = where + " and ";
                 where = "pu.nome like '%" + filtro.getUsuario().getNome() + "%'";
             }
 
-            if (filtro.getPagamento().getNomeTipo().length() > 3){
+            if (filtro.getPagamento().getNomeTipo().length() > 0){
                 if (where.length() > 0)
                     where = where + " and ";
                 where = "pa.tipo like '%" + filtro.getPagamento().getNomeTipo() + "%'";

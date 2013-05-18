@@ -174,7 +174,7 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
         for (Usuario usuario : usuarios){
             Vector v = new Vector();
             v.add(0, usuario.getCodusuario());
-            v.add(1, usuario.getNome());
+            v.add(1, usuario);
             v.add(2, usuario.getRg());
             v.add(3, usuario.getCpf());
             model.addRow(v);
@@ -239,9 +239,7 @@ public class frmUsuarios extends javax.swing.JInternalFrame {
         usuarios = usuariodao.ListarUsuario();
         if (JOptionPane.showConfirmDialog(rootPane, "Deseja Apagar esse Usuário?") == 0){
         
-            int codusuario = (int) tblUsuarios.getValueAt(tblUsuarios.getSelectedRow(), 0);      
-
-            usuario = usuariodao.Abrir(codusuario);
+            usuario = (Usuario) tblUsuarios.getValueAt(tblUsuarios.getSelectedRow(), 1);      
             pessoa = pessoadao.Abrir(usuario.getCodpessoa());  
             pessoa.setEmails(emaildao.Abrir(usuario.getCodpessoa()));
             pessoa.setEnderecos(enderecodao.Abrir(usuario.getCodpessoa()));

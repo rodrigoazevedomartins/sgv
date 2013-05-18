@@ -30,10 +30,11 @@ public class VendaProdutoDAO {
     public boolean Salvar(VendaProduto itens){
         try {
             if (itens.getCodvendaproduto() == 0){
-                PreparedStatement comando = bd.getConexao().prepareStatement("insert into vendaproduto(codvenda, codproduto, quantidade) values(?, ?, ?)");
+                PreparedStatement comando = bd.getConexao().prepareStatement("insert into vendaproduto(codvenda, codproduto, quantidade, status) values(?, ?, ?, ?)");
                 comando.setInt(1, itens.getVenda().getCodvenda());
                 comando.setInt(2, itens.getProduto().getCodproduto());
                 comando.setInt(3, itens.getQuantidade());
+                comando.setInt(4, 1);
                 comando.executeUpdate();
             }
             return true;
@@ -45,7 +46,7 @@ public class VendaProdutoDAO {
     
     public List<VendaProduto> ListarItens(int codvenda){
         try {
-            PreparedStatement comando = bd.getConexao().prepareStatement("SELECT vp.codvendaproduto as codvendaproduto, vp.codproduto as codproduto, vp.codvenda as codvenda, vp.quantidade as quantidade, p.valor_unitario_venda as valor, p.nome as nomeproduto from vendaproduto vp INNER JOIN produto p ON (p.codproduto = vp.codproduto) where codvenda = ? ORDER BY codvendaproduto");
+            PreparedStatement comando = bd.getConexao().prepareStatement("SELECT vp.codvendaproduto as codvendaproduto, vp.codproduto as codproduto, vp.codvenda as codvenda, vp.quantidade as quantidade, p.valor_unitario_venda as valor, p.nome as nomeproduto from vendaproduto vp INNER JOIN produto p ON (p.codproduto = vp.codproduto) where codvenda = ? and vp.status = 1 ORDER BY codvendaproduto");
             comando.setInt(1, codvenda);
             ResultSet resultado = comando.executeQuery();
             List<VendaProduto> itens = new LinkedList<>();
@@ -81,17 +82,15 @@ public class VendaProdutoDAO {
                 where = "vp.codvendaproduto = " + filtro.getCodvendaproduto();
             }
 
-            if (filtro.getProduto().getNome().length() > 3){
+            if (filtro.getProduto().getNome().length() > 0){
                 if (where.length() > 0)
                       where = where + " and ";
                 where = "p.nome like '%" + filtro.getProduto().getNome() + "%'";
             }
             
             if (where.length() > 0)
-                sql = sql + " where " + where + " and vp.codvenda = " + filtro.getVenda().getCodvenda();
+                sql = sql + " where " + where + " and vp.codvenda = " + filtro.getVenda().getCodvenda() + " and vp.status = 1 and vp.codproduto = p.codproduto";
             sql = sql + order;
-
-            //System.out.print(sql);
         
             Statement comando;
             comando = bd.getConexao().createStatement();

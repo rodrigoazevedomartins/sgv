@@ -83,7 +83,7 @@ public class Email {
     
     @Override
     public String toString() {
-        return "Email{" + "codemail=" + codemail + ", endereco=" + endereco + ", pessoa=" + pessoa + '}';
+        return "" + getCodemail();
     }
     
     

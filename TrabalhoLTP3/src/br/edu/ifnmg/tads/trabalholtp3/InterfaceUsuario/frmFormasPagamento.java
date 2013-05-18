@@ -166,7 +166,7 @@ public class frmFormasPagamento extends javax.swing.JInternalFrame {
         for (Pagamento forma : formas){
             Vector v = new Vector();
             v.add(0, forma.getCodpagamento());
-            v.add(1, forma.getNomeTipo());
+            v.add(1, forma);
             model.addRow(v);
         }
         
@@ -205,8 +205,8 @@ public class frmFormasPagamento extends javax.swing.JInternalFrame {
 
     private void btnAlterarFormaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarFormaActionPerformed
         // TODO add your handling code here:
-        int codforma = (int) tblTipoPagamento.getValueAt(tblTipoPagamento.getSelectedRow(), 0);
-        frmEditarFormaPagamento janela = new frmEditarFormaPagamento(codforma);
+        Pagamento forma = (Pagamento) tblTipoPagamento.getValueAt(tblTipoPagamento.getSelectedRow(), 1);
+        frmEditarFormaPagamento janela = new frmEditarFormaPagamento(forma.getCodpagamento());
         this.getParent().add(janela);
         janela.setVisible(true);
         this.setVisible(false);
@@ -217,13 +217,13 @@ public class frmFormasPagamento extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         formas = pagamentodao.ListarTodos();
         Pagamento forma = new Pagamento();
-        if(JOptionPane.showConfirmDialog(rootPane, "Deseja remover essa forma de pagamento") == 0){
+        if(JOptionPane.showConfirmDialog(rootPane, "Deseja remover essa forma de pagamento?") == 0){
         
-        int codforma = (int) tblTipoPagamento.getValueAt(tblTipoPagamento.getSelectedRow(), 0);
-        forma = pagamentodao.Abrir(codforma);
-        if (pagamentodao.Apagar(codforma)){        
+        forma = (Pagamento) tblTipoPagamento.getValueAt(tblTipoPagamento.getSelectedRow(), 1);
+        
+        if (pagamentodao.Apagar(forma.getCodpagamento())){        
                 formas.remove(forma);
-               JOptionPane.showMessageDialog(rootPane, "Forma de Pagamento Removida com sucesso");
+               JOptionPane.showMessageDialog(rootPane, "Forma de Pagamento Removida com sucesso!");
             }
         } else {
             JOptionPane.showMessageDialog(rootPane, "Ação cancelada");
