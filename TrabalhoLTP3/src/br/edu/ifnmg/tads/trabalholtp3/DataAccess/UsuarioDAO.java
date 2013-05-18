@@ -29,14 +29,14 @@ public class UsuarioDAO {
     public boolean Salvar(Usuario usuario){
         try {
             if (usuario.getCodusuario() == 0){
-                PreparedStatement comando = bd.getConexao().prepareStatement("insert into usuario(usuario, senha, codpessoa, status) values (?,?,?,?)");
+                PreparedStatement comando = bd.getConexao().prepareStatement("insert into usuario(usuario, senha, codpessoa, status) values (?,password(?),?,?)");
                 comando.setString(1, usuario.getNomeUsuario());
                 comando.setString(2, usuario.getSenhaUsuario());
                 comando.setInt(3, usuario.getPessoa().getCodpessoa());
                 comando.setInt(4, 1);
                 comando.executeUpdate();
             } else {
-                PreparedStatement comando = bd.getConexao().prepareStatement("update usuario set usuario = ?, senha = ? where codusuario = ?");
+                PreparedStatement comando = bd.getConexao().prepareStatement("update usuario set usuario = ?, senha = password(?) where codusuario = ?");
                 comando.setString(1, usuario.getNomeUsuario());
                 comando.setString(2, usuario.getSenhaUsuario());
                 comando.setInt(3, usuario.getCodusuario());
