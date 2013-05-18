@@ -3,6 +3,7 @@
  * and open the template in the editor.
  */
 package br.edu.ifnmg.tads.trabalholtp3.InterfaceUsuario;
+import br.edu.ifnmg.tads.trabalholtp3.DataAccess.LoginDAO;
 import br.edu.ifnmg.tads.trabalholtp3.DomainModel.ErroValidacaoException;
 import br.edu.ifnmg.tads.trabalholtp3.DomainModel.Usuario;
 import java.util.logging.Level;
@@ -13,12 +14,15 @@ import javax.swing.JOptionPane;
  * @author Rodrigo
  */
 public class frmLogin extends javax.swing.JFrame {
-    Usuario usuarios = new Usuario();
+    Usuario usuario;
+    LoginDAO login;
     /**
      * Creates new form frmLogin
      */
     public frmLogin() {
         initComponents();
+        login = new LoginDAO();
+        usuario = new Usuario();
     }
 
     /**
@@ -105,20 +109,13 @@ public class frmLogin extends javax.swing.JFrame {
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
         try {
-            // TODO add your handling code here:
-            usuarios.setNomeUsuario("Rodrigo");
+            usuario.setNomeUsuario(txtUsuario.getText());
+            usuario.setSenhaUsuario(pfSenha.getText());
         } catch (ErroValidacaoException ex) {
             Logger.getLogger(frmLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
-        try {
-            usuarios.setSenhaUsuario("12345");
-        } catch (ErroValidacaoException ex) {
-            Logger.getLogger(frmLogin.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        String usuario = txtUsuario.getText();
-        String senha = pfSenha.getText();
         
-        if ((usuario.equals(usuarios.getNomeUsuario())) && (senha.equals(usuarios.getSenhaUsuario()))){
+        if (login.Login(usuario) == 1){
             JOptionPane.showMessageDialog(rootPane, "Login Efetuado com Sucesso!");
             frmPrincipal janela = new frmPrincipal();
             janela.setVisible(true);
