@@ -69,7 +69,7 @@ public class Pagamento {
 
     @Override
     public String toString() {
-        return getNomeTipo();
+        return tipo;
     }
     
     

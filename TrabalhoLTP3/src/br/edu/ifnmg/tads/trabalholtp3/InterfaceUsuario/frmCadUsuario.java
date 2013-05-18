@@ -751,20 +751,21 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
         if (JOptionPane.showConfirmDialog(RootPane, "Deseja Cadastrar o Usuário?") == 0){
             /*Date datanasc = new Date();
             String datanascimento = txtDataNasc.getText(); 
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/dd/MM");
             try {
                 datanasc = sdf.parse(datanascimento);
             } catch (ParseException ex) {
                 Logger.getLogger(frmCadUsuario.class.getName()).log(Level.SEVERE, null, ex);
-            }*/
-                
+            }
+            */    
             try{
+                //System.out.print(datanasc);
                 pessoa.setNome(txtNome.getText());
                 pessoa.setNomemae(txtNomeMae.getText());
                 pessoa.setNomepai(txtNomePai.getText());
                 pessoa.setRg(txtRg.getText());
                 pessoa.setCpf(Integer.parseInt(txtCpf.getText()));
-                //pessoa.setDatanasc((java.sql.Date) datanasc);
+                //pessoa.setDatanasc(Long(datanasc));
                 pessoa.setNaturalidade(txtNaturalidade.getText());
             } catch (    ErroValidacaoException ex) {
                 Logger.getLogger(frmCadUsuario.class.getName()).log(Level.SEVERE, null, ex);
@@ -1035,4 +1036,8 @@ public class frmCadUsuario extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtRua;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
+
+    private Date Long(Date datanasc) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

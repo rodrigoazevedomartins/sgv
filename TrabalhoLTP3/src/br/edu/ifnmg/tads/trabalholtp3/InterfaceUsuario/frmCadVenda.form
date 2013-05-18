@@ -45,7 +45,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jTabbedPane1" max="32767" attributes="0"/>
+              <Component id="jTabbedPane1" pref="423" max="32767" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnCadastrar" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -141,7 +141,7 @@
                           <Component id="lblDataVenda" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtDataVenda" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="111" max="32767" attributes="0"/>
+                      <EmptySpace pref="115" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="lblValorTotal" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lblValor" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -150,9 +150,9 @@
                   </Group>
                   <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <EmptySpace min="0" pref="195" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="197" max="32767" attributes="0"/>
                           <Component id="lblCliente1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="196" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="198" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -339,7 +339,7 @@
                           <Component id="lblValorUnitarioProduto" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                           <Component id="lblValorUnitario" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="100" max="32767" attributes="0"/>
+                      <EmptySpace pref="104" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="btnAdicionarProduto" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnRemoverProduto" alignment="3" min="-2" max="-2" attributes="0"/>

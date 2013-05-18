@@ -516,6 +516,7 @@ public class frmCadVenda extends javax.swing.JInternalFrame {
                 for (VendaProduto item : venda.getProdutos()){
                     item.setVenda(venda);
                     vendaprodutodao.Salvar(item);
+                    produtodao.Salvar(item.getProduto());
                 }
             }
             

@@ -52,7 +52,7 @@ public class PessoaDAO {
                 comando.setString(3, pessoa.getNomepai());
                 comando.setString(4, pessoa.getRg());
                 comando.setInt(5, pessoa.getCpf());
-                //comando.setDate(6, (java.sql.Date) pessoa.getDatanasc());
+                //comando.setDate(6, new java.sql.Date((pessoa.getDatanasc())));
                 comando.setString(6, pessoa.getNaturalidade());
                 comando.setInt(7, 1);
                 comando.executeUpdate();
@@ -111,5 +111,9 @@ public class PessoaDAO {
         }
         
     
+    }
+
+    private long Long(Date datanasc) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
